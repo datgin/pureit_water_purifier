@@ -1,0 +1,29 @@
+.collapse-content img {}
+
+.elementor-widget-image img {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+}
+
+.absolute-content {
+    position: absolute;
+    height: 100%;
+    justify-content: center;
+    padding: 20px 52% 20px 2%;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+@media only screen and (max-width: 849px) {
+    .absolute-content {
+        padding: 2%;
+        transform: scale(0.7) translateX(-20%);
+    }
+}
+
+@media only screen and (max-width: 549px) {
+    .absolute-content {
+        transform: scale(0.45) translateX(-50%);
+    }
+}

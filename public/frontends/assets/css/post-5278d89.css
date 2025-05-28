@@ -1,0 +1,141 @@
+.elementor-527 .elementor-element.elementor-element-3cf3ec40 .elementor-posts-container .elementor-post__thumbnail {
+    padding-bottom: calc(0.7 * 100%);
+}
+
+.elementor-527 .elementor-element.elementor-element-3cf3ec40:after {
+    content: "0.7";
+}
+
+.elementor-527 .elementor-element.elementor-element-3cf3ec40 .elementor-post__thumbnail__link {
+    width: 100%;
+}
+
+.elementor-527 .elementor-element.elementor-element-3cf3ec40 .elementor-post__meta-data span+span:before {
+    content: "///";
+}
+
+.elementor-527 .elementor-element.elementor-element-3cf3ec40 {
+    --grid-column-gap: 20px;
+    --grid-row-gap: 30px;
+}
+
+.elementor-527 .elementor-element.elementor-element-3cf3ec40.elementor-posts--thumbnail-left .elementor-post__thumbnail__link {
+    margin-right: 20px;
+}
+
+.elementor-527 .elementor-element.elementor-element-3cf3ec40.elementor-posts--thumbnail-right .elementor-post__thumbnail__link {
+    margin-left: 20px;
+}
+
+.elementor-527 .elementor-element.elementor-element-3cf3ec40.elementor-posts--thumbnail-top .elementor-post__thumbnail__link {
+    margin-bottom: 20px;
+}
+
+.elementor-527 .elementor-element.elementor-element-3cf3ec40 .elementor-post__title,
+.elementor-527 .elementor-element.elementor-element-3cf3ec40 .elementor-post__title a {
+    color: var(--e-global-color-primary);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.elementor-527 .elementor-element.elementor-element-3cf3ec40 .elementor-post__meta-data {
+    font-size: 14px;
+    font-style: normal;
+}
+
+.elementor-527 .elementor-element.elementor-element-3cf3ec40>.elementor-widget-container {
+    margin: 0px 0px 20px 0px;
+}
+
+.elementor-527 .elementor-element.elementor-element-10fc490 .elementor-posts-container .elementor-post__thumbnail {
+    padding-bottom: calc(1 * 100%);
+}
+
+.elementor-527 .elementor-element.elementor-element-10fc490:after {
+    content: "1";
+}
+
+.elementor-527 .elementor-element.elementor-element-10fc490 .elementor-post__thumbnail__link {
+    width: 100%;
+}
+
+.elementor-527 .elementor-element.elementor-element-10fc490 {
+    --grid-column-gap: 20px;
+    --grid-row-gap: 20px;
+}
+
+.elementor-527 .elementor-element.elementor-element-10fc490.elementor-posts--thumbnail-left .elementor-post__thumbnail__link {
+    margin-right: 20px;
+}
+
+.elementor-527 .elementor-element.elementor-element-10fc490.elementor-posts--thumbnail-right .elementor-post__thumbnail__link {
+    margin-left: 20px;
+}
+
+.elementor-527 .elementor-element.elementor-element-10fc490.elementor-posts--thumbnail-top .elementor-post__thumbnail__link {
+    margin-bottom: 20px;
+}
+
+.elementor-527 .elementor-element.elementor-element-10fc490 .elementor-post__thumbnail img {
+    filter: brightness(100%) contrast(100%) saturate(100%) blur(0px) hue-rotate(0deg);
+}
+
+.elementor-527 .elementor-element.elementor-element-10fc490 .elementor-post__title,
+.elementor-527 .elementor-element.elementor-element-10fc490 .elementor-post__title a {
+    color: var(--e-global-color-primary);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.elementor-527 .elementor-element.elementor-element-10fc490 .elementor-post__meta-data {
+    color: #002955;
+    font-size: 14px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.elementor-527 .elementor-element.elementor-element-10fc490 .elementor-pagination {
+    text-align: center;
+}
+
+body:not(.rtl) .elementor-527 .elementor-element.elementor-element-10fc490 .elementor-pagination .page-numbers:not(:first-child) {
+    margin-left: calc(10px/2);
+}
+
+body:not(.rtl) .elementor-527 .elementor-element.elementor-element-10fc490 .elementor-pagination .page-numbers:not(:last-child) {
+    margin-right: calc(10px/2);
+}
+
+body.rtl .elementor-527 .elementor-element.elementor-element-10fc490 .elementor-pagination .page-numbers:not(:first-child) {
+    margin-right: calc(10px/2);
+}
+
+body.rtl .elementor-527 .elementor-element.elementor-element-10fc490 .elementor-pagination .page-numbers:not(:last-child) {
+    margin-left: calc(10px/2);
+}
+
+@media(max-width:767px) {
+    .elementor-527 .elementor-element.elementor-element-3cf3ec40 .elementor-posts-container .elementor-post__thumbnail {
+        padding-bottom: calc(0.5 * 100%);
+    }
+
+    .elementor-527 .elementor-element.elementor-element-3cf3ec40:after {
+        content: "0.5";
+    }
+
+    .elementor-527 .elementor-element.elementor-element-3cf3ec40 .elementor-post__thumbnail__link {
+        width: 100%;
+    }
+
+    .elementor-527 .elementor-element.elementor-element-10fc490 .elementor-posts-container .elementor-post__thumbnail {
+        padding-bottom: calc(0.5 * 100%);
+    }
+
+    .elementor-527 .elementor-element.elementor-element-10fc490:after {
+        content: "0.5";
+    }
+
+    .elementor-527 .elementor-element.elementor-element-10fc490 .elementor-post__thumbnail__link {
+        width: 100%;
+    }
+}
