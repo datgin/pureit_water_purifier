@@ -105,14 +105,14 @@ class SeoAnalyzer
     }
 
 
-    public function analyzeFromBlog(\App\Models\Blog $blog): SeoAnalysisResult
+    public function analyzeFromBlog(\App\Models\Product $product): SeoAnalysisResult
     {
         return $this->analyze(
-            $blog->title,
-            $blog->content,
-            $blog->seo_title ?? '',
-            $blog->short_description ?? '',
-            $blog->slug,
+            $product->name,
+            $product->description,
+            $product->title_seo ?? '',
+            $product->description_seo ?? '',
+            $product->slug,
 
         );
     }

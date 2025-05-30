@@ -41,10 +41,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
                         Route::get('add', [ProductController::class, 'add'])->name('add');
                         Route::post('store', [ProductController::class, 'store'])->name('store');
                         Route::get('detail/{id}', [ProductController::class, 'edit'])->name('detail');
-                        Route::post('update/{id}', [ProductController::class, 'update'])->name('update');
+                        Route::put('update/{id}', [ProductController::class, 'update'])->name('update');
                         Route::delete('delete/{id}', [ProductController::class, 'delete'])->name('delete');
 
+                        // SEO 
+                        Route::post('{id}/seo-analysis', [ProductController::class, 'getSeoAnalysis'])->name('seo.analysis');
+                        Route::post('seo-analysis-live', [ProductController::class, 'getSeoAnalysisLive'])->name('seo.analysis.live');
                 });
+
+
         });
         Route::middleware(\App\Http\Middleware\AdminRedirectIfAuthenticated::class)->group(function () {
                 Route::get('login', [AuthController::class, 'login'])->name('login');

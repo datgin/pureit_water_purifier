@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title', 'Thêm mới sản phẩm')
+@section('title', 'Cập nhật sản phẩm')
 
 @section('content')
     @if ($errors->any())
@@ -15,15 +15,16 @@
 
     <div class="card">
         <div class="card-header  d-flex justify-content-between align-items-center">
-            <h3 class="card-title m-0">Thêm sản phẩm</h3>
+            <h3 class="card-title m-0">Sửa sản phẩm</h3>
             <div class="card-tools">
                 <a href="{{ route('admin.product.index') }}" class="btn btn-primary">Danh sách sản phẩm</a>
             </div>
         </div>
     </div>
 
-    <form action="{{ route('admin.product.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
 
         <ul class="nav nav-tabs" id="productTabs" role="tablist">
             <li class="nav-item" role="presentation">
@@ -49,8 +50,7 @@
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Tên sản phẩm</label>
                                             <input type="text" class="form-control" name="name" id="name"
-                                                placeholder="Nhập tên sản phẩm" value="{{ old('name') }}">
-
+                                                placeholder="Nhập tên sản phẩm" value="{{ old('name', $product->name) }}">
                                             <b id="slug-link" class="text-primary"><small>{{ env('APP_URL') }}/</small></b>
                                         </div>
 
@@ -58,18 +58,17 @@
                                             <label for="slug">Slug</label>
                                             <input type="text" id="slug" name="slug"
                                                 class="form-control @error('slug') is-invalid @enderror"
-                                                placeholder="Nhập slug">
+                                                placeholder="Nhập slug" value="{{ old('slug', $product->slug) }}">
                                             @error('slug')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
 
                                         {{-- Mô tả ngắn --}}
-                                        <div class= "mb-3">
+                                        <div class="mb-3">
                                             <label for="description_short">Mô tả ngắn</label>
                                             <textarea id="description_short" name="description_short"
-                                                class="form-control @error('description_short') is-invalid @enderror" placeholder="Enter post short description"
-                                                rows="3">{{ old('description_short', $product->description_short ?? '') }}</textarea>
+                                                class="form-control @error('description_short') is-invalid @enderror" placeholder="Nhập mô tả ngắn" rows="3">{{ old('description_short', $product->description_short) }}</textarea>
                                             @error('description_short')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -78,7 +77,7 @@
                                         <div class="mb-3">
                                             <label for="content">Nội dung</label>
                                             <textarea id="content" name="description" class="form-control ckeditor @error('description') is-invalid @enderror"
-                                                rows="8" placeholder="Nội dung"></textarea>
+                                                rows="8" placeholder="Nội dung">{!! old('description', $product->description) !!}</textarea>
                                             @error('description')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -90,38 +89,41 @@
                                         <div class="mb-3">
                                             <label for="price" class="form-label">Giá bán</label>
                                             <input type="text" class="form-control" id="fake_price"
-                                                placeholder="Giá bán sản phẩm" value="{{ old('price') }}">
-                                            <input type="hidden" name="price" id="price"
-                                                value="{{ old('price') }}">
+                                                placeholder="Giá bán sản phẩm" value="{{ old('price', $product->price) }}">
+                                            <input type="hidden" name="price" value="{{ old('price') }}">
                                         </div>
                                     </div>
 
                                     <div class="col-lg-3 mb-3">
                                         <label for="discount-type" class="form-label">Chọn loại giảm giá:</label>
                                         <select id="discount-type" class="form-select" name="discount_type">
-                                            <option value="amount" @selected(old('discount_type') == 'amount')>Giảm tiền</option>
-                                            <option value="percentage" @selected(old('discount_type') == 'percentage')>Giảm theo %
-                                            </option>
+                                            <option value="amount" @selected(old('discount_type', $product->discount_type) == 'amount')>Giảm tiền</option>
+                                            <option value="percentage" @selected(old('discount_type', $product->discount_type) == 'percentage')>Giảm theo %</option>
                                         </select>
                                     </div>
 
                                     <div class="col-lg-3 mb-3">
                                         <label for="discount_value" class="form-label">Nhập giá trị giảm:</label>
-                                        <input value="0" type="text" id="fake_discount_value" class="form-control"
-                                            placeholder="Nhập số tiền hoặc %" name="discount_value">
+                                        <input type="text" id="fake_discount_value" class="form-control"
+                                            placeholder="Nhập số tiền hoặc %"
+                                            value="{{ old('discount_value', $product->discount_value) }}">
+                                        <input type="hidden" name="discount_value"
+                                            value="{{ old('discount_value', $product->discount_value) }}">
                                     </div>
 
                                     <div class="col-lg-3 mb-3">
                                         <label for="start-date" class="form-label">Ngày bắt đầu:</label>
-                                        <input type="date" id="start-date" value="{{ old('discount_start_date') }}"
-                                            class="form-control" name="discount_start_date">
+                                        <input type="date" id="start-date" class="form-control"
+                                            name="discount_start_date"
+                                            value="{{ old('discount_start_date', $product->discount_start_date ? \Carbon\Carbon::parse($product->discount_start_date)->format('Y-m-d') : '') }}">
                                     </div>
 
 
                                     <div class="col-lg-3 mb-3">
                                         <label for="end-date" class="form-label">Ngày kết thúc:</label>
-                                        <input type="date" value="{{ old('discount_end_date') }}" id="end-date"
-                                            class="form-control" name="discount_end_date">
+                                        <input type="date" id="end-date" class="form-control"
+                                            name="discount_end_date"
+                                            value="{{ old('discount_end_date', $product->discount_end_date ? \Carbon\Carbon::parse($product->discount_end_date)->format('Y-m-d') : '') }}">
                                     </div>
 
                                     <div class="col-lg-12 mb-3">
@@ -155,42 +157,6 @@
                             </div>
                         </div>
 
-                        {{-- Điểm SEO --}}
-                        @php
-
-                            $seoScoreValue = $seoData['seoScoreValue'] ?? 0;
-                            $analysis = $seoData['analysis'] ?? [];
-                            $hasWarning = $seoData['hasWarning'] ?? false;
-
-                            $seoColor = 'bg-danger'; // đỏ mặc định (dưới 50)
-                            $badgeClass = 'bg-danger';
-
-                            if ($seoScoreValue >= 80) {
-                                $seoColor = 'bg-success'; // xanh lá (tốt)
-                                $badgeClass = 'bg-success';
-                            } elseif ($seoScoreValue >= 50) {
-                                $seoColor = 'bg-warning'; // vàng (trung bình)
-                                $badgeClass = 'bg-warning text-dark';
-                            }
-                        @endphp
-
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h5 class="mb-0">Điểm SEO tổng thể</h5>
-                                    <span class="badge {{ $badgeClass }} fs-6" id="seo-score-badge">
-                                        {{ $seoScoreValue }}/100
-                                    </span>
-                                </div>
-                                <div class="progress mb-3" style="height: 10px;">
-                                    <div class="progress-bar {{ $seoColor }}" id="seo-score-progress"
-                                        role="progressbar" style="width: {{ $seoScoreValue }}%;"
-                                        aria-valuenow="{{ $seoScoreValue }}" aria-valuemin="0" aria-valuemax="100">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         {{-- List SEO --}}
                         <div class="" id="result">
                             @include('backend.products.seo')
@@ -215,19 +181,18 @@
                                             <div class="col-md-12">
                                                 <!-- SEO Title -->
                                                 <div class="form-group mb-3 position-relative">
-                                                    <label for="title_seo" class="form-label">
-                                                        SEO tiêu đề sản phẩm </label>
+                                                    <label for="title_seo" class="form-label">SEO tiêu đề sản phẩm</label>
                                                     <input type="text" class="form-control" id="title_seo"
-                                                        name="title_seo" placeholder="Nhập tiêu đề sản phẩm SEO">
+                                                        name="title_seo" placeholder="Nhập tiêu đề sản phẩm SEO"
+                                                        value="{{ old('title_seo', $product->title_seo) }}">
                                                 </div>
 
                                                 <!-- SEO Description -->
                                                 <div class="form-group mb-3 position-relative">
-                                                    <label for="description_seo" class="form-label">
-                                                        SEO mô tả ngắn sản phẩm
-                                                    </label>
+                                                    <label for="description_seo" class="form-label">SEO mô tả ngắn sản
+                                                        phẩm</label>
                                                     <textarea class="form-control" id="description_seo" name="description_seo" rows="3"
-                                                        placeholder="Nhập mô tả sản phẩm SEO"></textarea>
+                                                        placeholder="Nhập mô tả sản phẩm SEO">{{ old('description_seo', $product->description_seo) }}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -274,7 +239,8 @@
                     </div>
 
                     <div class="form-group">
-                        <img src="" alt="" id="image_main" class="img-fluid w-100 mb-3">
+                        <img src="{{ showImage($product->image) }}" alt="" id="image_main"
+                            class="img-fluid w-100 mb-3">
                         <a href="#" id="select_main_image" style="text-decoration: underline">Chọn ảnh
                             tiêu biểu</a>
 
@@ -383,10 +349,12 @@
 
 
         // Thư viện ảnh
+        const preloadedImages = @json($preloadedImages);
+
         $('.input-images').imageUploader({
-            preloaded: [],
+            preloaded: preloadedImages,
             imagesInputName: 'images',
-            preloadedInputName: 'old',
+            preloadedInputName: 'old', // name="old[]" để gửi ID ảnh cũ
             maxSize: 5 * 1024 * 1024,
             maxFiles: 15,
         });
@@ -424,17 +392,6 @@
             const slug = slugify(this.value);
             slugInput.value = slug;
             slugLink.innerHTML = `<small>{{ env('APP_URL') }}/</small>` + slug;
-        });
-
-        // Xử lí giá tiền
-        document.getElementById('fake_price').addEventListener('input', function() {
-            let val = this.value;
-
-            // Loại bỏ các ký tự không phải số
-            let numericVal = val.replace(/[^0-9]/g, '');
-
-            // Cập nhật giá trị input ẩn
-            document.getElementById('price').value = numericVal;
         });
     </script>
 
@@ -474,7 +431,7 @@
                 }
 
                 const title_seo = $('#title_seo').val();
-                const hasKeyword = keywords.some(keyword => title_seo.toLowerCase().includes(keyword
+                const hasKeyword = keywords.some(keyword => seo_title.toLowerCase().includes(keyword
                     .toLowerCase()));
                 const description_seo = $('#description_seo').val();
                 const slug = $('#slug').val();

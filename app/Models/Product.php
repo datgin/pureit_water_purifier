@@ -2,19 +2,22 @@
 
 namespace App\Models;
 
+use App\RankmathSEOForLaravel\DTO\SeoAnalysisResult;
+use App\RankmathSEOForLaravel\Services\SeoAnalyzer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use SoftDeletes, HasFactory;
+    use HasFactory;
 
     protected $table = 'products';
 
     protected $fillable = [
         'category_id',
         'name',
+        'image',
         'price',
         'slug',
         'description_short',
@@ -25,7 +28,7 @@ class Product extends Model
         'discount_type',
         'discount_value',
         'discount_start_date',
-        'discount_end_date',
+        'discount_end_date'
     ];
 
     protected $casts = [
@@ -48,5 +51,20 @@ class Product extends Model
     public function keywords()
     {
         return $this->belongsToMany(Keyword::class, 'product_keyword', 'product_id', 'keyword_id');
+    }
+
+    public function getSeoAnalysisAttribute(): ?SeoAnalysisResult
+    {
+        if (!$this->title_seo) {
+            return null;
+        }
+
+        $analyzer = app(SeoAnalyzer::class);
+        return $analyzer->analyzeFromBlog($this);
+    }
+
+    public function seoScoreProduct()
+    {
+        return $this->hasOne(SeoScoreProduct::class, 'product_id', 'id');
     }
 }
