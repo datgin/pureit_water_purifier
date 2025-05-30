@@ -495,523 +495,75 @@
                 data-id="2ae83e9" data-element_type="widget" data-widget_type="text-editor.default">
                 <div class="elementor-widget-container">
                     <div class="wpb_slider_area wpb_fix_cart">
-
-
                         <div class="wpb-woo-products-slider owl-carousel owl-theme grid_no_animation woocommerce wpb-wps-product-type-category"
                             data-autoplay="false" data-loop="true" data-navigation="true" data-slideby="1"
                             data-pagination="true" data-items="4" data-desktopsmall="2" data-tablet="2" data-mobile="1"
                             data-direction="false">
 
-                            <div
-                                class="wpb-wps-slider-item post-293 product type-product status-publish has-post-thumbnail product_cat-may-loc-nuoc entry first instock sale shipping-taxable purchasable product-type-simple">
-                                <figure>
+                            @foreach ($highlightProducts as $item)
+                                <div
+                                    class="wpb-wps-slider-item post-293 product type-product status-publish has-post-thumbnail product_cat-may-loc-nuoc entry first instock sale shipping-taxable purchasable product-type-simple">
+                                    <figure>
 
-                                    <span class="onsale">36%</span>
-
-
-                                    <a href="san-pham/may-loc-nuoc-treo-tuong-de-ban-ultima-den/index.html"
-                                        class="wpb_pro_img_url">
-                                        <img loading="lazy" decoding="async" width="300" height="300"
-                                            src="{{ asset('frontends/assets/images/240925_UVN_PUREIT_P2409140-1_Pureit-Hero-Image_R2_Ultima-BL-300x300.jpg') }}"
-                                            class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                                            alt="" style="width:100%;height:100%;max-width:1500px" /> </a>
-                                    <figcaption>
-
-
+                                        <span class="onsale">{{ $item->discount_value }}%</span>
                                         <a href="san-pham/may-loc-nuoc-treo-tuong-de-ban-ultima-den/index.html"
-                                            class="wpb-wps-product-title">
-                                            <h3 class="pro_title">Máy lọc nước treo tường/để bàn Ultima Đen</h3>
-                                        </a>
+                                            class="wpb_pro_img_url">
+                                            <img loading="lazy" decoding="async" width="300" height="300"
+                                                src="{{ asset('storage/' . $item->image) }}"
+                                                class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
+                                                alt="" style="width:100%;height:100%;max-width:1500px" /> </a>
+                                        <figcaption>
 
 
-                                        <div class="pro_price_area"><del aria-hidden="true"><span
-                                                    class="woocommerce-Price-amount amount">12.400.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></del>
-                                            <ins><span class="woocommerce-Price-amount amount">7.990.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></ins>
-                                        </div>
+                                            <a href="san-pham/may-loc-nuoc-treo-tuong-de-ban-ultima-den/index.html"
+                                                class="wpb-wps-product-title">
+                                                <h3 class="pro_title">{{ $item->name }}</h3>
+                                            </a>
 
 
-
-                                        <div class="wpb_cart_button">
-                                            <div class="woo_btn_add_to_cart_wrapper">
-                                                <div class="chi_tiet"><a
-                                                        href="san-pham/may-loc-nuoc-treo-tuong-de-ban-ultima-den/index.html"
-                                                        class="mona-btn-hover hover-1">Chi tiết</a> </div>
-                                                <div class="mua_ngay"> <a class="popmake-33 mona-btn-hover  hover-2">Mua
-                                                        ngay</a>
-                                                </div>
+                                            <div class="pro_price_area">
+                                                @if ($item->final_price < $item->price)
+                                                    <del aria-hidden="true">
+                                                        <span class="woocommerce-Price-amount amount">
+                                                            {{ number_format($item->price, 0, ',', '.') }}&nbsp;<span
+                                                                class="woocommerce-Price-currencySymbol">&#8363;</span>
+                                                        </span>
+                                                    </del>
+                                                    <ins>
+                                                        <span class="woocommerce-Price-amount amount">
+                                                            {{ number_format($item->final_price, 0, ',', '.') }}&nbsp;<span
+                                                                class="woocommerce-Price-currencySymbol">&#8363;</span>
+                                                        </span>
+                                                    </ins>
+                                                @else
+                                                    <span class="woocommerce-Price-amount amount">
+                                                        {{ number_format($item->price, 0, ',', '.') }}&nbsp;<span
+                                                            class="woocommerce-Price-currencySymbol">&#8363;</span>
+                                                    </span>
+                                                @endif
                                             </div>
-                                            <a href="indexb25b.html?add-to-cart=293" data-quantity="1"
-                                                class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-                                                data-product_id="293" data-product_sku=""
-                                                aria-label="Thêm &ldquo;Máy lọc nước treo tường/để bàn Ultima Đen&rdquo; vào giỏ hàng"
-                                                aria-describedby="" rel="nofollow"></a>
-                                        </div>
 
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <div
-                                class="wpb-wps-slider-item post-1426 product type-product status-publish has-post-thumbnail product_cat-may-loc-nuoc entry  instock sale shipping-taxable purchasable product-type-simple">
-                                <figure>
-
-                                    <span class="onsale">15%</span>
-
-
-                                    <a href="san-pham/may-loc-nuoc-am-tu-bep-delica-ur5840/index.html"
-                                        class="wpb_pro_img_url">
-                                        <img loading="lazy" decoding="async" width="300" height="300"
-                                            src="{{ asset('frontends/assets/images/240925_UVN_PUREIT_P2409140-1_Pureit-Hero-Image_R2_Delica-UR5840-300x300.jpg') }}"
-                                            class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                                            alt="" style="width:100%;height:100%;max-width:1500px" /> </a>
-                                    <figcaption>
-
-
-                                        <a href="san-pham/may-loc-nuoc-am-tu-bep-delica-ur5840/index.html"
-                                            class="wpb-wps-product-title">
-                                            <h3 class="pro_title">Máy lọc nước âm tủ bếp Delica UR5840</h3>
-                                        </a>
-
-
-                                        <div class="pro_price_area"><del aria-hidden="true"><span
-                                                    class="woocommerce-Price-amount amount">18.900.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></del>
-                                            <ins><span class="woocommerce-Price-amount amount">15.990.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></ins>
-                                        </div>
-
-
-
-                                        <div class="wpb_cart_button">
-                                            <div class="woo_btn_add_to_cart_wrapper">
-                                                <div class="chi_tiet"><a
-                                                        href="san-pham/may-loc-nuoc-am-tu-bep-delica-ur5840/index.html"
-                                                        class="mona-btn-hover hover-1">Chi tiết</a> </div>
-                                                <div class="mua_ngay"> <a class="popmake-33 mona-btn-hover  hover-2">Mua
-                                                        ngay</a>
+                                            <div class="wpb_cart_button">
+                                                <div class="woo_btn_add_to_cart_wrapper">
+                                                    <div class="chi_tiet"><a
+                                                            href="san-pham/may-loc-nuoc-treo-tuong-de-ban-ultima-den/index.html"
+                                                            class="mona-btn-hover hover-1">Chi tiết</a> </div>
+                                                    <div class="mua_ngay"> <a
+                                                            class="popmake-33 mona-btn-hover  hover-2">Mua
+                                                            ngay</a>
+                                                    </div>
                                                 </div>
+                                                <a href="indexb25b.html?add-to-cart=293" data-quantity="1"
+                                                    class="button product_type_simple add_to_cart_button ajax_add_to_cart"
+                                                    data-product_id="293" data-product_sku=""
+                                                    aria-label="Thêm &ldquo;Máy lọc nước treo tường/để bàn Ultima Đen&rdquo; vào giỏ hàng"
+                                                    aria-describedby="" rel="nofollow"></a>
                                             </div>
-                                            <a href="indexdc24.html?add-to-cart=1426" data-quantity="1"
-                                                class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-                                                data-product_id="1426" data-product_sku=""
-                                                aria-label="Thêm &ldquo;Máy lọc nước âm tủ bếp Delica UR5840&rdquo; vào giỏ hàng"
-                                                aria-describedby="" rel="nofollow"></a>
-                                        </div>
 
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <div
-                                class="wpb-wps-slider-item post-1881 product type-product status-publish has-post-thumbnail product_cat-may-loc-nuoc entry  outofstock sale shipping-taxable purchasable product-type-simple">
-                                <figure>
-
-                                    <span class="onsale">36%</span>
-
-
-                                    <a href="san-pham/may-loc-nuoc-treo-tuong-de-ban-ultima-trang/index.html"
-                                        class="wpb_pro_img_url">
-                                        <img loading="lazy" decoding="async" width="300" height="300"
-                                            src="{{ asset('frontends/assets/images/Ultima-WHT_goc-nghieng-300x300.png') }}"
-                                            class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                                            alt="" style="width:100%;height:87.72%;max-width:570px" />
-                                    </a>
-                                    <figcaption>
-
-
-                                        <a href="san-pham/may-loc-nuoc-treo-tuong-de-ban-ultima-trang/index.html"
-                                            class="wpb-wps-product-title">
-                                            <h3 class="pro_title">Máy lọc nước treo tường/để bàn Ultima Trắng</h3>
-                                        </a>
-
-
-                                        <div class="pro_price_area"><del aria-hidden="true"><span
-                                                    class="woocommerce-Price-amount amount">12.400.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></del>
-                                            <ins><span class="woocommerce-Price-amount amount">7.990.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></ins>
-                                        </div>
-
-
-
-                                        <div class="wpb_cart_button">
-                                            <div class="woo_btn_add_to_cart_wrapper">
-                                                <div class="chi_tiet"><a
-                                                        href="san-pham/may-loc-nuoc-treo-tuong-de-ban-ultima-trang/index.html"
-                                                        class="mona-btn-hover hover-1">Chi tiết</a> </div>
-                                                <div class="mua_ngay"> <a class="popmake-33 mona-btn-hover  hover-2">Mua
-                                                        ngay</a>
-                                                </div>
-                                            </div>
-                                            <a href="san-pham/may-loc-nuoc-treo-tuong-de-ban-ultima-trang/index.html"
-                                                data-quantity="1" class="button product_type_simple"
-                                                data-product_id="1881" data-product_sku=""
-                                                aria-label="Đọc thêm về &ldquo;Máy lọc nước treo tường/để bàn Ultima Trắng&rdquo;"
-                                                aria-describedby="" rel="nofollow"></a>
-                                        </div>
-
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <div
-                                class="wpb-wps-slider-item post-1433 product type-product status-publish has-post-thumbnail product_cat-may-loc-nuoc entry last instock sale shipping-taxable purchasable product-type-simple">
-                                <figure>
-
-                                    <span class="onsale">28%</span>
-
-
-                                    <a href="san-pham/may-loc-nuoc-nong-thong-minh-lavita/index.html"
-                                        class="wpb_pro_img_url">
-                                        <img loading="lazy" decoding="async" width="300" height="300"
-                                            src="{{ asset('frontends/assets/images/240925_UVN_PUREIT_P2409140-1_Pureit-Hero-Image_R2_Lavita-300x300.jpg') }}"
-                                            class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                                            alt="" style="width:100%;height:100%;max-width:1500px" />
-                                    </a>
-                                    <figcaption>
-
-
-                                        <a href="san-pham/may-loc-nuoc-nong-thong-minh-lavita/index.html"
-                                            class="wpb-wps-product-title">
-                                            <h3 class="pro_title">Máy lọc nước 3 chế độ nóng thông minh Lavita
-                                            </h3>
-                                        </a>
-
-
-                                        <div class="pro_price_area"><del aria-hidden="true"><span
-                                                    class="woocommerce-Price-amount amount">12.500.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></del>
-                                            <ins><span class="woocommerce-Price-amount amount">8.990.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></ins>
-                                        </div>
-
-
-
-                                        <div class="wpb_cart_button">
-                                            <div class="woo_btn_add_to_cart_wrapper">
-                                                <div class="chi_tiet"><a
-                                                        href="san-pham/may-loc-nuoc-nong-thong-minh-lavita/index.html"
-                                                        class="mona-btn-hover hover-1">Chi tiết</a> </div>
-                                                <div class="mua_ngay"> <a class="popmake-33 mona-btn-hover  hover-2">Mua
-                                                        ngay</a>
-                                                </div>
-                                            </div>
-                                            <a href="index5039.html?add-to-cart=1433" data-quantity="1"
-                                                class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-                                                data-product_id="1433" data-product_sku=""
-                                                aria-label="Thêm &ldquo;Máy lọc nước 3 chế độ nóng thông minh Lavita&rdquo; vào giỏ hàng"
-                                                aria-describedby="" rel="nofollow"></a>
-                                        </div>
-
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <div
-                                class="wpb-wps-slider-item post-1482 product type-product status-publish has-post-thumbnail product_cat-may-loc-nuoc entry first instock sale shipping-taxable purchasable product-type-simple">
-                                <figure>
-
-                                    <span class="onsale">19%</span>
-
-
-                                    <a href="san-pham/may-loc-nuoc-am-tu-bep-delica-ur5640/index.html"
-                                        class="wpb_pro_img_url">
-                                        <img loading="lazy" decoding="async" width="300" height="300"
-                                            src="{{ asset('frontends/assets/images/240925_UVN_PUREIT_P2409140-1_Pureit-Hero-Image_R2_Delica-UR5640-300x300.jpg') }}"
-                                            class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                                            alt="" style="width:100%;height:100%;max-width:1500px" />
-                                    </a>
-                                    <figcaption>
-
-
-                                        <a href="san-pham/may-loc-nuoc-am-tu-bep-delica-ur5640/index.html"
-                                            class="wpb-wps-product-title">
-                                            <h3 class="pro_title">Máy lọc nước âm tủ bếp Delica UR5640</h3>
-                                        </a>
-
-
-                                        <div class="pro_price_area"><del aria-hidden="true"><span
-                                                    class="woocommerce-Price-amount amount">13.650.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></del>
-                                            <ins><span class="woocommerce-Price-amount amount">10.990.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></ins>
-                                        </div>
-
-
-
-                                        <div class="wpb_cart_button">
-                                            <div class="woo_btn_add_to_cart_wrapper">
-                                                <div class="chi_tiet"><a
-                                                        href="san-pham/may-loc-nuoc-am-tu-bep-delica-ur5640/index.html"
-                                                        class="mona-btn-hover hover-1">Chi tiết</a> </div>
-                                                <div class="mua_ngay"> <a class="popmake-33 mona-btn-hover  hover-2">Mua
-                                                        ngay</a>
-                                                </div>
-                                            </div>
-                                            <a href="index2502.html?add-to-cart=1482" data-quantity="1"
-                                                class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-                                                data-product_id="1482" data-product_sku=""
-                                                aria-label="Thêm &ldquo;Máy lọc nước âm tủ bếp Delica UR5640&rdquo; vào giỏ hàng"
-                                                aria-describedby="" rel="nofollow"></a>
-                                        </div>
-
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <div
-                                class="wpb-wps-slider-item post-1484 product type-product status-publish has-post-thumbnail product_cat-may-loc-nuoc entry  instock sale shipping-taxable purchasable product-type-simple">
-                                <figure>
-
-                                    <span class="onsale">9%</span>
-
-
-                                    <a href="san-pham/may-loc-nuoc-am-tu-bep-delica-ur5440/index.html"
-                                        class="wpb_pro_img_url">
-                                        <img loading="lazy" decoding="async" width="300" height="300"
-                                            src="{{ asset('frontends/assets/images/240925_UVN_PUREIT_P2409140-1_Pureit-Hero-Image_R2_Delica-UR5440-300x300.jpg') }}"
-                                            class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                                            alt="" style="width:100%;height:100%;max-width:1500px" />
-                                    </a>
-                                    <figcaption>
-
-
-                                        <a href="san-pham/may-loc-nuoc-am-tu-bep-delica-ur5440/index.html"
-                                            class="wpb-wps-product-title">
-                                            <h3 class="pro_title">Máy lọc nước âm tủ bếp Delica UR5440</h3>
-                                        </a>
-
-
-                                        <div class="pro_price_area"><del aria-hidden="true"><span
-                                                    class="woocommerce-Price-amount amount">10.900.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></del>
-                                            <ins><span class="woocommerce-Price-amount amount">9.890.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></ins>
-                                        </div>
-
-
-
-                                        <div class="wpb_cart_button">
-                                            <div class="woo_btn_add_to_cart_wrapper">
-                                                <div class="chi_tiet"><a
-                                                        href="san-pham/may-loc-nuoc-am-tu-bep-delica-ur5440/index.html"
-                                                        class="mona-btn-hover hover-1">Chi tiết</a> </div>
-                                                <div class="mua_ngay"> <a class="popmake-33 mona-btn-hover  hover-2">Mua
-                                                        ngay</a>
-                                                </div>
-                                            </div>
-                                            <a href="index938e.html?add-to-cart=1484" data-quantity="1"
-                                                class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-                                                data-product_id="1484" data-product_sku=""
-                                                aria-label="Thêm &ldquo;Máy lọc nước âm tủ bếp Delica UR5440&rdquo; vào giỏ hàng"
-                                                aria-describedby="" rel="nofollow"></a>
-                                        </div>
-
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <div
-                                class="wpb-wps-slider-item post-1485 product type-product status-publish has-post-thumbnail product_cat-may-loc-nuoc entry  instock sale shipping-taxable purchasable product-type-simple">
-                                <figure>
-
-                                    <span class="onsale">26%</span>
-
-
-                                    <a href="san-pham/may-loc-nuoc-treo-tuong-de-ban-casa-g2/index.html"
-                                        class="wpb_pro_img_url">
-                                        <img loading="lazy" decoding="async" width="300" height="300"
-                                            src="{{ asset('frontends/assets/images/240925_UVN_PUREIT_P2409140-1_Pureit-Hero-Image_R2_Casa-G2-300x300.jpg') }}"
-                                            class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                                            alt="" style="width:100%;height:100%;max-width:1500px" />
-                                    </a>
-                                    <figcaption>
-
-
-                                        <a href="san-pham/may-loc-nuoc-treo-tuong-de-ban-casa-g2/index.html"
-                                            class="wpb-wps-product-title">
-                                            <h3 class="pro_title">Máy lọc nước treo tường/để bàn Casa G2</h3>
-                                        </a>
-
-
-                                        <div class="pro_price_area"><del aria-hidden="true"><span
-                                                    class="woocommerce-Price-amount amount">7.500.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></del>
-                                            <ins><span class="woocommerce-Price-amount amount">5.555.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></ins>
-                                        </div>
-
-
-
-                                        <div class="wpb_cart_button">
-                                            <div class="woo_btn_add_to_cart_wrapper">
-                                                <div class="chi_tiet"><a
-                                                        href="san-pham/may-loc-nuoc-treo-tuong-de-ban-casa-g2/index.html"
-                                                        class="mona-btn-hover hover-1">Chi tiết</a> </div>
-                                                <div class="mua_ngay"> <a class="popmake-33 mona-btn-hover  hover-2">Mua
-                                                        ngay</a>
-                                                </div>
-                                            </div>
-                                            <a href="index791a.html?add-to-cart=1485" data-quantity="1"
-                                                class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-                                                data-product_id="1485" data-product_sku=""
-                                                aria-label="Thêm &ldquo;Máy lọc nước treo tường/để bàn Casa G2&rdquo; vào giỏ hàng"
-                                                aria-describedby="" rel="nofollow"></a>
-                                        </div>
-
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <div
-                                class="wpb-wps-slider-item post-1488 product type-product status-publish has-post-thumbnail product_cat-may-loc-nuoc entry last instock sale shipping-taxable purchasable product-type-simple">
-                                <figure>
-
-                                    <span class="onsale">18%</span>
-
-
-                                    <a href="san-pham/may-loc-nuoc-am-tu-bep-tanka-ur3140/index.html"
-                                        class="wpb_pro_img_url">
-                                        <img loading="lazy" decoding="async" width="300" height="300"
-                                            src="{{ asset('frontends/assets/images/240925_UVN_PUREIT_P2409140-1_Pureit-Hero-Image_R2_Tanka-300x300.jpg') }}"
-                                            class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                                            alt="" style="width:100%;height:100%;max-width:1500px" />
-                                    </a>
-                                    <figcaption>
-
-
-                                        <a href="san-pham/may-loc-nuoc-am-tu-bep-tanka-ur3140/index.html"
-                                            class="wpb-wps-product-title">
-                                            <h3 class="pro_title">Máy lọc nước âm tủ bếp Tanka</h3>
-                                        </a>
-
-
-                                        <div class="pro_price_area"><del aria-hidden="true"><span
-                                                    class="woocommerce-Price-amount amount">6.400.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></del>
-                                            <ins><span class="woocommerce-Price-amount amount">5.250.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></ins>
-                                        </div>
-
-
-
-                                        <div class="wpb_cart_button">
-                                            <div class="woo_btn_add_to_cart_wrapper">
-                                                <div class="chi_tiet"><a
-                                                        href="san-pham/may-loc-nuoc-am-tu-bep-tanka-ur3140/index.html"
-                                                        class="mona-btn-hover hover-1">Chi tiết</a> </div>
-                                                <div class="mua_ngay"> <a class="popmake-33 mona-btn-hover  hover-2">Mua
-                                                        ngay</a>
-                                                </div>
-                                            </div>
-                                            <a href="indexff31.html?add-to-cart=1488" data-quantity="1"
-                                                class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-                                                data-product_id="1488" data-product_sku=""
-                                                aria-label="Thêm &ldquo;Máy lọc nước âm tủ bếp Tanka&rdquo; vào giỏ hàng"
-                                                aria-describedby="" rel="nofollow"></a>
-                                        </div>
-
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <div
-                                class="wpb-wps-slider-item post-1902 product type-product status-publish has-post-thumbnail product_cat-may-loc-nuoc entry first instock sale shipping-taxable purchasable product-type-simple">
-                                <figure>
-
-                                    <span class="onsale">30%</span>
-
-
-                                    <a href="san-pham/loc-tho-trong-suot-am-tu-bep-pureit/index.html"
-                                        class="wpb_pro_img_url">
-                                        <img loading="lazy" decoding="async" width="300" height="300"
-                                            src="{{ asset('frontends/assets/images/Loi-loc-Panda-300x300.jpg') }}"
-                                            class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                                            alt="" style="width:100%;height:100%;max-width:1080px" />
-                                    </a>
-                                    <figcaption>
-
-
-                                        <a href="san-pham/loc-tho-trong-suot-am-tu-bep-pureit/index.html"
-                                            class="wpb-wps-product-title">
-                                            <h3 class="pro_title">Lọc Thô Trong Suốt Âm Tủ Bếp Pureit</h3>
-                                        </a>
-
-
-                                        <div class="pro_price_area"><del aria-hidden="true"><span
-                                                    class="woocommerce-Price-amount amount">2.890.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></del>
-                                            <ins><span class="woocommerce-Price-amount amount">2.023.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></ins>
-                                        </div>
-
-
-
-                                        <div class="wpb_cart_button">
-                                            <div class="woo_btn_add_to_cart_wrapper">
-                                                <div class="chi_tiet"><a
-                                                        href="san-pham/loc-tho-trong-suot-am-tu-bep-pureit/index.html"
-                                                        class="mona-btn-hover hover-1">Chi tiết</a> </div>
-                                                <div class="mua_ngay"> <a class="popmake-33 mona-btn-hover  hover-2">Mua
-                                                        ngay</a>
-                                                </div>
-                                            </div>
-                                            <a href="index96fa.html?add-to-cart=1902" data-quantity="1"
-                                                class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-                                                data-product_id="1902" data-product_sku=""
-                                                aria-label="Thêm &ldquo;Lọc Thô Trong Suốt Âm Tủ Bếp Pureit&rdquo; vào giỏ hàng"
-                                                aria-describedby="" rel="nofollow"></a>
-                                        </div>
-
-                                    </figcaption>
-                                </figure>
-                            </div>
-                            <div
-                                class="wpb-wps-slider-item post-1807 product type-product status-publish has-post-thumbnail product_cat-may-loc-nuoc entry  instock sale shipping-taxable purchasable product-type-simple">
-                                <figure>
-
-                                    <span class="onsale">37%</span>
-
-
-                                    <a href="san-pham/may-loc-nuoc-classic-tiet-kiem-khong-dung-dien/index.html"
-                                        class="wpb_pro_img_url">
-                                        <img loading="lazy" decoding="async" width="300" height="300"
-                                            src="{{ asset('frontends/assets/images/240925_UVN_PUREIT_P2409140-1_Pureit-Hero-Image_R2_Classic-300x300.jpg') }}"
-                                            class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                                            alt="" style="width:100%;height:100%;max-width:1500px" />
-                                    </a>
-                                    <figcaption>
-
-
-                                        <a href="san-pham/may-loc-nuoc-classic-tiet-kiem-khong-dung-dien/index.html"
-                                            class="wpb-wps-product-title">
-                                            <h3 class="pro_title">Máy Lọc Nước Classic Tiết kiệm không dùng điện
-                                            </h3>
-                                        </a>
-
-
-                                        <div class="pro_price_area"><del aria-hidden="true"><span
-                                                    class="woocommerce-Price-amount amount">2.390.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></del>
-                                            <ins><span class="woocommerce-Price-amount amount">1.500.000&nbsp;<span
-                                                        class="woocommerce-Price-currencySymbol">&#8363;</span></span></ins>
-                                        </div>
-
-
-
-                                        <div class="wpb_cart_button">
-                                            <div class="woo_btn_add_to_cart_wrapper">
-                                                <div class="chi_tiet"><a
-                                                        href="san-pham/may-loc-nuoc-classic-tiet-kiem-khong-dung-dien/index.html"
-                                                        class="mona-btn-hover hover-1">Chi tiết</a> </div>
-                                                <div class="mua_ngay"> <a class="popmake-33 mona-btn-hover  hover-2">Mua
-                                                        ngay</a>
-                                                </div>
-                                            </div>
-                                            <a href="indexf0d3.html?add-to-cart=1807" data-quantity="1"
-                                                class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-                                                data-product_id="1807" data-product_sku=""
-                                                aria-label="Thêm &ldquo;Máy Lọc Nước Classic Tiết kiệm không dùng điện&rdquo; vào giỏ hàng"
-                                                aria-describedby="" rel="nofollow"></a>
-                                        </div>
-
-                                    </figcaption>
-                                </figure>
-                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
 
@@ -1350,306 +902,58 @@
                             <div class="elementor-widget-container">
                                 <div class="wpb_slider_area wpb_fix_cart">
 
-
                                     <div class="wpb-woo-products-slider owl-carousel owl-theme grid_no_animation woocommerce wpb-wps-product-type-category"
                                         data-autoplay="false" data-loop="true" data-navigation="true" data-slideby="1"
                                         data-pagination="true" data-items="3" data-desktopsmall="2" data-tablet="2"
                                         data-mobile="1" data-direction="false">
 
-                                        <div
-                                            class="wpb-wps-slider-item post-1392 product type-product status-publish has-post-thumbnail product_cat-loi-loc-thay-the entry  instock shipping-taxable purchasable product-type-simple">
-                                            <figure>
-
-
-                                                <a href="san-pham/loi-loc-nuoc-ultima-gkk1/index.html"
-                                                    class="wpb_pro_img_url">
-                                                    <img loading="lazy" decoding="async" width="300" height="300"
-                                                        src="{{ asset('frontends/assets/images/Ultima_Bo-loc-thay-the-Ultima-1-1-300x300.png') }}"
-                                                        class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                                                        alt="" style="width:100%;height:100%;max-width:1000px" />
-                                                </a>
-                                                <figcaption>
-
-
+                                        @foreach ($newProduct as $item)
+                                            <div
+                                                class="wpb-wps-slider-item post-1392 product type-product status-publish has-post-thumbnail product_cat-loi-loc-thay-the entry  instock shipping-taxable purchasable product-type-simple">
+                                                <figure>
                                                     <a href="san-pham/loi-loc-nuoc-ultima-gkk1/index.html"
-                                                        class="wpb-wps-product-title">
-                                                        <h3 class="pro_title">Bộ lọc thay thế Ultima Đen GKK1</h3>
+                                                        class="wpb_pro_img_url">
+                                                        <img loading="lazy" decoding="async" width="300"
+                                                            height="300"
+                                                            src="{{ asset('storage/' .$item->image) }}"
+                                                            class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
+                                                            alt=""
+                                                            style="width:100%;height:100%;max-width:1000px" />
                                                     </a>
+                                                    <figcaption>
+
+                                                        <a href="san-pham/loi-loc-nuoc-ultima-gkk1/index.html"
+                                                            class="wpb-wps-product-title">
+                                                            <h3 class="pro_title">{{$item->name}}</h3>
+                                                        </a>
 
 
-                                                    <div class="pro_price_area"><span
-                                                            class="woocommerce-Price-amount amount">1.250.000&nbsp;<span
-                                                                class="woocommerce-Price-currencySymbol">&#8363;</span></span>
-                                                    </div>
-
-
-
-                                                    <div class="wpb_cart_button">
-                                                        <div class="woo_btn_add_to_cart_wrapper">
-                                                            <div class="chi_tiet"><a
-                                                                    href="san-pham/loi-loc-nuoc-ultima-gkk1/index.html"
-                                                                    class="mona-btn-hover hover-1">Chi tiết</a>
-                                                            </div>
-                                                            <div class="mua_ngay"> <a
-                                                                    class="popmake-33 mona-btn-hover  hover-2">Mua
-                                                                    ngay</a></div>
+                                                        <div class="pro_price_area"><span
+                                                                class="woocommerce-Price-amount amount">1.250.000&nbsp;<span
+                                                                    class="woocommerce-Price-currencySymbol">&#8363;</span></span>
                                                         </div>
-                                                        <a href="index5009.html?add-to-cart=1392" data-quantity="1"
-                                                            class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-                                                            data-product_id="1392" data-product_sku=""
-                                                            aria-label="Thêm &ldquo;Bộ lọc thay thế Ultima Đen GKK1&rdquo; vào giỏ hàng"
-                                                            aria-describedby="" rel="nofollow"></a>
-                                                    </div>
 
-                                                </figcaption>
-                                            </figure>
-                                        </div>
-                                        <div
-                                            class="wpb-wps-slider-item post-1494 product type-product status-publish has-post-thumbnail product_cat-loi-loc-thay-the entry last instock shipping-taxable purchasable product-type-simple">
-                                            <figure>
-
-
-                                                <a href="san-pham/bo-loc-thay-the-ultima-gkk2/index.html"
-                                                    class="wpb_pro_img_url">
-                                                    <img loading="lazy" decoding="async" width="300" height="300"
-                                                        src="{{ asset('frontends/assets/images/Ultima_Bo-loc-thay-the-Ultima-2-300x300.png') }}"
-                                                        class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                                                        alt="" style="width:100%;height:100%;max-width:1000px" />
-                                                </a>
-                                                <figcaption>
-
-
-                                                    <a href="san-pham/bo-loc-thay-the-ultima-gkk2/index.html"
-                                                        class="wpb-wps-product-title">
-                                                        <h3 class="pro_title">Bộ lọc thay thế Ultima Đen GKK2</h3>
-                                                    </a>
-
-
-                                                    <div class="pro_price_area"><span
-                                                            class="woocommerce-Price-amount amount">1.980.000&nbsp;<span
-                                                                class="woocommerce-Price-currencySymbol">&#8363;</span></span>
-                                                    </div>
-
-
-
-                                                    <div class="wpb_cart_button">
-                                                        <div class="woo_btn_add_to_cart_wrapper">
-                                                            <div class="chi_tiet"><a
-                                                                    href="san-pham/bo-loc-thay-the-ultima-gkk2/index.html"
-                                                                    class="mona-btn-hover hover-1">Chi tiết</a>
+                                                        <div class="wpb_cart_button">
+                                                            <div class="woo_btn_add_to_cart_wrapper">
+                                                                <div class="chi_tiet"><a
+                                                                        href="san-pham/loi-loc-nuoc-ultima-gkk1/index.html"
+                                                                        class="mona-btn-hover hover-1">Chi tiết</a>
+                                                                </div>
+                                                                <div class="mua_ngay"> <a
+                                                                        class="popmake-33 mona-btn-hover  hover-2">Mua
+                                                                        ngay</a></div>
                                                             </div>
-                                                            <div class="mua_ngay"> <a
-                                                                    class="popmake-33 mona-btn-hover  hover-2">Mua
-                                                                    ngay</a></div>
+                                                            <a href="index5009.html?add-to-cart=1392" data-quantity="1"
+                                                                class="button product_type_simple add_to_cart_button ajax_add_to_cart"
+                                                                data-product_id="1392" data-product_sku=""
+                                                                aria-label="Thêm &ldquo;Bộ lọc thay thế Ultima Đen GKK1&rdquo; vào giỏ hàng"
+                                                                aria-describedby="" rel="nofollow"></a>
                                                         </div>
-                                                        <a href="index6727.html?add-to-cart=1494" data-quantity="1"
-                                                            class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-                                                            data-product_id="1494" data-product_sku=""
-                                                            aria-label="Thêm &ldquo;Bộ lọc thay thế Ultima Đen GKK2&rdquo; vào giỏ hàng"
-                                                            aria-describedby="" rel="nofollow"></a>
-                                                    </div>
 
-                                                </figcaption>
-                                            </figure>
-                                        </div>
-                                        <div
-                                            class="wpb-wps-slider-item post-294 product type-product status-publish has-post-thumbnail product_cat-loi-loc-thay-the entry first instock shipping-taxable purchasable product-type-simple">
-                                            <figure>
-
-
-                                                <a href="san-pham/loi-loc-thay-the-ro-pureit-delica-ur5840/index.html"
-                                                    class="wpb_pro_img_url">
-                                                    <img loading="lazy" decoding="async" width="300" height="300"
-                                                        src="{{ asset('frontends/assets/images/lõi-lọc-RO-delica-ur5840-300x300.jpg') }}"
-                                                        class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                                                        alt="" style="width:100%;height:100%;max-width:900px" />
-                                                </a>
-                                                <figcaption>
-
-
-                                                    <a href="san-pham/loi-loc-thay-the-ro-pureit-delica-ur5840/index.html"
-                                                        class="wpb-wps-product-title">
-                                                        <h3 class="pro_title">Lõi Lọc RO Máy lọc Âm Tủ Bếp Delica
-                                                            UR5840</h3>
-                                                    </a>
-
-
-                                                    <div class="pro_price_area"><span
-                                                            class="woocommerce-Price-amount amount">2.500.000&nbsp;<span
-                                                                class="woocommerce-Price-currencySymbol">&#8363;</span></span>
-                                                    </div>
-
-
-
-                                                    <div class="wpb_cart_button">
-                                                        <div class="woo_btn_add_to_cart_wrapper">
-                                                            <div class="chi_tiet"><a
-                                                                    href="san-pham/loi-loc-thay-the-ro-pureit-delica-ur5840/index.html"
-                                                                    class="mona-btn-hover hover-1">Chi tiết</a>
-                                                            </div>
-                                                            <div class="mua_ngay"> <a
-                                                                    class="popmake-33 mona-btn-hover  hover-2">Mua
-                                                                    ngay</a></div>
-                                                        </div>
-                                                        <a href="index0634.html?add-to-cart=294" data-quantity="1"
-                                                            class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-                                                            data-product_id="294" data-product_sku=""
-                                                            aria-label="Thêm &ldquo;Lõi Lọc RO Máy lọc Âm Tủ Bếp Delica UR5840&rdquo; vào giỏ hàng"
-                                                            aria-describedby="" rel="nofollow"></a>
-                                                    </div>
-
-                                                </figcaption>
-                                            </figure>
-                                        </div>
-                                        <div
-                                            class="wpb-wps-slider-item post-1499 product type-product status-publish has-post-thumbnail product_cat-loi-loc-thay-the entry  instock shipping-taxable purchasable product-type-simple">
-                                            <figure>
-
-
-                                                <a href="san-pham/loi-loc-cto-may-loc-am-tu-bep-delica-ur5840/index.html"
-                                                    class="wpb_pro_img_url">
-                                                    <img loading="lazy" decoding="async" width="300" height="300"
-                                                        src="{{ asset('frontends/assets/images/lõi-lọc-CTO-delica-ur5840-300x300.jpg') }}"
-                                                        class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                                                        alt="" style="width:100%;height:100%;max-width:900px" />
-                                                </a>
-                                                <figcaption>
-
-
-                                                    <a href="san-pham/loi-loc-cto-may-loc-am-tu-bep-delica-ur5840/index.html"
-                                                        class="wpb-wps-product-title">
-                                                        <h3 class="pro_title">Lõi Lọc CTO Máy lọc Âm Tủ Bếp Delica
-                                                            UR5840</h3>
-                                                    </a>
-
-
-                                                    <div class="pro_price_area"><span
-                                                            class="woocommerce-Price-amount amount">550.000&nbsp;<span
-                                                                class="woocommerce-Price-currencySymbol">&#8363;</span></span>
-                                                    </div>
-
-
-
-                                                    <div class="wpb_cart_button">
-                                                        <div class="woo_btn_add_to_cart_wrapper">
-                                                            <div class="chi_tiet"><a
-                                                                    href="san-pham/loi-loc-cto-may-loc-am-tu-bep-delica-ur5840/index.html"
-                                                                    class="mona-btn-hover hover-1">Chi tiết</a>
-                                                            </div>
-                                                            <div class="mua_ngay"> <a
-                                                                    class="popmake-33 mona-btn-hover  hover-2">Mua
-                                                                    ngay</a></div>
-                                                        </div>
-                                                        <a href="index63fa.html?add-to-cart=1499" data-quantity="1"
-                                                            class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-                                                            data-product_id="1499" data-product_sku=""
-                                                            aria-label="Thêm &ldquo;Lõi Lọc CTO Máy lọc Âm Tủ Bếp Delica UR5840&rdquo; vào giỏ hàng"
-                                                            aria-describedby="" rel="nofollow"></a>
-                                                    </div>
-
-                                                </figcaption>
-                                            </figure>
-                                        </div>
-                                        <div
-                                            class="wpb-wps-slider-item post-1533 product type-product status-publish has-post-thumbnail product_cat-loi-loc-thay-the entry  instock shipping-taxable purchasable product-type-simple">
-                                            <figure>
-
-
-                                                <a href="san-pham/loi-loc-pgp-may-loc-am-tu-bep-delica-ur5840/index.html"
-                                                    class="wpb_pro_img_url">
-                                                    <img loading="lazy" decoding="async" width="300"
-                                                        height="300"
-                                                        src="{{ asset('frontends/assets/images/lõi-lọc-PGP-delica-ur5840-300x300.jpg') }}"
-                                                        class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                                                        alt="" style="width:100%;height:100%;max-width:900px" />
-                                                </a>
-                                                <figcaption>
-
-
-                                                    <a href="san-pham/loi-loc-pgp-may-loc-am-tu-bep-delica-ur5840/index.html"
-                                                        class="wpb-wps-product-title">
-                                                        <h3 class="pro_title">Lõi Lọc PGP Máy lọc Âm tủ bếp Delica
-                                                            UR5840</h3>
-                                                    </a>
-
-
-                                                    <div class="pro_price_area"><span
-                                                            class="woocommerce-Price-amount amount">800.000&nbsp;<span
-                                                                class="woocommerce-Price-currencySymbol">&#8363;</span></span>
-                                                    </div>
-
-
-
-                                                    <div class="wpb_cart_button">
-                                                        <div class="woo_btn_add_to_cart_wrapper">
-                                                            <div class="chi_tiet"><a
-                                                                    href="san-pham/loi-loc-pgp-may-loc-am-tu-bep-delica-ur5840/index.html"
-                                                                    class="mona-btn-hover hover-1">Chi tiết</a>
-                                                            </div>
-                                                            <div class="mua_ngay"> <a
-                                                                    class="popmake-33 mona-btn-hover  hover-2">Mua
-                                                                    ngay</a></div>
-                                                        </div>
-                                                        <a href="indexc15d.html?add-to-cart=1533" data-quantity="1"
-                                                            class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-                                                            data-product_id="1533" data-product_sku=""
-                                                            aria-label="Thêm &ldquo;Lõi Lọc PGP Máy lọc Âm tủ bếp Delica UR5840&rdquo; vào giỏ hàng"
-                                                            aria-describedby="" rel="nofollow"></a>
-                                                    </div>
-
-                                                </figcaption>
-                                            </figure>
-                                        </div>
-                                        <div
-                                            class="wpb-wps-slider-item post-1911 product type-product status-publish has-post-thumbnail product_cat-loi-loc-thay-the entry last instock shipping-taxable purchasable product-type-simple">
-                                            <figure>
-
-
-                                                <a href="san-pham/bo-loc-thay-the-ultima-trang-gkk1/index.html"
-                                                    class="wpb_pro_img_url">
-                                                    <img loading="lazy" decoding="async" width="300"
-                                                        height="300"
-                                                        src="{{ asset('frontends/assets/images/1-2-300x300.png') }}"
-                                                        class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                                                        alt=""
-                                                        style="width:100%;height:100%;max-width:1200px" /> </a>
-                                                <figcaption>
-
-
-                                                    <a href="san-pham/bo-loc-thay-the-ultima-trang-gkk1/index.html"
-                                                        class="wpb-wps-product-title">
-                                                        <h3 class="pro_title">Bộ lọc thay thế Ultima Trắng GKK1
-                                                        </h3>
-                                                    </a>
-
-
-                                                    <div class="pro_price_area"><span
-                                                            class="woocommerce-Price-amount amount">1.250.000&nbsp;<span
-                                                                class="woocommerce-Price-currencySymbol">&#8363;</span></span>
-                                                    </div>
-
-
-
-                                                    <div class="wpb_cart_button">
-                                                        <div class="woo_btn_add_to_cart_wrapper">
-                                                            <div class="chi_tiet"><a
-                                                                    href="san-pham/bo-loc-thay-the-ultima-trang-gkk1/index.html"
-                                                                    class="mona-btn-hover hover-1">Chi tiết</a>
-                                                            </div>
-                                                            <div class="mua_ngay"> <a
-                                                                    class="popmake-33 mona-btn-hover  hover-2">Mua
-                                                                    ngay</a></div>
-                                                        </div>
-                                                        <a href="index71d1.html?add-to-cart=1911" data-quantity="1"
-                                                            class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-                                                            data-product_id="1911" data-product_sku=""
-                                                            aria-label="Thêm &ldquo;Bộ lọc thay thế Ultima Trắng GKK1&rdquo; vào giỏ hàng"
-                                                            aria-describedby="" rel="nofollow"></a>
-                                                    </div>
-
-                                                </figcaption>
-                                            </figure>
-                                        </div>
+                                                    </figcaption>
+                                                </figure>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
 
@@ -1657,13 +961,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="elementor-element elementor-element-c46977b e-con-full e-flex e-con e-child"
-                    data-id="c46977b" data-element_type="container"
-                    data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
+                <div class="elementor-element elementor-element-c46977b e-con-full e-flex e-con e-child" data-id="c46977b"
+                    data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
                     <div class="elementor-element elementor-element-6ef4933 popmake-33 mona-btn mona-btn-2 elementor-invisible elementor-widget elementor-widget-button"
                         data-id="6ef4933" data-element_type="widget"
-                        data-settings="{&quot;_animation&quot;:&quot;fadeInLeft&quot;}"
-                        data-widget_type="button.default">
+                        data-settings="{&quot;_animation&quot;:&quot;fadeInLeft&quot;}" data-widget_type="button.default">
                         <div class="elementor-widget-container">
                             <div class="elementor-button-wrapper">
                                 <a class="elementor-button elementor-size-sm" role="button">
@@ -1687,9 +989,8 @@
             <div class="elementor-element elementor-element-4ba216b e-con-full e-flex e-con e-child" data-id="4ba216b"
                 data-element_type="container"
                 data-settings="{&quot;content_width&quot;:&quot;full&quot;,&quot;background_background&quot;:&quot;classic&quot;}">
-                <div class="elementor-element elementor-element-e19e6f7 e-con-full e-flex e-con e-child"
-                    data-id="e19e6f7" data-element_type="container"
-                    data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
+                <div class="elementor-element elementor-element-e19e6f7 e-con-full e-flex e-con e-child" data-id="e19e6f7"
+                    data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
                     <div class="elementor-element elementor-element-3a796f2 line-p-1 elementor-invisible elementor-widget elementor-widget-text-editor"
                         data-id="3a796f2" data-element_type="widget"
                         data-settings="{&quot;_animation&quot;:&quot;fadeInUp&quot;,&quot;_animation_delay&quot;:100}"
@@ -1869,8 +1170,7 @@
                                                 <div class='gallery-icon landscape'>
                                                     <img loading="lazy" width="44" height="44"
                                                         src="{{ asset('frontends/assets/images/nx-09.png') }}"
-                                                        class="attachment-full size-full" alt=""
-                                                        decoding="async"
+                                                        class="attachment-full size-full" alt="" decoding="async"
                                                         style="width:100%;height:100%;max-width:44px;" />
                                                 </div>
                                             </figure>
@@ -1878,8 +1178,7 @@
                                                 <div class='gallery-icon landscape'>
                                                     <img loading="lazy" width="44" height="44"
                                                         src="{{ asset('frontends/assets/images/nx-10.png') }}"
-                                                        class="attachment-full size-full" alt=""
-                                                        decoding="async"
+                                                        class="attachment-full size-full" alt="" decoding="async"
                                                         style="width:100%;height:100%;max-width:44px;" />
                                                 </div>
                                             </figure>
@@ -1887,8 +1186,7 @@
                                                 <div class='gallery-icon landscape'>
                                                     <img loading="lazy" width="44" height="44"
                                                         src="{{ asset('frontends/assets/images/nx-11.png') }}"
-                                                        class="attachment-full size-full" alt=""
-                                                        decoding="async"
+                                                        class="attachment-full size-full" alt="" decoding="async"
                                                         style="width:100%;height:100%;max-width:44px;" />
                                                 </div>
                                             </figure>
@@ -1896,8 +1194,7 @@
                                                 <div class='gallery-icon landscape'>
                                                     <img loading="lazy" width="44" height="44"
                                                         src="{{ asset('frontends/assets/images/nx-08.png') }}"
-                                                        class="attachment-full size-full" alt=""
-                                                        decoding="async"
+                                                        class="attachment-full size-full" alt="" decoding="async"
                                                         style="width:100%;height:100%;max-width:44px;" />
                                                 </div>
                                             </figure>
@@ -1905,8 +1202,7 @@
                                                 <div class='gallery-icon landscape'>
                                                     <img loading="lazy" width="44" height="44"
                                                         src="{{ asset('frontends/assets/images/nx-02.png') }}"
-                                                        class="attachment-full size-full" alt=""
-                                                        decoding="async"
+                                                        class="attachment-full size-full" alt="" decoding="async"
                                                         style="width:100%;height:100%;max-width:44px;" />
                                                 </div>
                                             </figure>
@@ -1914,8 +1210,7 @@
                                                 <div class='gallery-icon landscape'>
                                                     <img loading="lazy" width="44" height="44"
                                                         src="{{ asset('frontends/assets/images/nx-03.png') }}"
-                                                        class="attachment-full size-full" alt=""
-                                                        decoding="async"
+                                                        class="attachment-full size-full" alt="" decoding="async"
                                                         style="width:100%;height:100%;max-width:44px;" />
                                                 </div>
                                             </figure>
@@ -1923,8 +1218,7 @@
                                                 <div class='gallery-icon landscape'>
                                                     <img loading="lazy" width="44" height="44"
                                                         src="{{ asset('frontends/assets/images/nx-04.png') }}"
-                                                        class="attachment-full size-full" alt=""
-                                                        decoding="async"
+                                                        class="attachment-full size-full" alt="" decoding="async"
                                                         style="width:100%;height:100%;max-width:44px;" />
                                                 </div>
                                             </figure>
@@ -1932,8 +1226,7 @@
                                                 <div class='gallery-icon landscape'>
                                                     <img loading="lazy" width="44" height="44"
                                                         src="{{ asset('frontends/assets/images/nx-05.png') }}"
-                                                        class="attachment-full size-full" alt=""
-                                                        decoding="async"
+                                                        class="attachment-full size-full" alt="" decoding="async"
                                                         style="width:100%;height:100%;max-width:44px;" />
                                                 </div>
                                             </figure>
@@ -1941,8 +1234,7 @@
                                                 <div class='gallery-icon landscape'>
                                                     <img loading="lazy" width="44" height="44"
                                                         src="{{ asset('frontends/assets/images/nx-06.png') }}"
-                                                        class="attachment-full size-full" alt=""
-                                                        decoding="async"
+                                                        class="attachment-full size-full" alt="" decoding="async"
                                                         style="width:100%;height:100%;max-width:44px;" />
                                                 </div>
                                             </figure>
@@ -1950,8 +1242,7 @@
                                                 <div class='gallery-icon landscape'>
                                                     <img loading="lazy" width="44" height="44"
                                                         src="{{ asset('frontends/assets/images/nx-07.png') }}"
-                                                        class="attachment-full size-full" alt=""
-                                                        decoding="async"
+                                                        class="attachment-full size-full" alt="" decoding="async"
                                                         style="width:100%;height:100%;max-width:44px;" />
                                                 </div>
                                             </figure>
@@ -1959,8 +1250,7 @@
                                                 <div class='gallery-icon portrait'>
                                                     <img loading="lazy" width="224" height="296"
                                                         src="{{ asset('frontends/assets/images/Cao-Văn-Tuấn.jpg') }}"
-                                                        class="attachment-full size-full" alt=""
-                                                        decoding="async"
+                                                        class="attachment-full size-full" alt="" decoding="async"
                                                         style="width:100%;height:132.14%;max-width:224px;" />
                                                 </div>
                                             </figure>
@@ -1968,8 +1258,7 @@
                                                 <div class='gallery-icon landscape'>
                                                     <img loading="lazy" width="100" height="100"
                                                         src="{{ asset('frontends/assets/images/icons8-plus-100.png') }}"
-                                                        class="attachment-full size-full" alt=""
-                                                        decoding="async"
+                                                        class="attachment-full size-full" alt="" decoding="async"
                                                         style="width:100%;height:100%;max-width:100px;" />
                                                 </div>
                                             </figure>
@@ -2100,13 +1389,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="elementor-element elementor-element-da0ea0b e-con-full e-flex e-con e-child"
-                    data-id="da0ea0b" data-element_type="container"
-                    data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
+                <div class="elementor-element elementor-element-da0ea0b e-con-full e-flex e-con e-child" data-id="da0ea0b"
+                    data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
                     <div class="elementor-element elementor-element-56d2697 popmake-33 mona-btn mona-btn-2 elementor-invisible elementor-widget elementor-widget-button"
                         data-id="56d2697" data-element_type="widget"
-                        data-settings="{&quot;_animation&quot;:&quot;fadeInLeft&quot;}"
-                        data-widget_type="button.default">
+                        data-settings="{&quot;_animation&quot;:&quot;fadeInLeft&quot;}" data-widget_type="button.default">
                         <div class="elementor-widget-container">
                             <div class="elementor-button-wrapper">
                                 <a class="elementor-button elementor-size-sm" role="button">

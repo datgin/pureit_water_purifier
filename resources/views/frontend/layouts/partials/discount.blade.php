@@ -123,7 +123,7 @@
 
 
 
-    <button type="button" class="pum-close popmake-close" aria-label="Close">
-        x </button>
+    {{-- <button type="button" class="pum-close popmake-close" aria-label="Close">
+        x </button> --}}
 
 </div>
