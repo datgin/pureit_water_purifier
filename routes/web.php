@@ -2,13 +2,15 @@
 
 use App\Http\Controllers\Backend\Auth\AuthController;
 use App\Http\Controllers\Backend\CategoryController;
-use App\Http\Controllers\backend\ConfigController;
+use App\Http\Controllers\Backend\ConfigController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\KeywordController;
 use App\Http\Controllers\Backend\ProductController;
+
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use Illuminate\Support\Facades\Route;
+
 
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -56,7 +58,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
                     Route::post('update', [ConfigController::class, 'store'])->name('update');
                     Route::get('seo', [ConfigController::class, 'seo'])->name('seo');
                     Route::post('seo', [ConfigController::class, 'storeSeo'])->name('store');
-                   
+
 
 
             });
