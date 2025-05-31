@@ -374,13 +374,14 @@ class ProductController extends Controller
 
     public function getSeoAnalysisLive(Request $request)
     {
-        $seoTitle = $request->seo_title ?? '';
+        // dd($request->toArray());
+        $seoTitle = $request->title_seo ?? '';
         $content = $request->content ?? '';
         $slug = $request->slug ?? '';
-        $seoDescription = $request->seo_description ?? '';
+        $seoDescription = $request->description_seo ?? '';
         $keywords = $request->input('keywords', []);
         $focusKeyword = is_array($keywords) ? ($keywords[0] ?? '') : $keywords;
-        $short_description = $request->short_description ?? '';
+        $short_description = $request->description_short ?? '';
 
         $analyzer = app(SeoAnalyzer::class);
 
@@ -419,7 +420,7 @@ class ProductController extends Controller
 
         // dd(vars: $seoData);
 
-        $view = view('backend.blogs.seo', compact('seoData'))->render();
+        $view = view('backend.products.seo', compact('seoData'))->render();
         return response()->json([
             'success' => true,
             'html' => $view,

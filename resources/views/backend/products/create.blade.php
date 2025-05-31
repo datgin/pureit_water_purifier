@@ -443,7 +443,7 @@
         $(document).ready(function() {
             let seoTimeout;
 
-            $('#title_seo, #keywords, #description_seo, #slug, #description_short').on('input', function() {
+            $('#title_seo, #keywords, #description_seo, #slug, #description_short, #name' ).on('input', function() {
                 clearTimeout(seoTimeout);
                 seoTimeout = setTimeout(runSeoAnalysis, 500);
             });
