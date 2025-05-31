@@ -47,7 +47,7 @@
 											<a href="index.html#gioi-thieu" class="hfe-menu-item">Về Pureit</a></li>
 										<li id="menu-item-1166"
 											class="menu-item menu-item-type-post_type menu-item-object-page parent hfe-creative-menu">
-											<a href="may-loc-nuoc/index.html" class="hfe-menu-item">Máy lọc nước</a>
+											<a href="{{route('product.list')}}" class="hfe-menu-item">Máy lọc nước</a>
 										</li>
 										<li id="menu-item-1165"
 											class="menu-item menu-item-type-post_type menu-item-object-page parent hfe-creative-menu">
