@@ -154,12 +154,12 @@
                     </div>
                 </li> --}}
 
-                {{-- <li class="nav-item  {{ activeMenu('admin.config.index') }}">
+                <li class="nav-item  {{ activeMenu('admin.config.index') }}">
                     <a href="{{ route('admin.config.index') }}">
                         <i class="fas fa-cogs"></i>
                         <p>Cấu hình</p>
                     </a>
-                </li> --}}
+                </li>
 
             </ul>
         </div>
