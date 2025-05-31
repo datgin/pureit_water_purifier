@@ -80,8 +80,8 @@ class ProductController extends Controller
 
         }
 
-        // dd(saveImage($request, 'image', 'products_main_images'));
-        dd($request->all());
+        // // dd(saveImage($request, 'image', 'products_main_images'));
+        // dd($request->all());
 
         try {
             $product = Product::create([

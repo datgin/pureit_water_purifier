@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\Auth\AuthController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\backend\ConfigController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\KeywordController;
 use App\Http\Controllers\Backend\ProductController;
@@ -44,10 +45,20 @@ Route::prefix('admin')->name('admin.')->group(function () {
                         Route::put('update/{id}', [ProductController::class, 'update'])->name('update');
                         Route::delete('delete/{id}', [ProductController::class, 'delete'])->name('delete');
 
-                        // SEO 
+                        // SEO
                         Route::post('{id}/seo-analysis', [ProductController::class, 'getSeoAnalysis'])->name('seo.analysis');
                         Route::post('seo-analysis-live', [ProductController::class, 'getSeoAnalysisLive'])->name('seo.analysis.live');
                 });
+
+                Route::prefix('config')->name('config.')->group(function () {
+                    Route::get('/', [ConfigController::class, 'index'])->name('index');
+                    Route::post('update', [ConfigController::class, 'store'])->name('update');
+                    Route::get('seo', [ConfigController::class, 'seo'])->name('seo');
+                    Route::post('seo', [ConfigController::class, 'storeSeo'])->name('store');
+                   
+
+
+            });
 
 
         });
