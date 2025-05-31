@@ -80,9 +80,6 @@ class ProductController extends Controller
 
         }
 
-        // // dd(saveImage($request, 'image', 'products_main_images'));
-        // dd($request->all());
-
         try {
             $product = Product::create([
                 'category_id' => $request->category_id,
