@@ -204,17 +204,18 @@ function saveImage($request, string $inputName, string $directory = 'images')
     }
 }
 
+if (!function_exists('showImage')) {
+    function showImage($image)
+    {
+        /** @var FilesystemAdapter $storage */
+        $storage = Storage::disk('public');
 
-function showImage($path, $default = 'image-default.jpg')
-{
-    /** @var FilesystemAdapter $storage */
-    $storage = Storage::disk('public');
+        if ($image && $storage->exists($image)) {
+            return $storage->url($image);
+        }
 
-    if ($path && Storage::exists($path)) {
-        return $storage->url($path);
+        return asset('backend/assets/img/image-default.jpg');
     }
-
-    return asset('backend/assets/img/' . $default);
 }
 
 function logInfo($message)
@@ -440,6 +441,3 @@ if (!function_exists('activeMenu')) {
         return request()->routeIs($url) ? 'active' : '';
     }
 }
-
-
-

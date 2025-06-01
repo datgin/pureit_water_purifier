@@ -15,11 +15,9 @@ class AuthController extends Controller
     public function logout()
     {
 
-        auth()->logout();
+        auth('admin')->logout();
 
-        Toastr()->success('Đăng xuất thành công.');
-
-        return redirect()->route('admin.login');
+        return redirect()->route('admin.login')->with('success', 'Đăng xuất thành công.');
     }
 
     public function authenticate(LoginUserRequest $request)
@@ -35,15 +33,14 @@ class AuthController extends Controller
 
             if ($account->role_id != 1) {
                 auth()->guard('admin')->logout();
-                toastr()->error('Bạn không có quyền truy cập vào trang quản lý!');
+                session()->flash('error', 'Bạn không có quyền truy cập vào trang quản lý!');
                 return back();
             }
 
-            toastr()->success('Đăng nhập thành công.');
-
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.dashboard')->with('success', 'Đăng nhập thành công.');
         } else {
-            toastr()->error('Tài khoản hoặc mật khẩu không chính xác!');
+            session()->flash('error', 'Tài khoản hoặc mật khẩu không chính xác!');
+
             return back();
         }
     }

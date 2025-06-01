@@ -6,7 +6,7 @@
         <div class="card-header d-flex justify-content-between">
             <h4 class="card-title">Danh sách sản phẩm</h4>
             <div class="card-tools">
-                <a href="{{ route('admin.product.add') }}" class="btn btn-primary btn-sm">Thêm mới sản phẩm (+)</a>
+                <a href="{{ route('admin.products.add') }}" class="btn btn-primary btn-sm">Thêm mới sản phẩm (+)</a>
                 <button onclick="window.location.reload()" class="btn btn-info btn-sm ms-2">
                     <i class="fa-solid fa-rotate"></i> Tải lại
                 </button>
@@ -157,27 +157,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#myTable').DataTable({
-                "pageLength": 5,
-                "lengthMenu": [
-                    [5, 10, 25, 50, -1],
-                    [5, 10, 25, 50, "Tất cả"]
-                ],
-                "ordering": true,
-                "searching": true,
-                "responsive": true,
-                "order": [
-                    [1, 'desc']
-                ],
-                "columnDefs": [{
-                    "targets": [0, 8], // Cột checkbox và action
-                    "orderable": false
-                }]
-            });
 
             // Xử lý checkbox select all
             $('#selectAll').on('click', function() {
-                $('.blog-checkbox').prop('checked', $(this).prop('checked'));
+                $('.select-item').prop('checked', $(this).prop('checked'));
             });
 
             // Xử lý xóa bài viết
