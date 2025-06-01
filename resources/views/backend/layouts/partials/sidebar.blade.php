@@ -54,11 +54,11 @@
                                     <span class="sub-item">quản lý sản phẩm</span>
                                 </a>
                             </li>
-                            {{-- <li class="nav-item {{ activeMenu('admin.brands.index') }}">
-                                <a href="{{ route('admin.brands.index') }}">
-                                    <span class="sub-item">Danh sách thương hiệu</span>
+                            <li class="nav-item {{ activeMenu('admin.product.index') }}">
+                                <a href="{{ route('admin.product.index') }}">
+                                    <span class="sub-item">Danh sách sản phẩm</span>
                                 </a>
-                            </li> --}}
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -93,7 +93,7 @@
                     </a>
                     <div class="collapse" id="news">
                         <ul class="nav nav-collapse">
-                            {{-- <li class="nav-item {{ activeMenu('admin.news.index') }}">
+                            <li class="nav-item {{ activeMenu('admin.news.index') }}">
                                 <a href="{{ route('admin.news.index') }}">
                                     <span class="sub-item">Danh sách bài viết</span>
                                 </a>
@@ -102,7 +102,7 @@
                                 <a href="{{ route('admin.news.create') }}">
                                     <span class="sub-item">Thêm bài viết</span>
                                 </a>
-                            </li> --}}
+                            </li>
                         </ul>
                     </div>
                 </li>
