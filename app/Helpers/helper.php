@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Log;
 function hasDiscount($discount)
 {
     // Nếu không có giảm giá, trả về false
-    if (is_null($discount)) return false;
+    if (is_null($discount))
+        return false;
 
     // Nếu ngày hiện tại nằm trong khoảng thời gian giảm giá, trả về true
     if ($discount->start_date <= Carbon::now() && $discount->end_date >= Carbon::now()) {
@@ -23,15 +24,18 @@ function hasDiscount($discount)
 
 function hasCustomDiscount($startDate, $endDate, $value)
 {
-    if ($value <= 0) return false; // Nếu không có giá trị giảm giá, trả về false
+    if ($value <= 0)
+        return false; // Nếu không có giá trị giảm giá, trả về false
 
     $now = Carbon::now(); // Lấy thời gian hiện tại với giờ, phút, giây
 
     // Nếu không có ngày bắt đầu và ngày kết thúc => luôn true
-    if (!$startDate && !$endDate) return true;
+    if (!$startDate && !$endDate)
+        return true;
 
     // Nếu có ngày bắt đầu nhưng không có ngày kết thúc => luôn true
-    if ($startDate && !$endDate) return true;
+    if ($startDate && !$endDate)
+        return true;
 
     // Nếu có cả startDate và endDate => Kiểm tra khoảng thời gian chính xác
     if (Carbon::parse($startDate)->lessThanOrEqualTo($now) && Carbon::parse($endDate)->greaterThanOrEqualTo($now)) {
@@ -77,50 +81,50 @@ function formatAmount($amount)
     return number_format($amount, 0, ',', '.');
 }
 
-function saveImages($request, string $inputName, string $directory = 'images', $width = 150, $height = 150, $isArray = false)
+function uploadImages($flieName, string $directory = 'images', $resize = false, $isArray = false, $width = 150, $height = 150, $quality = 80)
 {
     $paths = [];
 
-    // Kiểm tra xem có file không
-    if ($request->hasFile($inputName)) {
-        // Lấy tất cả các file hình ảnh
-        $images = $request->file($inputName);
-
-        if (!is_array($images)) {
-            $images = [$images]; // Đưa vào mảng nếu chỉ có 1 ảnh
-        }
-
-        // Tạo instance của ImageManager
-        $manager = new ImageManager(new Driver());
-
-        foreach ($images as $key => $image) {
-            // Đọc hình ảnh từ đường dẫn thực
-            $img = $manager->read($image->getPathName());
-
-            // Thay đổi kích thước
-            $img->resize($width, $height);
-
-            // Tạo tên file duy nhất
-            $filename = time() . uniqid() . '.' . $image->getClientOriginalExtension();
-
-            // Lưu hình ảnh đã được thay đổi kích thước vào storage
-            Storage::disk('public')->put($directory . '/' . $filename, $img->encode());
-
-            // Lưu đường dẫn vào mảng
-            $paths[$key] = $directory . '/' . $filename;
-        }
-
-        // Trả về danh sách các đường dẫn
-        return $isArray ? $paths : $paths[0];
+    $images = request()->file($flieName);
+    if (!is_array($images)) {
+        $images = [$images];
     }
 
-    return null;
+    $manager = new ImageManager(['driver' => 'gd']);
+    $storagePath = storage_path('app/public/' . trim($directory, '/'));
+
+    if (!file_exists($storagePath)) {
+        mkdir($storagePath, 0777, true);
+    }
+
+    foreach ($images as $key => $image) {
+        if ($image instanceof \Illuminate\Http\UploadedFile) {
+            $img = $manager->make($image->getRealPath());
+
+            // Resize nếu $resize = true, giữ tỷ lệ
+            if ($resize) {
+                $img->resize($width, $height, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize(); // Không phóng to ảnh nhỏ
+                });
+            }
+
+            $filename = time() . uniqid() . '.webp';
+
+            // Encode với chất lượng 80 (bạn có thể chỉnh từ 60 đến 90)
+            Storage::disk('public')->put($directory . '/' . $filename, $img->encode('webp', $quality));
+
+            $paths[$key] = $directory . '/' . $filename;
+        }
+    }
+
+    return $isArray ? $paths : $paths[0] ?? null;
 }
 
 
 
 
-function getTextAfterFirstHeading($htmlContent  = null)
+function getTextAfterFirstHeading($htmlContent = null)
 {
 
     if (empty($htmlContent)) {
@@ -365,7 +369,8 @@ function saveImagesWithoutResize($request, string $inputName, string $directory 
 
 function formatString($json = null)
 {
-    if (empty($json))  return null;
+    if (empty($json))
+        return null;
 
     $keywordsArray = json_decode($json, true);
 
@@ -387,7 +392,7 @@ if (!function_exists('generateRandomNumber')) {
     function generateRandomNumber($length = 10)
     {
         // Ensure the length is at least 1
-        $length = max(1, (int)$length);
+        $length = max(1, (int) $length);
 
         // Generate the first digit (1-9) to avoid leading zero
         $firstDigit = mt_rand(1, 9);
@@ -435,4 +440,6 @@ if (!function_exists('activeMenu')) {
         return request()->routeIs($url) ? 'active' : '';
     }
 }
+
+
 

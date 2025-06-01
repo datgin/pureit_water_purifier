@@ -2,19 +2,23 @@
 
 namespace App\Models;
 
+use App\RankmathSEOForLaravel\DTO\SeoAnalysisResult;
+use App\RankmathSEOForLaravel\Services\SeoAnalyzer;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use SoftDeletes, HasFactory;
+    use HasFactory;
 
     protected $table = 'products';
 
     protected $fillable = [
         'category_id',
         'name',
+        'image',
         'price',
         'slug',
         'description_short',
@@ -25,7 +29,7 @@ class Product extends Model
         'discount_type',
         'discount_value',
         'discount_start_date',
-        'discount_end_date',
+        'discount_end_date'
     ];
 
     protected $casts = [
@@ -49,4 +53,63 @@ class Product extends Model
     {
         return $this->belongsToMany(Keyword::class, 'product_keyword', 'product_id', 'keyword_id');
     }
+
+    public function getSeoAnalysisAttribute(): ?SeoAnalysisResult
+    {
+        if (!$this->title_seo) {
+            return null;
+        }
+
+        $analyzer = app(SeoAnalyzer::class);
+        return $analyzer->analyzeFromBlog($this);
+    }
+
+    public function seoScoreProduct()
+    {
+        return $this->hasOne(SeoScoreProduct::class, 'product_id', 'id');
+    }
+
+    public function priceDiscount()
+    {
+        $now = now();
+        $isInDiscountTime = true;
+
+        if ($this->discount_start_date || $this->discount_end_date) {
+            $start = $this->discount_start_date ? Carbon::parse($this->discount_start_date) : Carbon::minValue();
+            $end = $this->discount_end_date ? Carbon::parse($this->discount_end_date) : Carbon::maxValue();
+            $isInDiscountTime = $now->between($start, $end);
+        }
+
+        if ($isInDiscountTime) {
+            if ($this->discount_type === 'percentage') {
+                return round($this->price * (1 - ($this->discount_value / 100)), 0);
+            }
+
+            if ($this->discount_type === 'amount') {
+                return max(0, $this->price - $this->discount_value);
+            }
+        }
+
+        return $this->price;
+    }
+
+
+    public function getDiscountPercentAttribute()
+    {
+        if ($this->discount_type === 'percentage') {
+            return $this->discount_value;
+        }
+
+        if ($this->discount_type === 'amount' && $this->price > 0) {
+            return round(($this->discount_value / $this->price) * 100, 0);
+        }
+
+        return 0;
+    }
+
+    public function getFinalPriceAttribute()
+    {
+        return $this->priceDiscount();
+    }
+
 }
