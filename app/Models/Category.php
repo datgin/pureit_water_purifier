@@ -8,25 +8,25 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
-    protected $table = 'categories';
-
-    protected $primaryKey = 'id';
-
-    public $timestamps = true;
 
     protected $fillable = [
         'name',
         'slug',
         'description',
         'logo',
-        'title_seo',
-        'description_seo',
-        'keyword_seo',
-        'description_short',
+        'seo_title',
+        'seo_description',
+        'seo_keywords',
+        'status'
     ];
 
     public function products()
     {
         return $this->hasMany(Product::class, 'category_id');
     }
+
+    protected $casts = [
+        'status' => 'boolean',
+        'seo_keywords' => 'array'
+    ];
 }

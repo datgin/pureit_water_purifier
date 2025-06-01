@@ -27,8 +27,6 @@
 
 
 <!-- Toastr JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
 <script src="{{ asset('global/js/toastr.js') }}"></script>
 
 <!-- jQuery Scrollbar -->
@@ -51,17 +49,14 @@
 
 <!-- jQuery Vector Maps -->
 <script src="{{ asset('backend/assets/js/plugin/jsvectormap/jsvectormap.min.js') }}"></script>
-<script src="{{ asset('backend/assets/js/plugin/jsvectormap/world.js') }}"></script>
 
-<!-- Sweet Alert -->
-{{-- <script src="{{ asset('backend/assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script> --}}
+<script src="{{ asset('backend/assets/js/plugin/jsvectormap/world.js') }}"></script>
 
 <!-- Kaiadmin JS -->
 <script src="{{ asset('backend/assets/js/kaiadmin.min.js') }}"></script>
 
 <!-- Kaiadmin DEMO methods, don't include it in your project! -->
 <script src="{{ asset('backend/assets/js/setting-demo.js') }}"></script>
-{{-- <script src="{{ asset('backend/assets/js/demo.js') }}"></script> --}}
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -104,7 +99,6 @@
             localStorage.removeItem("params"); // Xóa params khỏi localStorage
         }
 
-
         const table = $('#myTable').DataTable({ // Định nghĩa biến table
             processing: true,
             serverSide: true,
@@ -113,9 +107,6 @@
                 data: function(d) {
                     d.startDate = $('#startDate').val() || null;
                     d.endDate = $('#endDate').val() || null;
-                    d.catalogue = $('#catalogueFilter').val() || params;
-                    d.attributeId = $('#attributeFilter').val() || null;
-                    d.attributeValueId = $('#attributeValueFilter').val() || null;
                 }
             },
             columns: columns,
@@ -219,256 +210,120 @@
 
         $('label[for="dt-length-0"]').remove();
 
-        const targetDiv = $('.dt-layout-cell.dt-layout-start');
+        const targetDiv = $('.dt-length');
 
         let _html = `
         <div id="actionDiv" style="display: none;">
-            <div class="d-flex">
-                <select id="actionSelect" class="form-select">
-                    <option value="">-- Chọn hành động --</option>
-                    <option value="delete">Xóa</option>
-                </select>
-                <button id="applyAction" class="btn btn-outline-danger btn-sm">Apply</button>
-            </div>
+            <button id="applyAction" class="btn btn-outline-danger btn-sm">Xóa</button>
         </div>
     `;
 
         targetDiv.after(_html);
 
-        if (filterDate) {
-            const lengthContainer = document.querySelector('.dt-length');
+        // if (filterDate) {
+        //     const lengthContainer = document.querySelector('.dt-length');
 
-            if (lengthContainer) {
-                // Tạo input filter
-                const filterHtml = `
-                    <div class="date-filter ml-2 d-flex align-items-center">
-                        <input type="date" id="startDate" class="form-control d-inline-block w-auto" placeholder="Start Date">
-                        <input type="date" id="endDate" class="form-control d-inline-block w-auto ms-2" placeholder="End Date">
-                        <button id="filterBtn" class="btn btn-primary ms-2 btn-sm"><i class="fa-solid fa-filter"></i></button>
-                        <button id="resetBtn" class="btn btn-secondary ms-2 btn-sm">Reset</button>
-                    </div>
-                `;
+        //     if (lengthContainer) {
+        //         // Tạo input filter
+        //         const filterHtml = `
+        //             <div class="date-filter ml-2 d-flex align-items-center">
+        //                 <input type="date" id="startDate" class="form-control d-inline-block w-auto" placeholder="Start Date">
+        //                 <input type="date" id="endDate" class="form-control d-inline-block w-auto ms-2" placeholder="End Date">
+        //                 <button id="filterBtn" class="btn btn-primary ms-2 btn-sm"><i class="fa-solid fa-filter"></i></button>
+        //                 <button id="resetBtn" class="btn btn-secondary ms-2 btn-sm">Reset</button>
+        //             </div>
+        //         `;
 
-                // Thêm sau `.dt-length`
-                lengthContainer.insertAdjacentHTML('afterend', filterHtml);
+        //         // Thêm sau `.dt-length`
+        //         lengthContainer.insertAdjacentHTML('afterend', filterHtml);
 
-                $('#filterBtn').on('click', function() {
-                    const startDate = $('#startDate').val();
-                    const endDate = $('#endDate').val();
+        //         $('#filterBtn').on('click', function() {
+        //             const startDate = $('#startDate').val();
+        //             const endDate = $('#endDate').val();
 
-                    if (startDate && endDate && endDate < startDate) {
-                        alert('Ngày kết thúc không thể nhỏ hơn ngày bắt đầu!');
-                        return;
-                    }
+        //             if (startDate && endDate && endDate < startDate) {
+        //                 alert('Ngày kết thúc không thể nhỏ hơn ngày bắt đầu!');
+        //                 return;
+        //             }
 
-                    // Nếu cả hai trường rỗng, không làm gì cả
-                    if (!startDate && !endDate) {
-                        alert('Vui lòng nhập Start Date và End Date để lọc!');
-                        return;
-                    }
+        //             // Nếu cả hai trường rỗng, không làm gì cả
+        //             if (!startDate && !endDate) {
+        //                 alert('Vui lòng nhập Start Date và End Date để lọc!');
+        //                 return;
+        //             }
 
-                    table.draw();
-                });
+        //             table.draw();
+        //         });
 
-                $('#resetBtn').on('click', function() {
-                    if ($('#startDate').val() || $('#endDate').val()) {
-                        $('#startDate').val('');
-                        $('#endDate').val('');
-                        table.draw();
-                    }
-                });
-            }
-        }
+        //         $('#resetBtn').on('click', function() {
+        //             if ($('#startDate').val() || $('#endDate').val()) {
+        //                 $('#startDate').val('');
+        //                 $('#endDate').val('');
+        //                 table.draw();
+        //             }
+        //         });
+        //     }
+        // }
 
-        if (productFilter) {
-            const lengthContainer = document.querySelector('.dt-length');
-
-            if (lengthContainer) {
-                const catalogueFilterHtml = `
-                <div class="catalogue-filter ms-2 d-flex align-items-center">
-                    <select id="catalogueFilter" class="form-control w-auto">
-                        <option value="">Chọn danh mục</option> <!-- Dữ liệu mặc định "Chọn danh mục" -->
-                    </select>
-                </div>
-
-                <div class="attribute-filter ms-2 d-flex align-items-center">
-                    <select id="attributeFilter" class="form-control w-auto">
-                        <option value="">Chọn thuộc tính</option>
-                    </select>
-                    <select id="attributeValueFilter" class="form-control w-auto d-none ms-2">
-                        <option value="">Chọn giá trị</option>
-                    </select>
-                </div>
-
-                <button id="resetCatalogueBtn" class="btn btn-secondary ms-2 btn-sm">Reset</button>
-            `;
-
-                lengthContainer.insertAdjacentHTML('afterend', catalogueFilterHtml);
-
-                // Initialize Select2 với dữ liệu mặc định
-                $('#catalogueFilter').select2({
-                    placeholder: 'Chọn danh mục',
-                    allowClear: true,
-                    minimumInputLength: 0 // Không cần nhập ký tự để hiển thị dữ liệu
-                });
-
-                // Gọi API một lần để lấy tất cả danh mục và thêm vào Select2
-                $.ajax({
-                    url: "", // API lấy danh mục
-                    dataType: 'json',
-                    success: function(data) {
-
-                        let $select = $('#catalogueFilter');
-                        $select.empty(); // Xóa dữ liệu cũ
-
-                        $select.append(
-                            '<option value="">Chọn danh mục</option>'); // Thêm option mặc định
-
-                        data.forEach(item => {
-                            let prefix = '-'.repeat(item.level);
-                            let option =
-                                `<option ${item.id == params ? 'selected' : ''} value="${item.id}">${prefix} ${item.name}</option>`;
-                            $select.append(option); // Thêm từng option vào select
-                        });
-
-                    }
-                });
-
-
-                $.ajax({
-                    url: "",
-                    dataType: 'json',
-                    success: function(data) {
-                        let $select = $('#attributeFilter');
-                        $select.empty().append('<option value="">Chọn thuộc tính</option>');
-                        data.forEach(attr => {
-                            $select.append(`<option value="${attr.id}">${attr.name}</option>`);
-                        });
-                    }
-                });
-
-                $('#attributeFilter').on('change', function() {
-                    let attributeId = $(this).val();
-                    let $valueSelect = $('#attributeValueFilter');
-
-                    if (!attributeId) {
-                        $valueSelect.addClass('d-none').empty();
-                        return;
-                    }
-
-                    $.ajax({
-                        url: `{{ url('/admin/product/attributes') }}/${attributeId}/values`,
-                        dataType: 'json',
-                        success: function(data) {
-                            $valueSelect.removeClass('d-none').empty().append(
-                                '<option value="">Chọn giá trị</option>');
-                            data.forEach(value => {
-                                $valueSelect.append(
-                                    `<option value="${value.id}">${value.value}</option>`
-                                );
-                            });
-                        }
-                    });
-                });
-
-                // function removeQueryParam(param) {
-                //     let url = new URL(window.location.href);
-                //     url.searchParams.delete(param);
-
-                //     // Cập nhật URL mà không load lại trang
-                //     window.history.replaceState({}, document.title, url.pathname + url.search);
-
-                //     // Cập nhật lại giá trị params
-                //     let urlParams = new URLSearchParams(window.location.search);
-                //     params = urlParams.get('params') || null;
-
-                // }
-
-
-                $('#catalogueFilter').on('change', function() {
-                    localStorage.removeItem("params");
-                    params = null;
-                });
-
-
-                // Khi chọn catalogue, filter bảng
-                $('#catalogueFilter,#attributeFilter, #attributeValueFilter').on('change', function() {
-                    table.draw();
-                });
-
-                // Reset filter
-                $('#resetCatalogueBtn').on('click', function() {
-
-                    if ($('#catalogueFilter').val() == '' && $('#attributeFilter').val() == '')
-                        return false;
-
-                    // Reset các select2
-                    $('#catalogueFilter').val('').trigger(
-                        'change'); // Cập nhật lại giá trị của Select2 và trigger sự kiện
-                    $('#attributeFilter').val('').trigger(
-                        'change'); // Cập nhật lại giá trị của Select2 và trigger sự kiện
-
-                    // Ẩn ô chọn giá trị thuộc tính
-                    $('#attributeValueFilter').addClass('d-none').empty();
-
-                    // Reset bảng dữ liệu
-                    table.draw();
-                });
-
-            }
-        }
-
-
-        $('#myTable thead input[type="checkbox"]').on('click', function() {
+        $('#selectAll').on('click', function() {
             const isChecked = $(this).prop('checked');
-            $('#myTable tbody input[type="checkbox"]').prop('checked', isChecked);
+            $('.select-item').prop('checked', isChecked);
             toggleActionDiv();
         });
 
-        $('#myTable tbody').on('click', 'input[type="checkbox"]', function() {
-            const allChecked = $('#myTable tbody input[type="checkbox"]').length === $(
-                '#myTable tbody input[type="checkbox"]:checked').length;
-            $('#myTable thead input[type="checkbox"]').prop('checked', allChecked);
+        $('#myTable tbody').on('click', '.select-item', function() {
+            const allChecked = $('#myTable tbody .select-item').length === $(
+                '#myTable tbody .select-item:checked').length;
+
+            $('#selectAll').prop('checked', allChecked);
             toggleActionDiv();
         });
 
         $('#applyAction').on('click', function() {
-            const selectedAction = $('#actionSelect').val();
 
-            if (!selectedAction) return;
+            Swal.fire({
+                title: "Bạn có chắc chắn?",
+                text: "Hành động này không thể hoàn tác!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Vâng, thay đổi!",
+                cancelButtonText: "Hủy"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const selectedIds = $('.select-item:checked').map(function() {
+                        return $(this).val();
+                    }).get();
 
-            const selectedIds = $('.row-checkbox:checked').map(function() {
-                return $(this).val();
-            }).get();
-
-            if (selectedAction === 'delete') {
-                $.ajax({
-                    url: "",
-                    method: 'POST',
-                    data: {
-                        ids: selectedIds,
-                        model: model,
-                        column: column
-                    },
-                    success: function(response) {
-                        alert('Xóa thành công!');
-                        table.ajax
-                            .reload(); // Sử dụng biến table thay vì gọi lại $('#myTable').DataTable()
-                        $('input[type="checkbox"]').prop('checked', false);
-                        toggleActionDiv();
-                    },
-                    error: function() {
-                        alert('Có lỗi xảy ra, vui lòng thử lại!');
-                    }
-                });
-            }
+                    $.ajax({
+                        url: "/admin/handle-bulk-action",
+                        method: 'POST',
+                        data: {
+                            ids: selectedIds,
+                            model: model,
+                            type: 'delete'
+                        },
+                        success: function(response) {
+                            datgin.success(response.message)
+                            table.ajax.reload();
+                            $('#selectAll').prop('checked', false);
+                            $('#actionDiv').hide();
+                        },
+                        error: function(xhr) {
+                            datgin.error(xhr.responseJson.message ||
+                                'Đã lỗi xảy ra, vui lòng thử lại sau!')
+                        }
+                    });
+                }
+            });
         });
     };
 
 
     function toggleActionDiv() {
-        if ($('.row-checkbox:checked').length > 0) {
 
+        if ($('.select-item:checked').length > 0) {
             $('#actionDiv').show();
         } else {
             $('#actionDiv').hide();
@@ -573,7 +428,26 @@
         var initialLength = $(inputSelector).val().length;
         charCountSelector.text(initialLength + "/" + maxLength);
     }
+
+    function autoGenerateSlug(fromSelector, toSelector) {
+        $(fromSelector).on("input", function() {
+            const text = $(this).val();
+            const slug = text
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/đ/g, "d")
+                .replace(/Đ/g, "d")
+                .replace(/[^a-z0-9 -]/g, "")
+                .replace(/\s+/g, "-")
+                .replace(/-+/g, "-")
+                .replace(/^-|-$/g, "")
+                .trim();
+
+            $(toSelector).val(slug).trigger("input"); // ✅ cập nhật rồi trigger input để char count update
+        });
+    }
 </script>
-@include('backend/includes/alert')
+@include('backend/includes/toastr')
 
 @stack('scripts')

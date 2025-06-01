@@ -1,16 +1,16 @@
 @extends('backend.layouts.master')
 
 @section('content')
-    <form method="GET" action="{{ route('admin.dashboard') }}">
+    {{-- <form method="GET" action="{{ route('admin.dashboard') }}">
         <div class="form-group">
     <div class="w-25 mb-3">
         <label for="year">Chọn năm:</label>
-        {{-- <select name="year" id="year" class="form-select" onchange="this.form.submit()">
+        <select name="year" id="year" class="form-select" onchange="this.form.submit()">
             @php($year = is_numeric($year) ? $year : date('Y'))
             @for ($i = $year - 5; $i <= date('Y'); $i++)
                 <option value="{{ $i }}" {{ $i == $year ? 'selected' : '' }}>{{ $i }}</option>
             @endfor
-        </select> --}}
+        </select>
     </div>
     </div>
     </form>
@@ -57,16 +57,15 @@
 
     <div class="row mt-5">
         <div class="col-lg-8">
-            
+
         </div>
         <div class="col-md-4">
-            
+
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 @push('scripts')
-   
 @endpush
 
 @push('styles')
@@ -76,7 +75,7 @@
         }
 
         /* .page-inner {
-            padding-right: 0 !important;
-        } */
+                padding-right: 0 !important;
+            } */
     </style>
 @endpush

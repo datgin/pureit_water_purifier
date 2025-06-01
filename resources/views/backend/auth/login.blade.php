@@ -13,26 +13,20 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <!-- CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('global/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/6.0.0-beta1/css/tempus-dominus.min.css">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('auth/css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/auth/css/style.css') }}">
+
     <link rel="icon" href="https://sgomedia.vn/wp-content/uploads/2023/06/cropped-favicon-sgomedia-32x32.png"
         type="image/x-icon">
     <!-- js -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.marquee/1.5.0/jquery.marquee.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.pause/0.2/jquery.pause.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/6.0.0-beta1/js/tempus-dominus.min.js">
-    </script>
+    <script src="{{ asset('global/js/jquery-3.6.0.min.js') }}"></script>
+
+    <script src="{{ asset('global/js/bootstrap.bundle.min.js') }}"></script>
+
 </head>
 <style type="text/css">
     #toast-container>div {
@@ -243,7 +237,7 @@
                                     <input type="text" name="email" autocomplete="off" required=""
                                         placeholder="Địa chỉ Email" id="email" value="{{ old('email') }}">
                                     <figure class="feild_icon"><img
-                                            src="{{ asset('auth/images/login_user_icon.png') }}"></figure>
+                                            src="{{ asset('backend/auth/images/login_user_icon.png') }}"></figure>
                                     @error('email')
                                         <small class="text-danger mb-2">{{ $message }}</small>
                                     @enderror
@@ -253,7 +247,7 @@
                                     <input type="password" name="password" autocomplete="off" required=""
                                         placeholder="Password" id="password" value="{{ old('password') }}">
                                     <figure class="feild_icon"><img
-                                            src="{{ asset('auth/images/login_padlock_icon.png') }}"></figure>
+                                            src="{{ asset('backend/auth/images/login_padlock_icon.png') }}"></figure>
                                     @error('password')
                                         <small class="text-danger mb-2">{{ $message }}</small>
                                     @enderror

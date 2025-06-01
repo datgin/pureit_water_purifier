@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\BulkActionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Auth\AuthController;
 use App\Http\Controllers\Backend\CategoryController;
@@ -8,19 +9,24 @@ use App\Http\Controllers\Backend\KeywordController;
 use App\Http\Controllers\Backend\ProductController;
 
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::name('admin.')->group(function () {
     Route::middleware(\App\Http\Middleware\AdminAuthenticate::class)->group(function () {
+
+        Route::post('handle-bulk-action', [BulkActionController::class, 'handleBulkAction']);
+
         Route::get('/', [DashboardController::class, 'getRevenueChart'])->name('dashboard');
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-        Route::prefix('category')->name('category.')->group(function () {
+        Route::prefix('categories')->name('categories.')->group(function () {
             Route::get('/', [CategoryController::class, 'index'])->name('index');
-            Route::get('trash', [CategoryController::class, 'trash'])->name('trash');
-            Route::post('store', [CategoryController::class, 'store'])->name('store');
+            Route::get('save/{id?}', [CategoryController::class, 'save'])->name('save');
+            Route::post('/', [CategoryController::class, 'store'])->name('store');
             Route::put('{id}', [CategoryController::class, 'update'])->name('update');
+
+            Route::get('trash', [CategoryController::class, 'trash'])->name('trash');
             Route::delete('{id}/soft-delete', [CategoryController::class, 'softDelete'])->name('softDelete');
-            Route::delete('{id}/delete', [CategoryController::class, 'delete'])->name('delete');
-            Route::put('{id}/restore', [CategoryController::class, 'restore'])->name('restore');
+            Route::delete('{id}', [CategoryController::class, 'destroy'])->name('destroy');
+            Route::put('change-status/{id}', [CategoryController::class, 'changeStatus']);
         });
 
         Route::prefix('keywords')->name('keywords.')->group(function () {
@@ -33,7 +39,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::put('{id}/restore', [KeywordController::class, 'restore'])->name('restore');
         });
 
-        Route::prefix('product')->name('product.')->group(function () {
+        Route::prefix('products')->name('products.')->group(function () {
             Route::get('/', [ProductController::class, 'index'])->name('index');
             Route::get('add', [ProductController::class, 'add'])->name('add');
             Route::post('store', [ProductController::class, 'store'])->name('store');
@@ -42,6 +48,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::delete('delete/{id}', [ProductController::class, 'delete'])->name('delete');
         });
     });
+
     Route::middleware(\App\Http\Middleware\AdminRedirectIfAuthenticated::class)->group(function () {
         Route::get('login', [AuthController::class, 'login'])->name('login');
         Route::post('login', [AuthController::class, 'authenticate']);
