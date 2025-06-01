@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -14,132 +15,186 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Category::withCount('products')->get();
+            $data = Category::withCount('products');
 
             return DataTables::of($data)
                 ->addColumn('checkbox', function ($row) {
                     return '<input type="checkbox" class="select-item" value="' . $row->id . '">';
                 })
-                ->addColumn('name', function ($row) {
-                    return '<a href="' . route('admin.category.edit', $row->id) . '"><strong>' . e($row->name) . '</strong></a>';
+                ->editColumn('logo', function ($row) {
+                    return '<img src="' . showImage($row->logo) . '" width="50"/>';
+                })
+                ->editColumn('name', function ($row) {
+                    return '<a href="' . route('admin.categories.save', $row->id) . '"><strong>' . e($row->name) . '</strong></a>';
+                })
+                ->editColumn('created_at', function ($row) {
+                    return $row->created_at->format('d/m/Y H:i');
                 })
                 ->addColumn('product_count', function ($row) {
                     return $row->products_count;
                 })
+                ->editColumn('status', function ($row) {
+                    $checked = $row->status ? 'checked' : '';
+                    return '
+                        <label class="switch" data-id=' . $row->id . '>
+                            <input name="is_featured" type="checkbox" value="1" ' . $checked . '>
+                            <span class="slider round"></span>
+                        </label>
+                    ';
+                })
                 ->addColumn('actions', function ($row) {
                     return '
-
+                    <a href="' . route('admin.categories.save', $row->id) . '" class="btn btn-sm btn-primary" title="Sửa">
+                        <i class="fas fa-edit"></i>
+                    </a>
                     <button class="btn btn-sm btn-danger btn-delete" data-id="' . $row->id . '" title="Xóa">
                         <i class="fas fa-trash"></i>
                     </button>';
                 })
-                ->rawColumns(['checkbox', 'name', 'actions'])
+                ->rawColumns(['checkbox', 'name', 'actions', 'status', 'logo'])
+                ->addIndexColumn()
                 ->make(true);
         }
 
-        return view('backend.categories.index');
+        return view('backend.category.index');
     }
 
-    public function create()
+    public function save($id = null)
     {
-        $page = 'Danh mục';
-        $title = 'Thêm danh mục';
 
-        return view('backend.categories.create', compact('title', 'page'));
+        $category = null;
+
+        if ($id) {
+            $category = Category::findOrFail($id);
+        }
+
+        return view('backend.category.save', compact('category'));
     }
 
-    public function edit($id)
+    private function validate($request, $id = null)
     {
-        $page = 'Danh mục';
-        $title = 'Sửa danh mục';
-        $category = Category::find($id);
-        return view('backend.categories.create', compact('category', 'title', 'page'));
-    }
+        $credentials = Validator::make($request->all(), [
+            'name' => "required|max:255|string|unique:categories,name,{$id}",
+            'slug' => "required|max:255|string|unique:categories,slug,{$id}",
+            'description' => 'nullable|max:255|string',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'seo_title' => 'nullable|max:255|string',
+            'seo_description' => 'nullable|string',
+            'seo_keywords' => 'nullable|max:255|string',
+            'status' => 'nullable',
+        ]);
 
+        if ($credentials->fails()) {
+            return [
+                'success' => false,
+                'message' =>  $credentials->errors()->first()
+            ];
+        }
+
+        return $credentials->validated();
+    }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|max:255|string|unique:categories,name',
-            'description' => 'nullable|max:255|string',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'title_seo' => 'nullable|max:255|string',
-            'description_seo' => 'nullable|string',
-            'keyword_seo' => 'nullable|max:255|string',
-            'description_short' => 'nullable|string',
-        ]);
+        $credentials = $this->validate($request);
 
-        $logoPath = $request->hasFile('logo')
-            ? uploadImages('logo', 'category_images')
-            : null;
+        if (!empty($credentials['success']) && !$credentials['success']) {
+            return response()->json($credentials, 422);
+        }
 
-        // dd($request->all());
+        $uploadImage = null;
 
-        Category::create([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
-            'description' => $request->description,
-            'logo' => $logoPath,
-            'title_seo' => $request->title_seo,
-            'description_seo' => $request->description_seo,
-            'keyword_seo' => $request->keyword_seo,
-            'description_short' => $request->description_short,
-        ]);
+        try {
 
-        return redirect()->route('admin.category.index')->with('success', 'Thêm mới thành công');
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required|max:255|string|unique:categories,name,' . $id,
-            'description' => 'nullable|string|max:255',
-            'description_short' => 'nullable|string',
-            'title_seo' => 'nullable|max:255|string',
-            'description_seo' => 'nullable|string',
-            'keyword_seo' => 'nullable|max:255|string',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-        ]);
-
-        $category = Category::findOrFail($id);
-
-        $category->name = $request->name;
-        $category->slug = Str::slug($request->name);
-        $category->description = $request->description;
-        $category->description_short = $request->description_short;
-        $category->title_seo = $request->title_seo;
-        $category->description_seo = $request->description_seo;
-        $category->keyword_seo = $request->keyword_seo;
-
-        // Nếu có upload logo mới
-        if ($request->hasFile('logo')) {
-            // Xóa ảnh cũ nếu có
-            if ($category->logo && Storage::disk('public')->exists($category->logo)) {
-                Storage::disk('public')->delete($category->logo);
+            if ($request->hasFile('logo')) {
+                $uploadImage   = uploadImages('logo', 'category', false, false);
+                $credentials['logo'] = $uploadImage;
             }
 
-            // Upload ảnh mới
-            $logoPath = uploadImages('logo', 'category_images', true, false);
-            $category->logo = $logoPath;
+            if (!empty($credentials['seo_keywords'])) {
+                $credentials['seo_keywords'] = explode(',', $credentials['seo_keywords']);
+            }
+
+            Category::create($credentials);
+
+            session()->flash('success', 'Thêm mới danh mục thành công.');
+
+            return response()->json(['success' => true], 201);
+        } catch (\Exception $e) {
+            logger('Category(store): ' . $e->getMessage());
+
+            if (!empty($uploadImage)) {
+                deleteImage($uploadImage);
+            }
+
+            return response()->json(['success' => false, 'message' => 'Đã có lỗi xảy ra, vui lòng thử lại sau!'], 400);
         }
-
-        $category->save();
-
-        return redirect()->route('admin.category.index')->with('success', 'Cập nhật thành công');
     }
 
-    public function delete($id)
+    public function update(Request $request, string $id)
+    {
+        $credentials = $this->validate($request, $id);
+
+        if (!empty($credentials['success']) && !$credentials['success']) {
+            return response()->json($credentials, 422);
+        }
+
+        $category = Category::findOrFail($id);
+        $uploadImage = null;
+        $oldImage = $category->logo;
+
+        try {
+            if ($request->hasFile('logo')) {
+                $uploadImage = uploadImages('logo', 'category', false, false);
+                $credentials['logo'] = $uploadImage;
+            }
+
+            if (!empty($credentials['seo_keywords'])) {
+                $credentials['seo_keywords'] = explode(',', $credentials['seo_keywords']);
+            }
+
+            if ($category->update($credentials)) {
+                if (!empty($uploadImage)) {
+                    deleteImage($oldImage);
+                }
+            }
+
+            session()->flash('success', 'Cập nhật danh mục thành công.');
+            return response()->json(['success' => true], 200);
+        } catch (\Exception $e) {
+            logger('Category(update): ' . $e->getMessage());
+
+            if (!empty($uploadImage)) {
+                deleteImage($uploadImage);
+            }
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Đã có lỗi xảy ra, vui lòng thử lại sau!'
+            ], 500);
+        }
+    }
+
+
+    public function destroy($id)
     {
         $category = Category::findOrFail($id);
 
-        if ($category->logo && Storage::disk('public')->exists($category->logo)) {
-            Storage::disk('public')->delete($category->logo);
+        if ($category->delete()) {
+            deleteImage($category->logo);
         }
-
-        $category->delete();
 
         return response()->json(['success' => true, 'message' => 'Xóa danh mục thành công.']);
     }
 
+    public function changeStatus(string $id)
+    {
+        $category = Category::query()->findOrFail($id);
+
+        $category->status = !$category->status;
+
+        $category->save();
+
+        return response()->json(['message' => "Thay đổi trạng thái thành công."]);
+    }
 }

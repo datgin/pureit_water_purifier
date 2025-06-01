@@ -27,17 +27,9 @@
                 <li class="nav-item {{ activeMenu('admin.dashboard') }}">
                     <a href="{{ route('admin.dashboard') }}" class="collapsed">
                         <i class="fas fa-chart-line"></i>
-                        <p>Dashboard</p>
+                        <p>Tổng quan</p>
                     </a>
                 </li>
-
-                <li class="nav-item">
-                    <a target="_blank" href="{{ url('/') }}" class="collapsed">
-                        <i class="fas fa-home"></i>
-                        <p>Quay lại trang chủ</p>
-                    </a>
-                </li>
-
 
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" class="has-children" href="#product">
@@ -47,19 +39,19 @@
                     </a>
                     <div class="collapse" id="product">
                         <ul class="nav nav-collapse">
-                           <li class="nav-item {{ activeMenu('admin.category.index') }}">
-                                <a href="{{ route('admin.category.index') }}">
-                                    <span class="sub-item">Danh sách danh mục</span>
+                           <li class="nav-item {{ activeMenu('admin.categories.index') }}">
+                                <a href="{{ route('admin.categories.index') }}">
+                                    <span class="sub-item">Quản lý danh mục</span>
                                 </a>
                             </li>
-                            <li class="nav-item {{ activeMenu('admin.keywords.index') }}">
+                            {{-- <li class="nav-item {{ activeMenu('admin.keywords.index') }}">
                                 <a href="{{ route('admin.keywords.index') }}">
                                     <span class="sub-item">Từ khóa sản phẩm</span>
                                 </a>
-                            </li>
-                            <li class="nav-item {{ activeMenu('admin.product.add') }}">
-                                <a href="{{ route('admin.product.add') }}">
-                                    <span class="sub-item">Thêm mới sản phẩm</span>
+                            </li> --}}
+                            <li class="nav-item {{ activeMenu('admin.products.index') }}">
+                                <a href="{{ route('admin.products.index') }}">
+                                    <span class="sub-item">quản lý sản phẩm</span>
                                 </a>
                             </li>
                             <li class="nav-item {{ activeMenu('admin.product.index') }}">
@@ -154,12 +146,12 @@
                     </div>
                 </li> --}}
 
-                <li class="nav-item  {{ activeMenu('admin.config.index') }}">
+                {{-- <li class="nav-item  {{ activeMenu('admin.config.index') }}">
                     <a href="{{ route('admin.config.index') }}">
                         <i class="fas fa-cogs"></i>
                         <p>Cấu hình</p>
                     </a>
-                </li>
+                </li> --}}
 
             </ul>
         </div>

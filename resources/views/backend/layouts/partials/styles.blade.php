@@ -32,8 +32,30 @@
         border-radius: 4px 0 0 4px;
     }
 
-    #applyAction {
-        border-radius: 0px 4px 4px 0px;
+    .breadcrumb-item a,
+    .breadcrumb-item {
+        font-size: 0.825rem !important;
+        font-weight: 600;
+    }
+
+    .seo-preview * {
+        word-break: break-all;
+    }
+
+    .seo-preview .page-title-seo {
+        color: #1a0dab;
+        font-size: 18px;
+        font-weight: 400;
+        margin-bottom: 2px;
+    }
+
+    .seo-preview .page-url-seo p {
+        word-wrap: break-word;
+        color: #006621;
+        display: block;
+        font-size: 13px;
+        line-height: 16px;
+        margin-bottom: 2px;
     }
 </style>
 
