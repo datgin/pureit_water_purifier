@@ -34,13 +34,10 @@
         @include('frontend.layouts.includes.footer')
     </footer>
 
-<<<<<<< HEAD
-    @include('frontend.layouts.includes.script')
-=======
+
     {{-- Footer --}}
-    <div data-elementor-type="footer" data-elementor-id="728"
-        class="elementor elementor-728 elementor-location-footer">
-        @include('frontend.layouts.partials.footer')
+    <div data-elementor-type="footer" data-elementor-id="728" class="elementor elementor-728 elementor-location-footer">
+        @include('frontend.layouts.includes.script')
     </div>
 
     <div id="wpcp-error-message" class="msgmsg-box-wpcp hideme"><span>error: </span>Content is protected !!</div>
@@ -50,7 +47,7 @@
     <div id="pum-33" class="pum pum-overlay pum-theme-627 pum-theme-popup-register popmake-overlay click_open"
         data-popmake="{&quot;id&quot;:33,&quot;slug&quot;:&quot;popup-register&quot;,&quot;theme_id&quot;:627,&quot;cookies&quot;:[],&quot;triggers&quot;:[{&quot;type&quot;:&quot;click_open&quot;,&quot;settings&quot;:{&quot;cookie_name&quot;:&quot;&quot;,&quot;extra_selectors&quot;:&quot;&quot;,&quot;do_default&quot;:true}}],&quot;mobile_disabled&quot;:null,&quot;tablet_disabled&quot;:null,&quot;meta&quot;:{&quot;display&quot;:{&quot;stackable&quot;:false,&quot;overlay_disabled&quot;:false,&quot;scrollable_content&quot;:false,&quot;disable_reposition&quot;:false,&quot;size&quot;:&quot;tiny&quot;,&quot;responsive_min_width&quot;:&quot;0%&quot;,&quot;responsive_min_width_unit&quot;:false,&quot;responsive_max_width&quot;:&quot;100%&quot;,&quot;responsive_max_width_unit&quot;:false,&quot;custom_width&quot;:&quot;640px&quot;,&quot;custom_width_unit&quot;:false,&quot;custom_height&quot;:&quot;380px&quot;,&quot;custom_height_unit&quot;:false,&quot;custom_height_auto&quot;:false,&quot;location&quot;:&quot;center&quot;,&quot;position_from_trigger&quot;:false,&quot;position_top&quot;:&quot;100&quot;,&quot;position_left&quot;:&quot;0&quot;,&quot;position_bottom&quot;:&quot;0&quot;,&quot;position_right&quot;:&quot;0&quot;,&quot;position_fixed&quot;:false,&quot;animation_type&quot;:&quot;fade&quot;,&quot;animation_speed&quot;:&quot;350&quot;,&quot;animation_origin&quot;:&quot;center top&quot;,&quot;overlay_zindex&quot;:false,&quot;zindex&quot;:&quot;1999999999&quot;},&quot;close&quot;:{&quot;text&quot;:&quot;&quot;,&quot;button_delay&quot;:&quot;0&quot;,&quot;overlay_click&quot;:false,&quot;esc_press&quot;:false,&quot;f4_press&quot;:false},&quot;click_open&quot;:[]}}"
         role="dialog" aria-modal="false" aria-labelledby="pum_popup_title_33">
-        @include('frontend.layouts.partials.suport')
+        {{-- @include('frontend.layouts.partials.suport') --}}
     </div>
 
     {{-- Giảm giá --}}
@@ -59,7 +56,7 @@
         data-popmake="{&quot;id&quot;:1443,&quot;slug&quot;:&quot;popup-home&quot;,&quot;theme_id&quot;:1445,&quot;cookies&quot;:[],&quot;triggers&quot;:[{&quot;type&quot;:&quot;auto_open&quot;,&quot;settings&quot;:{&quot;delay&quot;:2000}},{&quot;type&quot;:&quot;click_open&quot;,&quot;settings&quot;:{&quot;extra_selectors&quot;:&quot;&quot;,&quot;cookie_name&quot;:null}}],&quot;mobile_disabled&quot;:null,&quot;tablet_disabled&quot;:null,&quot;meta&quot;:{&quot;display&quot;:{&quot;stackable&quot;:&quot;1&quot;,&quot;overlay_disabled&quot;:false,&quot;scrollable_content&quot;:false,&quot;disable_reposition&quot;:false,&quot;size&quot;:&quot;medium&quot;,&quot;responsive_min_width&quot;:&quot;0%&quot;,&quot;responsive_min_width_unit&quot;:false,&quot;responsive_max_width&quot;:&quot;100%&quot;,&quot;responsive_max_width_unit&quot;:false,&quot;custom_width&quot;:&quot;640px&quot;,&quot;custom_width_unit&quot;:false,&quot;custom_height&quot;:&quot;380px&quot;,&quot;custom_height_unit&quot;:false,&quot;custom_height_auto&quot;:false,&quot;location&quot;:&quot;center&quot;,&quot;position_from_trigger&quot;:false,&quot;position_top&quot;:&quot;100&quot;,&quot;position_left&quot;:&quot;0&quot;,&quot;position_bottom&quot;:&quot;0&quot;,&quot;position_right&quot;:&quot;0&quot;,&quot;position_fixed&quot;:false,&quot;animation_type&quot;:&quot;fade&quot;,&quot;animation_speed&quot;:&quot;350&quot;,&quot;animation_origin&quot;:&quot;center top&quot;,&quot;overlay_zindex&quot;:false,&quot;zindex&quot;:&quot;1999999999&quot;},&quot;close&quot;:{&quot;text&quot;:&quot;&quot;,&quot;button_delay&quot;:&quot;0&quot;,&quot;overlay_click&quot;:false,&quot;esc_press&quot;:false,&quot;f4_press&quot;:false},&quot;click_open&quot;:[]}}"
         role="dialog" aria-modal="false"> --}}
 
-        @include('frontend.layouts.partials.discount')
+    @include('frontend.layouts.partials.discount')
 
     </div>
     <!-- CSS -->
@@ -80,7 +77,7 @@
 
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    @include('frontend.layouts.partials.script')
+    @include('frontend.layouts.includes.script')
 
     <script>
         jQuery(document).ready(function() {
@@ -142,7 +139,7 @@
             }), !1);
     </script>
 
->>>>>>> cfe3fd761e453b74b3b1c9b57e3d12fa2e151dc6
+    >>>>>>> cfe3fd761e453b74b3b1c9b57e3d12fa2e151dc6
 </body>
 
 </html>
