@@ -1,402 +1,113 @@
 @extends('frontend.master')
 @section('content')
-    <div class="elementor-element elementor-element-d3a2891 e-con-full sec-banner  e-flex e-con e-parent" data-id="d3a2891"
-        data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;full&quot;}" data-core-v316-plus="true">
-        <div class="elementor-element elementor-element-57d56e3 mona-pc popmake elementor-arrows-position-inside elementor-widget elementor-widget-image-carousel"
-            data-id="57d56e3" data-element_type="widget"
-            data-settings="{&quot;slides_to_show&quot;:&quot;1&quot;,&quot;slides_to_show_mobile&quot;:&quot;1&quot;,&quot;navigation&quot;:&quot;arrows&quot;,&quot;autoplay&quot;:&quot;yes&quot;,&quot;pause_on_hover&quot;:&quot;yes&quot;,&quot;pause_on_interaction&quot;:&quot;yes&quot;,&quot;autoplay_speed&quot;:5000,&quot;infinite&quot;:&quot;yes&quot;,&quot;effect&quot;:&quot;slide&quot;,&quot;speed&quot;:500}"
-            data-widget_type="image-carousel.default">
-            <div class="elementor-widget-container">
-                <div class="elementor-image-carousel-wrapper swiper" dir="ltr">
-                    <div class="elementor-image-carousel swiper-wrapper" aria-live="off">
-                        <div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="1 of 3">
-                            <figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image"
-                                    src="{{ asset('frontends/assets/images/1700x600.jpg') }}" alt="1700x600" /></figure>
-                        </div>
-                        <div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="2 of 3">
-                            <figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image"
-                                    src="{{ asset('frontends/assets/images/231208_UVN_PUREIT_P2311036_Nuoc-sach-thong-minh_R4-1700x600-1.jpg') }}"
-                                    alt="231208_UVN_PUREIT_P2311036_Nuoc sach thong minh_R4 1700x600" /></figure>
-                        </div>
-                        <div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="3 of 3">
-                            <figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image"
-                                    src="{{ asset('frontends/assets/images/231208_UVN_PUREIT_P2311036_Utima_R3-1700x600-1.jpg') }}"
-                                    alt="231208_UVN_PUREIT_P2311036_Utima_R3 1700x600" /></figure>
-                        </div>
-                    </div>
-                    <div class="elementor-swiper-button elementor-swiper-button-prev" role="button" tabindex="0">
-                        <i aria-hidden="true" class="eicon-chevron-left"></i>
-                    </div>
-                    <div class="elementor-swiper-button elementor-swiper-button-next" role="button" tabindex="0">
-                        <i aria-hidden="true" class="eicon-chevron-right"></i>
-                    </div>
-
-                </div>
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <!-- Slide 1 -->
+            <div class="swiper-slide">
+                <img src="./assets/image/banner-1.jpg" class="w-100" alt="Banner 1" />
+            </div>
+            <!-- Slide 2 -->
+            <div class="swiper-slide">
+                <img src="./assets/image/banner-2.jpg" class="w-100" alt="Banner 2" />
             </div>
         </div>
-        <div class="elementor-element elementor-element-31f3521 mona-mb popmake elementor-arrows-position-inside elementor-widget elementor-widget-image-carousel"
-            data-id="31f3521" data-element_type="widget"
-            data-settings="{&quot;slides_to_show&quot;:&quot;1&quot;,&quot;slides_to_show_mobile&quot;:&quot;1&quot;,&quot;navigation&quot;:&quot;arrows&quot;,&quot;autoplay&quot;:&quot;yes&quot;,&quot;pause_on_hover&quot;:&quot;yes&quot;,&quot;pause_on_interaction&quot;:&quot;yes&quot;,&quot;autoplay_speed&quot;:5000,&quot;infinite&quot;:&quot;yes&quot;,&quot;effect&quot;:&quot;slide&quot;,&quot;speed&quot;:500}"
-            data-widget_type="image-carousel.default">
-            <div class="elementor-widget-container">
-                <div class="elementor-image-carousel-wrapper swiper" dir="ltr">
-                    <div class="elementor-image-carousel swiper-wrapper" aria-live="off">
-                        <div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="1 of 3">
-                            <figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image"
-                                    src="{{ asset('frontends/assets/images/450x600.jpg') }}" alt="450x600" /></figure>
-                        </div>
-                        <div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="2 of 3">
-                            <figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image"
-                                    src="{{ asset('frontends/assets/images/231208_UVN_PUREIT_P2311036_Nuoc-sach-thong-minh_R4-450x600-1.jpg') }}"
-                                    alt="231208_UVN_PUREIT_P2311036_Nuoc sach thong minh_R4 450x600" /></figure>
-                        </div>
-                        <div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="3 of 3">
-                            <figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image"
-                                    src="{{ asset('frontends/assets/images/231208_UVN_PUREIT_P2311036_Utima_R3-450x600-1.jpg') }}"
-                                    alt="231208_UVN_PUREIT_P2311036_Utima_R3 450x600" /></figure>
-                        </div>
-                    </div>
-                    <div class="elementor-swiper-button elementor-swiper-button-prev" role="button" tabindex="0">
-                        <i aria-hidden="true" class="eicon-chevron-left"></i>
-                    </div>
-                    <div class="elementor-swiper-button elementor-swiper-button-next" role="button" tabindex="0">
-                        <i aria-hidden="true" class="eicon-chevron-right"></i>
-                    </div>
 
-                </div>
-            </div>
-        </div>
+        <!-- Pagination -->
+        <div class="swiper-pagination"></div>
+
+        <!-- Navigation buttons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
     </div>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            line-height: 1.6;
-        }
-
-        .sec-about {
-            padding: 80px 20px;
-            background-color: #f8f9fa;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Header Styles */
-        .about-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .line-p-1 {
-            color: #999;
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-        }
-
-        .main-title {
-            color: #334155;
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin: 0;
-            line-height: 1.2;
-        }
-
-        /* Cards Container */
-        .cards-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-bottom: 20px;
-        }
-
-        /* Image Box Styles */
-        .image-box {
-            text-align: center;
-            padding: 40px 30px;
-            border-radius: 20px;
-            transition: all 0.3s ease-in-out;
-            cursor: pointer;
-            height: 100%;
-            background-color: transparent;
-        }
-
-        .image-box:hover {
-            background-color: #334155;
-            color: white;
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(51, 65, 85, 0.2);
-        }
-
-        /* Icon Container - Outer Circle */
-        .image-box-img {
-            width: 96px;
-            height: 96px;
-            background-color: #e3f2fd;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 30px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .image-box:hover .image-box-img {
-            background-color: white;
-        }
-
-        /* Icon Container - Inner Circle */
-        .icon-inner {
-            width: 64px;
-            height: 64px;
-            background-color: #334155;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .image-box:hover .icon-inner {
-            background-color: #334155;
-        }
-
-        /* Image Styling */
-        .elementor-image-box-img {
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .elementor-image-box-img img {
-            max-width: 40px !important;
-            max-height: 40px !important;
-            width: auto !important;
-            height: auto !important;
-            filter: brightness(0) invert(1);
-            transition: all 0.3s ease-in-out;
-        }
-
-        .image-box:hover .elementor-image-box-img img {
-            filter: brightness(0) invert(0);
-        }
-
-        /* Card 2 - Remove icon-inner for WQA */
-        .image-box:nth-child(2) .icon-inner {
-            display: none;
-        }
-
-        .image-box:nth-child(2) .elementor-image-box-img img {
-            max-width: 50px !important;
-            max-height: 50px !important;
-        }
-
-        /* Title Styles */
-        .image-box-title {
-            color: #334155;
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .image-box:hover .image-box-title {
-            color: white;
-        }
-
-        /* Title Underline */
-        .title-underline {
-            width: 48px;
-            height: 4px;
-            background-color: #334155;
-            margin: 0 auto 20px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .image-box:hover .title-underline {
-            background-color: white;
-        }
-
-        /* Description */
-        .image-box-description {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 0;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .image-box:hover .image-box-description {
-            color: white;
-        }
-
-        /* Footnotes - Outside cards container */
-        .footnotes {
-            text-align: center;
-            font-size: 12px;
-            color: #999;
-            font-style: italic;
-            margin-bottom: 40px;
-            margin-top: 20px;
-        }
-
-        .footnotes p {
-            margin-bottom: 5px;
-        }
-
-        /* Button Styles */
-        .button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .mona-btn {
-            background-color: transparent;
-            color: #334155;
-            border: 2px solid #334155;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: 500;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .mona-btn:hover {
-            background-color: #334155;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(51, 65, 85, 0.3);
-        }
-
-        .chat-icon::before {
-            content: "💬";
-            font-size: 16px;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .main-title {
-                font-size: 2.5rem;
-            }
-
-            .cards-container {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .sec-about {
-                padding: 40px 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-title {
-                font-size: 2rem;
-            }
-
-            .image-box {
-                padding: 30px 20px;
-            }
-        }
-    </style>
-
-    <section class="sec-about" id="gioi-thieu">
+    <section class="about-section py-5 text-center" id="gioi-thieu">
         <div class="container">
-            <!-- Header Section -->
-            <div class="about-header">
-                <p class="line-p-1">Về chúng tôi</p>
-                <h2 class="main-title">Pureit tự hào vì</h2>
-            </div>
-
-            <!-- Cards Container -->
-            <div class="cards-container">
-                <!-- Card 1: Global Brand -->
-                <div class="image-box">
-                    <div class="image-box-img">
-                        <div class="icon-inner">
-                            <figure class="elementor-image-box-img"><img decoding="async" width="72" height="68"
-                                    src="{{ asset('frontends/assets/images/gioi-thieu-01.png') }}"
-                                    class="attachment-full size-full wp-image-92" alt=""
-                                    style="width:100%;height:94.44%;max-width:72px" /></figure>
+            <h5 class="text-uppercase fw-bold text-muted mb-2">Về chúng tôi</h5>
+            <h2 class="fw-bold mb-5" data-aos="fade-up">Pureit tự hào vì</h2>
+            <div class="row about-wrapper">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                    <div class="about-item px-3 rounded">
+                        <div class="icon-wrapper mx-auto mb-3">
+                            <img src="assets/image/gioi-thieu-01.png" alt="Toàn cầu" />
                         </div>
+                        <h5 class="fw-bold">Nhãn hiệu máy lọc nước toàn cầu</h5>
+                        <div class="underline mb-2"></div>
+                        <p class="">
+                            Nhãn hiệu máy lọc nước toàn cầu tự hào với hành trình hơn 20
+                            năm kinh nghiệm
+                        </p>
                     </div>
-                    <h3 class="image-box-title">Nhãn hiệu máy lọc nước toàn cầu</h3>
-                    <div class="title-underline"></div>
-                    <p class="image-box-description">
-                        Nhãn hiệu máy lọc nước toàn cầu tự hào với hành trình hơn 20 năm kinh nghiệm
-                    </p>
                 </div>
-
-                <!-- Card 2: WQA Member -->
-                <div class="image-box">
-                    <div class="image-box-img">
-                        <figure class="elementor-image-box-img"><img decoding="async" width="60" height="56"
-                                src="{{ asset('frontends/assets/images/gioi-thieu-03.png') }}"
-                                class="attachment-full size-full wp-image-94" alt=""
-                                style="width:100%;height:93.33%;max-width:60px" /></figure>
-                    </div>
-                    <h3 class="image-box-title">Thành viên của Hiệp hội WQA</h3>
-                    <div class="title-underline"></div>
-                    <p class="image-box-description">
-                        Pureit là thành viên Hiệp hội chất lượng nước Hoa Kỳ, cam kết mang lại nguồn nước an toàn, tinh
-                        khiết
-                    </p>
-                </div>
-
-                <!-- Card 3: Vietnam Awards -->
-                <div class="image-box">
-                    <div class="image-box-img">
-                        <div class="icon-inner">
-                            <figure class="elementor-image-box-img"><img loading="lazy" decoding="async" width="1267"
-                                    height="1266"
-                                    src="{{ asset('frontends/assets/images/Pureit_ConsistentWaterFlow_White.png') }}"
-                                    class="attachment-full size-full wp-image-1775" alt=""
-                                    style="width:100%;height:99.92%;max-width:1267px"
-                                    srcset="https://pureitvn-official.com/wp-content/uploads/2023/11/Pureit_ConsistentWaterFlow_White.png 1267w, https://pureitvn-official.com/wp-content/uploads/2023/11/Pureit_ConsistentWaterFlow_White-300x300.png 300w, https://pureitvn-official.com/wp-content/uploads/2023/11/Pureit_ConsistentWaterFlow_White-1024x1024.png 1024w, https://pureitvn-official.com/wp-content/uploads/2023/11/Pureit_ConsistentWaterFlow_White-150x150.png 150w, https://pureitvn-official.com/wp-content/uploads/2023/11/Pureit_ConsistentWaterFlow_White-768x767.png 768w, https://pureitvn-official.com/wp-content/uploads/2023/11/Pureit_ConsistentWaterFlow_White-600x600.png 600w, https://pureitvn-official.com/wp-content/uploads/2023/11/Pureit_ConsistentWaterFlow_White-100x100.png 100w"
-                                    sizes="(max-width: 1267px) 100vw, 1267px" /></figure>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="about-item px-3 rounded">
+                        <div class="icon-wrapper mx-auto mb-3">
+                            <img src="assets/image/gioi-thieu-03.png" alt="Hiệp hội WQA" />
                         </div>
+                        <h5 class="fw-bold">Thành viên của Hiệp hội WQA</h5>
+                        <div class="underline mb-2"></div>
+                        <p class="">
+                            Pureit là thành viên Hiệp hội chất lượng nước Hoa Kỳ, cam kết
+                            mang lại nguồn nước an toàn, tinh khiết
+                        </p>
                     </div>
-                    <h3 class="image-box-title">Giải thưởng uy tín tại Việt Nam</h3>
-                    <div class="title-underline"></div>
-                    <p class="image-box-description">
-                        "Máy lọc nước âm tủ bếp của năm 2022"* và "Máy lọc nước âm tủ yêu thích nhất hè 2023" do người
-                        tiêu dùng bình chọn**
-                    </p>
-
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="about-item px-3 rounded">
+                        <div class="icon-wrapper mx-auto mb-3">
+                            <img src="assets/image/gioi-thieu-03.png" alt="Giải thưởng" />
+                        </div>
+                        <h5 class="fw-bold">Giải thưởng uy tín tại Việt Nam</h5>
+                        <div class="underline mb-2"></div>
+                        <p class="">
+                            "Máy lọc nước âm tủ bếp của năm 2022"* và "Máy lọc nước âm tủ
+                            yêu thích nhất hè 2023" do người tiêu dùng bình chọn**
+                        </p>
+                    </div>
                 </div>
             </div>
-            <div class="footnotes">
-                <p>(*) Theo Tạp chí Điện Tử và Ứng Dụng</p>
-                <p>(**) Do người tiêu dùng bình chọn tại Diễn đàn Tinh Tế</p>
-            </div>
-            <!-- Button Section -->
-            <div class="button-container">
-                <a href="#" class="mona-btn">
-                    <span class="chat-icon"></span>
+
+            <div class="mt-5" data-aos="fade-up">
+                <a href="#" class="btn btn-outline-primary rounded-pill d-inline-flex align-items-center">
                     Tư vấn ngay
+                    <span
+                        class="ms-2 d-inline-flex align-items-center justify-content-center text-white bg-primary rounded-circle"
+                        style="width: 24px; height: 24px">
+                        <i class="bi bi-arrow-right"></i>
+                    </span>
                 </a>
             </div>
         </div>
     </section>
 
+    <!-- ✅ Product Section -->
+    <section class="product-section py-5 text-center bg-light">
+        <div class="container">
+            <h5 class="text-uppercase fw-bold text-muted mb-2">Sản phẩm</h5>
+            <h2 class="fw-bold mb-5">Các sản phẩm nổi bật của Pureit</h2>
 
+<<<<<<< HEAD
+            <div class="swiper productSwiper mb-4">
+                <div class="swiper-wrapper">
+                    <!-- Product Slide 1 -->
+                    <div class="swiper-slide">
+                        <div class="product-card text-start rounded bg-white shadow-sm p-3">
+                            <span
+                                class="discount-badge position-absolute top-0 start-0 bg-warning text-white rounded-circle d-flex align-items-center justify-content-center">36%</span>
+                            <img src="./assets/image/Ultima-WHT_goc-nghieng-300x300.png" class="product-image mb-3"
+                                alt="Product Image" />
+                            <h6 class="fw-bold product-title">
+                                Máy lọc nước treo tường/để bàn Ultima Trắng
+                            </h6>
+                            <div class="price mt-3">
+                                <span class="original-price text-muted text-decoration-line-through me-2">12.400.000
+                                    đ</span>
+                                <span class="discounted-price text-primary fw-bold">7.990.000 đ</span>
+                            </div>
+                            <div class="d-flex justify-content-between mt-3">
+                                <a href="#" class="btn btn-outline-primary rounded-pill flex-grow-1 me-2">Chi tiết</a>
+                                <a href="#" class="btn btn-primary rounded-pill flex-grow-1">Mua ngay</a>
+                            </div>
+=======
     <section class="elementor-element elementor-element-cc8dcec sec-product e-con-full e-flex e-con e-parent"
         data-id="cc8dcec" data-element_type="container" id="sp-khuyen-mai"
         data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;content_width&quot;:&quot;full&quot;}"
@@ -564,334 +275,228 @@
                                     </figure>
                                 </div>
                             @endforeach
+>>>>>>> cfe3fd761e453b74b3b1c9b57e3d12fa2e151dc6
                         </div>
                     </div>
+                    <div class="swiper-slide">
+                        <div class="product-card text-start rounded bg-white shadow-sm p-3">
+                            <span
+                                class="discount-badge position-absolute top-0 start-0 bg-warning text-white rounded-circle d-flex align-items-center justify-content-center">36%</span>
+                            <img src="./assets/image/Ultima-WHT_goc-nghieng-300x300.png" class="product-image mb-3"
+                                alt="Product Image" />
+                            <h6 class="fw-bold product-title">
+                                Máy lọc nước treo tường/để bàn Ultima Trắng
+                            </h6>
+                            <div class="price mt-3">
+                                <span class="original-price text-muted text-decoration-line-through me-2">12.400.000
+                                    đ</span>
+                                <span class="discounted-price text-primary fw-bold">7.990.000 đ</span>
+                            </div>
+                            <div class="d-flex justify-content-between mt-3">
+                                <a href="#" class="btn btn-outline-primary rounded-pill flex-grow-1 me-2">Chi tiết</a>
+                                <a href="#" class="btn btn-primary rounded-pill flex-grow-1">Mua ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-card text-start rounded bg-white shadow-sm p-3">
+                            <span
+                                class="discount-badge position-absolute top-0 start-0 bg-warning text-white rounded-circle d-flex align-items-center justify-content-center">36%</span>
+                            <img src="./assets/image/Ultima-WHT_goc-nghieng-300x300.png" class="product-image mb-3"
+                                alt="Product Image" />
+                            <h6 class="fw-bold product-title">
+                                Máy lọc nước treo tường/để bàn Ultima Trắng
+                            </h6>
+                            <div class="price mt-3">
+                                <span class="original-price text-muted text-decoration-line-through me-2">12.400.000
+                                    đ</span>
+                                <span class="discounted-price text-primary fw-bold">7.990.000 đ</span>
+                            </div>
+                            <div class="d-flex justify-content-between mt-3">
+                                <a href="#" class="btn btn-outline-primary rounded-pill flex-grow-1 me-2">Chi
+                                    tiết</a>
+                                <a href="#" class="btn btn-primary rounded-pill flex-grow-1">Mua ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-card text-start rounded bg-white shadow-sm p-3">
+                            <span
+                                class="discount-badge position-absolute top-0 start-0 bg-warning text-white rounded-circle d-flex align-items-center justify-content-center">36%</span>
+                            <img src="./assets/image/Ultima-WHT_goc-nghieng-300x300.png" class="product-image mb-3"
+                                alt="Product Image" />
+                            <h6 class="fw-bold product-title">
+                                Máy lọc nước treo tường/để bàn Ultima Trắng
+                            </h6>
+                            <div class="price mt-3">
+                                <span class="original-price text-muted text-decoration-line-through me-2">12.400.000
+                                    đ</span>
+                                <span class="discounted-price text-primary fw-bold">7.990.000 đ</span>
+                            </div>
+                            <div class="d-flex justify-content-between mt-3">
+                                <a href="#" class="btn btn-outline-primary rounded-pill flex-grow-1 me-2">Chi
+                                    tiết</a>
+                                <a href="#" class="btn btn-primary rounded-pill flex-grow-1">Mua ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-card text-start rounded bg-white shadow-sm p-3">
+                            <span
+                                class="discount-badge position-absolute top-0 start-0 bg-warning text-white rounded-circle d-flex align-items-center justify-content-center">36%</span>
+                            <img src="./assets/image/Ultima-WHT_goc-nghieng-300x300.png" class="product-image mb-3"
+                                alt="Product Image" />
+                            <h6 class="fw-bold product-title">
+                                Máy lọc nước treo tường/để bàn Ultima Trắng
+                            </h6>
+                            <div class="price mt-3">
+                                <span class="original-price text-muted text-decoration-line-through me-2">12.400.000
+                                    đ</span>
+                                <span class="discounted-price text-primary fw-bold">7.990.000 đ</span>
+                            </div>
+                            <div class="d-flex justify-content-between mt-3">
+                                <a href="#" class="btn btn-outline-primary rounded-pill flex-grow-1 me-2">Chi
+                                    tiết</a>
+                                <a href="#" class="btn btn-primary rounded-pill flex-grow-1">Mua ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                </div>
+                <!-- Navigation buttons -->
+                <div class="swiper-button-prev product-swiper-prev"></div>
+                <div class="swiper-button-next product-swiper-next"></div>
             </div>
-        </div>
-        <div class="elementor-element elementor-element-dc80921 e-flex e-con-boxed e-con e-child" data-id="dc80921"
-            data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;boxed&quot;}">
-            <div class="e-con-inner">
-                <div class="elementor-element elementor-element-f75929a popmake-33 mona-btn mona-btn-2 elementor-invisible elementor-widget elementor-widget-button"
-                    data-id="f75929a" data-element_type="widget"
-                    data-settings="{&quot;_animation&quot;:&quot;fadeInLeft&quot;}" data-widget_type="button.default">
-                    <div class="elementor-widget-container">
-                        <div class="elementor-button-wrapper">
-                            <a class="elementor-button elementor-size-sm" role="button">
-                                <span class="elementor-button-content-wrapper">
-                                    <span class="elementor-button-text">Tư vấn ngay</span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section
-        class="elementor-element elementor-element-0a20a46 sec-why elementor-hidden-desktop elementor-hidden-tablet elementor-hidden-mobile e-flex e-con-boxed e-con e-parent"
-        data-id="0a20a46" data-element_type="container"
-        data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;content_width&quot;:&quot;boxed&quot;}"
-        data-core-v316-plus="true">
-        <div class="e-con-inner">
-            <div class="elementor-element elementor-element-7be51ea e-con-full e-flex e-con e-child" data-id="7be51ea"
-                data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
-                <div class="elementor-element elementor-element-41dc9c3 line-p-1 elementor-invisible elementor-widget elementor-widget-text-editor"
-                    data-id="41dc9c3" data-element_type="widget"
-                    data-settings="{&quot;_animation&quot;:&quot;fadeInUp&quot;,&quot;_animation_delay&quot;:100}"
-                    data-widget_type="text-editor.default">
-                    <div class="elementor-widget-container">
-                        <p>lý do chọn chúng tôi</p>
-                    </div>
-                </div>
-                <div class="elementor-element elementor-element-0e05aa6 elementor-invisible elementor-widget elementor-widget-heading"
-                    data-id="0e05aa6" data-element_type="widget"
-                    data-settings="{&quot;_animation&quot;:&quot;fadeInUp&quot;,&quot;_animation_delay&quot;:200}"
-                    data-widget_type="heading.default">
-                    <div class="elementor-widget-container">
-                        <h2 class="elementor-heading-title elementor-size-default">Mua sản phẩm từ Pureit thì được
-                            gì?</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="elementor-element elementor-element-e66f335 elementor-hidden-desktop elementor-hidden-tablet elementor-hidden-mobile e-flex e-con-boxed e-con e-child"
-                data-id="e66f335" data-element_type="container"
-                data-settings="{&quot;content_width&quot;:&quot;boxed&quot;}">
-                <div class="e-con-inner">
-                    <div class="elementor-element elementor-element-28ee5eb e-con-full sec-why-image e-flex e-con e-child"
-                        data-id="28ee5eb" data-element_type="container"
-                        data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
-                        <div class="elementor-element elementor-element-caaedf4 elementor-widget elementor-widget-image"
-                            data-id="caaedf4" data-element_type="widget" data-widget_type="image.default">
-                            <div class="elementor-widget-container">
-                                <img loading="lazy" decoding="async" width="527" height="487"
-                                    src="wp-content/uploads/2023/11/why.png"
-                                    class="attachment-full size-full wp-image-161" alt=""
-                                    srcset="https://pureitvn-official.com/wp-content/uploads/2023/11/why.png 527w, https://pureitvn-official.com/wp-content/uploads/2023/11/why-300x277.png 300w"
-                                    sizes="(max-width: 527px) 100vw, 527px"
-                                    style="width:100%;height:92.41%;max-width:527px" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="elementor-element elementor-element-7dc42e0 e-con-full sec-why-list e-flex e-con e-child"
-                        data-id="7dc42e0" data-element_type="container"
-                        data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
-                        <div class="elementor-element elementor-element-1b3bb1b e-con-full sec-why-item e-flex e-con e-child"
-                            data-id="1b3bb1b" data-element_type="container"
-                            data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
-                            <div class="elementor-element elementor-element-a92f2f9 elementor-position-top elementor-widget elementor-widget-image-box"
-                                data-id="a92f2f9" data-element_type="widget" data-widget_type="image-box.default">
-                                <div class="elementor-widget-container">
-                                    <div class="elementor-image-box-wrapper">
-                                        <figure class="elementor-image-box-img"><img loading="lazy" decoding="async"
-                                                width="70" height="70"
-                                                src="wp-content/uploads/2023/11/icon-why-01.png"
-                                                class="attachment-full size-full wp-image-174" alt=""
-                                                style="width:100%;height:100%;max-width:70px" /></figure>
-                                        <div class="elementor-image-box-content">
-                                            <h3 class="elementor-image-box-title">Thiết kế không bình chứa phù hợp
-                                                với không gian sống nhỏ gọn</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="elementor-element elementor-element-228c252 elementor-widget elementor-widget-button"
-                                data-id="228c252" data-element_type="widget" data-widget_type="button.default">
-                                <div class="elementor-widget-container">
-                                    <div class="elementor-button-wrapper">
-                                        <a class="elementor-button elementor-button-link elementor-size-sm"
-                                            href="#">
-                                            <span class="elementor-button-content-wrapper">
-                                                <span class="elementor-button-icon elementor-align-icon-right">
-                                                    <i aria-hidden="true" class="fas fa-arrow-right"></i>
-                                                </span>
-                                                <span class="elementor-button-text">Bấm vào đây</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="elementor-element elementor-element-58fe2b0 e-con-full sec-why-item e-flex e-con e-child"
-                            data-id="58fe2b0" data-element_type="container"
-                            data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
-                            <div class="elementor-element elementor-element-a9e8fb0 elementor-position-top elementor-widget elementor-widget-image-box"
-                                data-id="a9e8fb0" data-element_type="widget" data-widget_type="image-box.default">
-                                <div class="elementor-widget-container">
-                                    <div class="elementor-image-box-wrapper">
-                                        <figure class="elementor-image-box-img"><img loading="lazy" decoding="async"
-                                                width="42" height="42"
-                                                src="wp-content/uploads/2023/11/icon-why-02.png"
-                                                class="attachment-full size-full wp-image-169" alt=""
-                                                style="width:100%;height:100%;max-width:42px" /></figure>
-                                        <div class="elementor-image-box-content">
-                                            <h3 class="elementor-image-box-title">Cảnh báo tuổi thọ lõi lọc</h3>
-                                            <p class="elementor-image-box-description">Công nghệ lọc nước RO
-                                                Water, loại bỏ mọi vi sinh vật, vi khuẩn có hại, giúp gia đình bạn
-                                                tiếp kiệm đến hơn 80 ly nước mỗi ngày, đáp ứng các tiêu chuẩn an
-                                                toàn khắc nghiệt nhất</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="elementor-element elementor-element-66cf74d elementor-widget elementor-widget-button"
-                                data-id="66cf74d" data-element_type="widget" data-widget_type="button.default">
-                                <div class="elementor-widget-container">
-                                    <div class="elementor-button-wrapper">
-                                        <a class="elementor-button elementor-button-link elementor-size-sm"
-                                            href="#">
-                                            <span class="elementor-button-content-wrapper">
-                                                <span class="elementor-button-icon elementor-align-icon-right">
-                                                    <i aria-hidden="true" class="fas fa-arrow-right"></i>
-                                                </span>
-                                                <span class="elementor-button-text">Bấm vào đây</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="elementor-element elementor-element-ecdc475 e-con-full sec-why-item e-flex e-con e-child"
-                            data-id="ecdc475" data-element_type="container"
-                            data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
-                            <div class="elementor-element elementor-element-dfce819 elementor-position-top elementor-widget elementor-widget-image-box"
-                                data-id="dfce819" data-element_type="widget" data-widget_type="image-box.default">
-                                <div class="elementor-widget-container">
-                                    <div class="elementor-image-box-wrapper">
-                                        <figure class="elementor-image-box-img"><img loading="lazy" decoding="async"
-                                                width="70" height="70"
-                                                src="wp-content/uploads/2023/11/icon-why-03.png"
-                                                class="attachment-full size-full wp-image-173" alt=""
-                                                style="width:100%;height:100%;max-width:70px" /></figure>
-                                        <div class="elementor-image-box-content">
-                                            <h3 class="elementor-image-box-title">Tỷ lệ thu hồi nước 60%</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="elementor-element elementor-element-4fcfb4f elementor-widget elementor-widget-button"
-                                data-id="4fcfb4f" data-element_type="widget" data-widget_type="button.default">
-                                <div class="elementor-widget-container">
-                                    <div class="elementor-button-wrapper">
-                                        <a class="elementor-button elementor-button-link elementor-size-sm"
-                                            href="#">
-                                            <span class="elementor-button-content-wrapper">
-                                                <span class="elementor-button-icon elementor-align-icon-right">
-                                                    <i aria-hidden="true" class="fas fa-arrow-right"></i>
-                                                </span>
-                                                <span class="elementor-button-text">Bấm vào đây</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="elementor-element elementor-element-6e8c767 e-con-full sec-why-item e-flex e-con e-child"
-                            data-id="6e8c767" data-element_type="container"
-                            data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
-                            <div class="elementor-element elementor-element-bdc5485 elementor-position-top elementor-widget elementor-widget-image-box"
-                                data-id="bdc5485" data-element_type="widget" data-widget_type="image-box.default">
-                                <div class="elementor-widget-container">
-                                    <div class="elementor-image-box-wrapper">
-                                        <figure class="elementor-image-box-img"><img loading="lazy" decoding="async"
-                                                width="70" height="70"
-                                                src="wp-content/uploads/2023/11/icon-why-04.png"
-                                                class="attachment-full size-full wp-image-170" alt=""
-                                                style="width:100%;height:100%;max-width:70px" /></figure>
-                                        <div class="elementor-image-box-content">
-                                            <h3 class="elementor-image-box-title">Dễ dàng thay thế bộ lọc</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="elementor-element elementor-element-2cc0aff elementor-widget elementor-widget-button"
-                                data-id="2cc0aff" data-element_type="widget" data-widget_type="button.default">
-                                <div class="elementor-widget-container">
-                                    <div class="elementor-button-wrapper">
-                                        <a class="elementor-button elementor-button-link elementor-size-sm"
-                                            href="#">
-                                            <span class="elementor-button-content-wrapper">
-                                                <span class="elementor-button-icon elementor-align-icon-right">
-                                                    <i aria-hidden="true" class="fas fa-arrow-right"></i>
-                                                </span>
-                                                <span class="elementor-button-text">Bấm vào đây</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="elementor-element elementor-element-a63fbc2 e-con-full sec-why-item e-flex e-con e-child"
-                            data-id="a63fbc2" data-element_type="container"
-                            data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
-                            <div class="elementor-element elementor-element-63620b5 elementor-position-top elementor-widget elementor-widget-image-box"
-                                data-id="63620b5" data-element_type="widget" data-widget_type="image-box.default">
-                                <div class="elementor-widget-container">
-                                    <div class="elementor-image-box-wrapper">
-                                        <figure class="elementor-image-box-img"><img loading="lazy" decoding="async"
-                                                width="70" height="70"
-                                                src="wp-content/uploads/2023/11/icon-why-05.png"
-                                                class="attachment-full size-full wp-image-172" alt=""
-                                                style="width:100%;height:100%;max-width:70px" /></figure>
-                                        <div class="elementor-image-box-content">
-                                            <h3 class="elementor-image-box-title">Vật liệu an toàn cho trẻ em</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="elementor-element elementor-element-cfd31c1 elementor-widget elementor-widget-button"
-                                data-id="cfd31c1" data-element_type="widget" data-widget_type="button.default">
-                                <div class="elementor-widget-container">
-                                    <div class="elementor-button-wrapper">
-                                        <a class="elementor-button elementor-button-link elementor-size-sm"
-                                            href="#">
-                                            <span class="elementor-button-content-wrapper">
-                                                <span class="elementor-button-icon elementor-align-icon-right">
-                                                    <i aria-hidden="true" class="fas fa-arrow-right"></i>
-                                                </span>
-                                                <span class="elementor-button-text">Bấm vào đây</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="elementor-element elementor-element-127563f e-con-full sec-why-item e-flex e-con e-child"
-                            data-id="127563f" data-element_type="container"
-                            data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
-                            <div class="elementor-element elementor-element-db0992d elementor-position-top elementor-widget elementor-widget-image-box"
-                                data-id="db0992d" data-element_type="widget" data-widget_type="image-box.default">
-                                <div class="elementor-widget-container">
-                                    <div class="elementor-image-box-wrapper">
-                                        <figure class="elementor-image-box-img"><img loading="lazy" decoding="async"
-                                                width="70" height="70"
-                                                src="wp-content/uploads/2023/11/icon-why-06.png"
-                                                class="attachment-full size-full wp-image-171" alt=""
-                                                style="width:100%;height:100%;max-width:70px" /></figure>
-                                        <div class="elementor-image-box-content">
-                                            <h3 class="elementor-image-box-title">Thiết kế nguyên khối</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="elementor-element elementor-element-4ead9d0 elementor-widget elementor-widget-button"
-                                data-id="4ead9d0" data-element_type="widget" data-widget_type="button.default">
-                                <div class="elementor-widget-container">
-                                    <div class="elementor-button-wrapper">
-                                        <a class="elementor-button elementor-button-link elementor-size-sm"
-                                            href="#">
-                                            <span class="elementor-button-content-wrapper">
-                                                <span class="elementor-button-icon elementor-align-icon-right">
-                                                    <i aria-hidden="true" class="fas fa-arrow-right"></i>
-                                                </span>
-                                                <span class="elementor-button-text">Bấm vào đây</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="elementor-element elementor-element-eda3607 e-con-full e-flex e-con e-child" data-id="eda3607"
-                data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
-                <div class="elementor-element elementor-element-85133eb popmake-33 mona-btn mona-btn-2 elementor-widget elementor-widget-button"
-                    data-id="85133eb" data-element_type="widget" data-widget_type="button.default">
-                    <div class="elementor-widget-container">
-                        <div class="elementor-button-wrapper">
-                            <a class="elementor-button elementor-size-sm" role="button">
-                                <span class="elementor-button-content-wrapper">
-                                    <span class="elementor-button-text">Tư vấn ngay</span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <div class="mt-5" data-aos="fade-up">
+                <a href="#" class="btn btn-outline-primary rounded-pill d-inline-flex align-items-center">
+                    Tư vấn ngay
+                    <span
+                        class="ms-2 d-inline-flex align-items-center justify-content-center text-white bg-primary rounded-circle"
+                        style="width: 24px; height: 24px">
+                        <i class="bi bi-arrow-right"></i>
+                    </span>
+                </a>
             </div>
         </div>
     </section>
 
-    <section class="elementor-element elementor-element-594beed sec-product e-flex e-con-boxed e-con e-parent"
-        data-id="594beed" data-element_type="container"
-        data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;content_width&quot;:&quot;boxed&quot;}"
-        data-core-v316-plus="true">
-        <div class="e-con-inner">
-            <div class="elementor-element elementor-element-b773a2c e-con-full e-flex e-con e-child" data-id="b773a2c"
-                data-element_type="container"
-                data-settings="{&quot;content_width&quot;:&quot;full&quot;,&quot;background_background&quot;:&quot;classic&quot;}">
-                <div class="section-filter-products">
-                    <div class="container">
-                        <div class="section-subtitle">
-                            <p>Sản phẩm</p>
+    <!-- ✅ Testimonial Section -->
+    <section class="testimonial-section py-5 text-center">
+        <div class="container">
+            <h5 class="text-uppercase fw-bold text-muted mb-2">
+                Nhận xét từ khách hàng
+            </h5>
+            <h2 class="fw-bold mb-5" data-aos="fade-up">
+                Khách hàng nói gì về Pureit
+            </h2>
+
+            <div class="row align-items-center mb-4">
+                <div class="col-md-5 text-md-start" data-aos="fade-right">
+                    <h1 class="display-1 fw-bold text-primary">2,000+</h1>
+                    <h4 class="fw-bold">
+                        Khách hàng đã tin dùng sản phẩm của Pureit
+                    </h4>
+                    <p class="text-muted mt-3">
+                        Các sản phẩm của Pureit đã đạt được hơn 2000+ khách hàng trên
+                        toàn quốc sử dụng và nhận được nhiều đánh giá tích cực. Đội ngũ
+                        nhân viên của Pureit chân thành cảm ơn tất cả các khách hàng đã
+                        và đang tin dùng sản phẩm của chúng tôi!
+                    </p>
+                </div>
+                <div class="col-md-7" data-aos="fade-left">
+                    <div class="swiper testimonialSwiper">
+                        <div class="swiper-wrapper">
+                            <!-- Testimonial Slide 1 -->
+                            <div class="swiper-slide">
+                                <div class="testimonial-card position-relative d-md-flex p-4 rounded shadow-sm bg-white">
+                                    <div class="testimonial-image-wrapper me-md-4 mb-3 mb-md-0">
+                                        <img src="./assets/image/a.jpg" alt="Customer" class="img-fluid rounded"
+                                            style="max-width: 150px" />
+                                        <h6 class="fw-bold mb-0 mt-2">Chị Trinh</h6>
+                                        <p class="text-muted mb-0">Hồ Chí Minh</p>
+                                    </div>
+                                    <div class="testimonial-content text-start">
+                                        <p class="mb-3">
+                                            Là một trong những chủ nhân đầu tiên của chiếc máy lọc
+                                            nước Âm tủ bếp Delica UR5840. Chị nhận xét "siêu phẩm"
+                                            này có thiết kế nhỏ gọn, hiện đại, đặc biệt hệ thống
+                                            đèn UV thông minh, có thể hiện chất lượng nước đầu ra,
+                                            kích thước tiện lợi nhỏ gọn cho các hộ gia đình sử
+                                            dụng.
+                                        </p>
+
+                                        <i class="bi bi-quote text-primary" style="font-size: 3rem"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="testimonial-card position-relative d-md-flex p-4 rounded shadow-sm bg-white">
+                                    <div class="testimonial-image-wrapper me-md-4 mb-3 mb-md-0">
+                                        <img src="./assets/image/a.jpg" alt="Customer" class="img-fluid rounded"
+                                            style="max-width: 150px" />
+                                    </div>
+                                    <div class="testimonial-content text-start">
+                                        <p class="mb-3">
+                                            Là một trong những chủ nhân đầu tiên của chiếc máy lọc
+                                            nước Âm tủ bếp Delica UR5840. Chị nhận xé
+                                        </p>
+                                        <h6 class="fw-bold mb-0">Chị Trinh</h6>
+                                        <p class="text-muted">Hồ Chí Minh</p>
+                                        <i class="bi bi-quote text-primary" style="font-size: 3rem"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="section-title">
-                            <h2>Sản phẩm lõi lọc của Pureit</h2>
-                        </div>
+                        <!-- Pagination -->
+                        <div class="swiper-pagination testimonial-pagination"></div>
                     </div>
                 </div>
+            </div>
+
+            <div class="mt-5" data-aos="fade-up">
+                <a href="#" class="btn btn-outline-primary rounded-pill d-inline-flex align-items-center">
+                    Tư vấn ngay
+                    <span
+                        class="ms-2 d-inline-flex align-items-center justify-content-center text-white bg-primary rounded-circle"
+                        style="width: 24px; height: 24px">
+                        <i class="bi bi-arrow-right"></i>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ Distributor and Certificate Section -->
+    <section class="distributor-certificate-section bg-light">
+        <div class="container distributor-certificate">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2 class="fw-bold mb-4 text-primary">Nhà phân phối</h2>
+                    <p>Công ty TNHH Thương Mại Đầu Tư Mai Thanh</p>
+
+                    <h4 class="fw-bold mt-4 mb-3 text-primary">
+                        THÔNG TIN CHUYỂN KHOẢN
+                    </h4>
+                    <p class="mb-1">
+                        <strong>Tên tài khoản:</strong> Công ty TNHH Thương Mại Đầu Tư
+                        Mai Thanh
+                    </p>
+                    <p class="mb-1"><strong>Số tài khoản:</strong> 2022208</p>
+                    <p class="mb-1">
+                        <strong>Ngân hàng:</strong> Thương mại cổ phần Á Châu – ACB
+                    </p>
+                    <p class="mb-1"><strong>Chi nhánh:</strong> Phú Thọ, TP. HCM</p>
+                    <p class="mb-1">
+                        <strong>Nội dung:</strong> Tên Khách Hàng + Số điện thoại đăng
+                        ký mua máy
+                    </p>
+                </div>
+<<<<<<< HEAD
+                <div class="col-md-6 text-center">
+                    <img src="./assets/image/241114_UVN_PUREIT_P2411169-1_Pureit-landing-page-revert_R1-2048x1078.png"
+                        alt="Pureit Certificate" class="img-fluid" />
+=======
 
                 <div class="elementor-element elementor-element-2a9fbf3 e-flex e-con-boxed e-con e-child"
                     data-id="2a9fbf3" data-element_type="container"
@@ -976,10 +581,13 @@
                             </div>
                         </div>
                     </div>
+>>>>>>> cfe3fd761e453b74b3b1c9b57e3d12fa2e151dc6
                 </div>
             </div>
         </div>
     </section>
+<<<<<<< HEAD
+=======
 
     <section class="elementor-element elementor-element-17d6a84 sec-fb e-flex e-con-boxed e-con e-parent"
         data-id="17d6a84" data-element_type="container" id="y-kien-kh"
@@ -1466,4 +1074,5 @@
             </div>
         </div>
     </div>
+>>>>>>> cfe3fd761e453b74b3b1c9b57e3d12fa2e151dc6
 @endsection

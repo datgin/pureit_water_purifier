@@ -3,24 +3,12 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-
-    public function list()
+    public function index($slug)
     {
-        $products = Product::all();
-        return view('frontend.pages.products.index', compact('products'));
-    }
-
-    public function detail($slug)
-    {
-        $product = Product::with('images')->where('slug', $slug)->firstOrFail();
-
-        $product->increment('view_count');
-        // dd($product);
-
-        return view('frontend.pages.products.detail', compact('product'));
+        return view('frontend.pages.shop');
     }
 }
