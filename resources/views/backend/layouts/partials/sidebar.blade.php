@@ -49,11 +49,11 @@
                                     <span class="sub-item">Quản lý danh mục</span>
                                 </a>
                             </li>
-                            {{-- <li class="nav-item {{ activeMenu('admin.keywords.index') }}">
-                                <a href="{{ route('admin.keywords.index') }}">
-                                    <span class="sub-item">Từ khóa sản phẩm</span>
+                            <li class="nav-item {{ activeMenu('admin.attributes.index') }}">
+                                <a href="{{ route('admin.attributes.index') }}">
+                                    <span class="sub-item">Quản lý thuộc tính</span>
                                 </a>
-                            </li> --}}
+                            </li>
                         </ul>
                     </div>
                 </li>
