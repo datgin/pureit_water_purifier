@@ -7,5 +7,7 @@
  <script src="{{ asset('frontend/assets/js/aos.js') }}"></script>
 
  <script src="{{ asset('frontend/assets/js/script.js') }}"></script>
+ <script src="{{ asset('frontend/assets/js/popup.js') }}"></script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
  @stack('scripts')

@@ -45,7 +45,7 @@
                 <a href="tel:1900633463" class="btn btn-outline-call d-flex align-items-center">
                     <i class="bi bi-telephone me-2"></i>1900 633 463
                 </a>
-                <a href="#" class="btn btn-advice">NHẬN TƯ VẤN NGAY</a>
+                <a href="#" class="btn btn-advice btn-get-advice">NHẬN TƯ VẤN NGAY</a>
             </div>
             <!-- Icon tìm kiếm luôn hiển thị -->
             <button type="button" class="text-dark fs-4 border rounded-circle search-icon">

@@ -68,7 +68,7 @@
             </div>
 
             <div class="mt-5" data-aos="fade-up">
-                <a href="#" class="btn btn-outline-primary rounded-pill d-inline-flex align-items-center">
+                <a href="#" class="btn btn-outline-primary rounded-pill d-inline-flex align-items-center btn-get-advice">
                     Tư vấn ngay
                     <span
                         class="ms-2 d-inline-flex align-items-center justify-content-center text-white bg-primary rounded-circle"
@@ -102,7 +102,7 @@
             </div>
 
             <div class="mt-5" data-aos="fade-up">
-                <a href="#" class="btn btn-outline-primary rounded-pill d-inline-flex align-items-center">
+                <a href="#" class="btn btn-outline-primary rounded-pill d-inline-flex align-items-center btn-get-advice">
                     Tư vấn ngay
                     <span
                         class="ms-2 d-inline-flex align-items-center justify-content-center text-white bg-primary rounded-circle"
@@ -188,7 +188,7 @@
             </div>
 
             <div class="mt-5" data-aos="fade-up">
-                <a href="#" class="btn btn-outline-primary rounded-pill d-inline-flex align-items-center">
+                <a href="#" class="btn btn-outline-primary rounded-pill d-inline-flex align-items-center btn-get-advice">
                     Tư vấn ngay
                     <span
                         class="ms-2 d-inline-flex align-items-center justify-content-center text-white bg-primary rounded-circle"
