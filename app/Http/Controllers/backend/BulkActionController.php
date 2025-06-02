@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 
 class BulkActionController extends Controller
 {
@@ -12,7 +13,7 @@ class BulkActionController extends Controller
     {
         $type = request()->input('type');
 
-        $validatedData = $request->validate([
+        $credentials = Validator::make($request->all(), [
             'model' => 'required|string',
             'ids' => 'required',
         ], [], [
@@ -20,35 +21,45 @@ class BulkActionController extends Controller
             'ids' => 'Danh sách ID',
         ]);
 
-        $modelClass = "App\\Models\\" . $validatedData['model'];
+        if ($credentials->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $credentials->errors()->first()
+            ], 422);
+        }
+
+        $credentials = $credentials->validated();
+
+        $modelClass = "App\\Models\\" . $credentials['model'];
 
         // Kiểm tra xem class có tồn tại hay không
         if (!class_exists($modelClass)) {
             return response()->json(['message' => 'Model không hợp lệ.'], 400);
         }
 
+        if (!is_array($credentials['ids'])) $credentials['ids'] = [$credentials['ids']];
+
         try {
             switch ($type) {
                 case 'delete':
-                    $this->deleteImages($modelClass, $validatedData['ids']);
-                    $modelClass::whereIn('id', $validatedData['ids'])->delete();
+                    $this->deleteImages($modelClass, $credentials['ids']);
+                    $modelClass::whereIn('id', $credentials['ids'])->delete();
                     return response()->json(['message' => 'Xóa thành công!'], 200);
 
-                case 'changeStatus':
-                    if (!is_array($validatedData['ids'])) $validatedData['ids'] = [$validatedData['ids']];
-                    $modelClass::whereIn('id', $validatedData['ids'])->get()->map(function ($q) {
+                case 'change-status':
+                    $modelClass::whereIn('id', $credentials['ids'])->get()->map(function ($q) {
                         return $q->update(['status' => $q->status == ! $q->status]);
                     });
                     return response()->json(['success' => true, 'message' => 'Thay đổi trạng thái thành công!'], 200);
 
                 case 'restore':
                     // Phục hồi các bản ghi đã xóa mềm
-                    $modelClass::onlyTrashed()->whereIn('id', $validatedData['ids'])->restore();
+                    $modelClass::onlyTrashed()->whereIn('id', $credentials['ids'])->restore();
                     return response()->json(['success' => true, 'message' => 'Phục hồi thành công!'], 200);
 
                 case 'forceDelete':
                     // Xóa vĩnh viễn các bản ghi đã xóa mềm
-                    $modelClass::whereIn('id', $validatedData['ids'])->forceDelete();
+                    $modelClass::whereIn('id', $credentials['ids'])->forceDelete();
                     return response()->json(['success' => true, 'message' => 'Xóa vĩnh viễn thành công!'], 200);
                 default:
                     return response()->json(['success' => false, 'message' => 'Loại hành động không hợp lệ.'], 400);

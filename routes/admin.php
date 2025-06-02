@@ -39,13 +39,14 @@ Route::name('admin.')->group(function () {
             Route::put('{id}/restore', [KeywordController::class, 'restore'])->name('restore');
         });
 
-        Route::prefix('products')->name('products.')->group(function () {
-            Route::get('/', [ProductController::class, 'index'])->name('index');
-            Route::get('add', [ProductController::class, 'add'])->name('add');
-            Route::post('store', [ProductController::class, 'store'])->name('store');
-            Route::get('detail/{id}', [ProductController::class, 'edit'])->name('detail');
-            Route::post('update/{id}', [ProductController::class, 'update'])->name('update');
-            Route::delete('delete/{id}', [ProductController::class, 'delete'])->name('delete');
+        Route::group([
+            'prefix' => 'products',
+            'controller' => ProductController::class,
+            'as' => 'products.'
+        ], function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('save/{id?}', 'save')->name('save');
+            Route::get('search', 'searchProducts')->name('search');
         });
     });
 

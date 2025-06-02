@@ -21,20 +21,21 @@ class Product extends Model
         'image',
         'price',
         'slug',
-        'description_short',
         'description',
+        'cross_sell',
         'title_seo',
         'description_seo',
         'view_count',
-        'discount_type',
         'discount_value',
         'discount_start_date',
-        'discount_end_date'
+        'discount_end_date',
+        'manual_vi',
+        'manual_en',
+        'status'
     ];
 
     protected $casts = [
-        'price' => 'decimal:2',
-        'discount_value' => 'decimal:2',
+        'status' => 'boolean',
         'discount_start_date' => 'datetime',
         'discount_end_date' => 'datetime',
     ];
@@ -69,47 +70,8 @@ class Product extends Model
         return $this->hasOne(SeoScoreProduct::class, 'product_id', 'id');
     }
 
-    public function priceDiscount()
+    public function getImageAttribute($value)
     {
-        $now = now();
-        $isInDiscountTime = true;
-
-        if ($this->discount_start_date || $this->discount_end_date) {
-            $start = $this->discount_start_date ? Carbon::parse($this->discount_start_date) : Carbon::minValue();
-            $end = $this->discount_end_date ? Carbon::parse($this->discount_end_date) : Carbon::maxValue();
-            $isInDiscountTime = $now->between($start, $end);
-        }
-
-        if ($isInDiscountTime) {
-            if ($this->discount_type === 'percentage') {
-                return round($this->price * (1 - ($this->discount_value / 100)), 0);
-            }
-
-            if ($this->discount_type === 'amount') {
-                return max(0, $this->price - $this->discount_value);
-            }
-        }
-
-        return $this->price;
+        return showImage($value);
     }
-
-
-    public function getDiscountPercentAttribute()
-    {
-        if ($this->discount_type === 'percentage') {
-            return $this->discount_value;
-        }
-
-        if ($this->discount_type === 'amount' && $this->price > 0) {
-            return round(($this->discount_value / $this->price) * 100, 0);
-        }
-
-        return 0;
-    }
-
-    public function getFinalPriceAttribute()
-    {
-        return $this->priceDiscount();
-    }
-
 }

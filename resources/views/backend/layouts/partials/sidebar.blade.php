@@ -39,7 +39,12 @@
                     </a>
                     <div class="collapse" id="product">
                         <ul class="nav nav-collapse">
-                           <li class="nav-item {{ activeMenu('admin.categories.index') }}">
+                            <li class="nav-item {{ activeMenu('admin.products.index') }}">
+                                <a href="{{ route('admin.products.index') }}">
+                                    <span class="sub-item">Quản lý sản phẩm</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ activeMenu('admin.categories.index') }}">
                                 <a href="{{ route('admin.categories.index') }}">
                                     <span class="sub-item">Quản lý danh mục</span>
                                 </a>
@@ -49,16 +54,6 @@
                                     <span class="sub-item">Từ khóa sản phẩm</span>
                                 </a>
                             </li> --}}
-                            <li class="nav-item {{ activeMenu('admin.products.index') }}">
-                                <a href="{{ route('admin.products.index') }}">
-                                    <span class="sub-item">quản lý sản phẩm</span>
-                                </a>
-                            </li>
-                            <li class="nav-item {{ activeMenu('admin.product.index') }}">
-                                <a href="{{ route('admin.product.index') }}">
-                                    <span class="sub-item">Danh sách sản phẩm</span>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </li>
@@ -85,7 +80,7 @@
                     </div>
                 </li> --}}
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a data-bs-toggle="collapse" class="has-children" href="#news">
                         <i class="fas fa-newspaper"></i>
                         <p>Bài viết</p>
@@ -105,7 +100,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> --}}
 
                 {{-- <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#home">
