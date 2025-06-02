@@ -29,6 +29,8 @@
         @include('frontend.layouts.includes.search-overlay')
     </div>
 
+    @include('frontend.pages.popup.index')
+
     <!-- ✅ Footer -->
     <footer class="footer">
         @include('frontend.layouts.includes.footer')
