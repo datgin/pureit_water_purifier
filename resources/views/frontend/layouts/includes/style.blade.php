@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="{{ asset('frontend/assets/css/swiper-bundle.min.css') }}" />
 
 <link rel="stylesheet" href="{{ asset('frontend/assets/css/aos.css') }}" />
+<link rel="stylesheet" href="{{ asset('frontend/assets/css/popup.css') }}" />
 
 <link rel="stylesheet"
     href="{{ asset('frontend/assets/css/style.css') }}?v={{ filemtime(public_path('frontend/assets/css/style.css')) }}" />

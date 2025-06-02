@@ -42,7 +42,8 @@ class Product extends Model
         'discount_start_date' => 'datetime',
         'discount_end_date' => 'datetime',
         'cross_sell' => 'array',
-        'features' => 'array'
+        'features' => 'array',
+        'is_featured' => 'boolean'
     ];
 
     public function attributeValues()

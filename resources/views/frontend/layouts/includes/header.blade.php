@@ -24,7 +24,7 @@
                 </li>
                 @foreach ($productCategories as $category)
                     <li class="nav-item">
-                        <a class="nav-link fw-bold" href="{{ route('category', $category->slug) }}">
+                        <a class="nav-link fw-bold" href="{{ route('product', $category->slug) }}">
                             {{ $category->name }}
                         </a>
                     </li>
@@ -45,7 +45,7 @@
                 <a href="tel:{{$setting->hotline}}" class="btn btn-outline-call d-flex align-items-center">
                     <i class="bi bi-telephone me-2"></i>{{$setting->hotline}}
                 </a>
-                <a href="#" class="btn btn-advice">NHẬN TƯ VẤN NGAY</a>
+                <a href="#" class="btn btn-advice btn-get-advice">NHẬN TƯ VẤN NGAY</a>
             </div>
             <!-- Icon tìm kiếm luôn hiển thị -->
             <button type="button" class="text-dark fs-4 border rounded-circle search-icon">
