@@ -141,10 +141,16 @@
 
                                     </div>
 
-                                    <div class="col-lg-12 mb-3">
+                                    {{-- <div class="col-lg-12 mb-3">
                                         <label for="image" class="form-label">Slider</label>
                                         <div class="input-images pb-3"></div>
+                                    </div> --}}
+                                    <div class="form-group mb-2 col-lg-12">
+                                        <label for="footer" class="form-label">Footer </label>
+                                        <input value="{{ $config->footer ?? '' }}" id="footer"
+                                            name="footer"class="form-control" type="text" placeholder="Footer">
                                     </div>
+
                                 </div>
 
                                 <div class="d-flex justify-content-center">

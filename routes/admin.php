@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\BulkActionController;
+use App\Http\Controllers\Backend\ConfigController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Auth\AuthController;
 use App\Http\Controllers\Backend\CategoryController;
@@ -47,6 +48,15 @@ Route::name('admin.')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('save/{id?}', 'save')->name('save');
             Route::get('search', 'searchProducts')->name('search');
+        });
+
+        Route::prefix('configs')->name('config.')->group(function () {
+            Route::get('/', [ConfigController::class, 'index'])->name('index');
+            Route::post('update', [ConfigController::class, 'store'])->name('update');
+            Route::get('seo', [ConfigController::class, 'seo'])->name('seo');
+            Route::post('seo', [ConfigController::class, 'storeSeo'])->name('store');
+            Route::get('slider', [ConfigController::class, 'slider'])->name('slider');
+            Route::post('slider', [ConfigController::class, 'sliderUpdate'])->name('slider.update');
         });
     });
 
