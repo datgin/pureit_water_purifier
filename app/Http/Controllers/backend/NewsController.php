@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewsRequest;
+use App\Models\Category;
 use App\Models\Keyword;
 use App\Models\News;
 use Illuminate\Http\Request;
@@ -31,7 +32,9 @@ class NewsController extends Controller
         $new = new News();
         $new->keyword_ids = [];
         $keywords = Keyword::pluck('name')->toArray();
-        return view('backend.news.form', compact('title', 'page', 'new', 'keywords', 'isEdit'));
+        $categories = Category::where('type', 'blog')->get();
+
+        return view('backend.news.form', compact('title', 'page', 'new', 'keywords', 'isEdit', 'categories'));
     }
 
     public function edit($id)
@@ -41,12 +44,15 @@ class NewsController extends Controller
         $title = 'Sửa Bài viết';
         $new = News::find($id);
         $keywords = Keyword::pluck('name')->toArray();
-        return view('backend.news.form', compact('new', 'title', 'page', 'keywords', 'isEdit'));
+        $categories = Category::where('type', 'blog')->get();
+
+        return view('backend.news.form', compact('new', 'title', 'page', 'keywords', 'isEdit', 'categories'));
     }
 
     public function store(Request $request)
     {
         $credentials = $request->validate([
+            'category_id' => 'required|integer|exists:categories,id',
             'title' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:news,slug',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -90,6 +96,7 @@ class NewsController extends Controller
     public function update(Request $request, $id)
     {
         $credentials = $request->validate([
+            'category_id' => 'required|integer|exists:categories,id',
             'title' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:news,slug,' . $id,
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="footer-logo">
-                    <img src="./assets/image/logo-footer.png" alt="Pureit Logo" class="img-fluid" />
+                    <img src="{{showImage($setting)}}" alt="Pureit Logo" class="img-fluid" />
                 </div>
                 <div class="footer-about mt-4">
                     <h6 class="fw-bold">Chúng tôi tự hào là</h6>
@@ -16,8 +16,7 @@
                     <h5 class="fw-bold mb-3">Địa chỉ Showroom</h5>
                     <ul class="list-unstyled">
                         <li>
-                            <i class="bi bi-geo-alt me-2"></i> 156 Nguyễn Lương Bằng, P.
-                            Tân Phú, Quận 7, TP.HCM
+                            <i class="bi bi-geo-alt me-2"></i> {{$setting->address}}
                         </li>
                     </ul>
                     <div class="social-icons mt-3">
@@ -31,13 +30,13 @@
                     <h5 class="fw-bold mb-3">Tư vấn và liên hệ</h5>
                     <ul class="list-unstyled">
                         <li>
-                            <i class="bi bi-telephone me-2"></i> Tổng đài: 1900 633 463
+                            <i class="bi bi-telephone me-2"></i> Tổng đài: {{$setting->hotline}}
                         </li>
-                        <li>Kinh doanh: Nhấn phím 1</li>
-                        <li>Bảo trì: Nhấn phím 2</li>
+                        <li>Bảo trì: {{$setting->hotline_baotri}}</li>
+                        <li>Kinh doanh: {{$setting->hotline_kinhdoanh}}</li>
                         <li class="mt-3">
                             <i class="bi bi-envelope me-2"></i>
-                            unileverpureit.vn@pureitwater.com
+                           {{$setting->email}}
                         </li>
                     </ul>
                 </div>
@@ -57,8 +56,7 @@
         <div class="row align-items-center">
             <div class="col-md-12 text-center">
                 <p class="mb-0 copyright">
-                    &copy; 2023 Pureit. All rights reserved. Thiết kế và lập trình
-                    bởi MONA.Media / Website ◆
+                    &copy; {{$setting->footer}}
                 </p>
             </div>
         </div>

@@ -8,21 +8,21 @@
 
         <!-- Logo center -->
         <a href="#" class="navbar-brand mx-auto mobile-only">
-            <img src="./assets/image/logo.png" alt="Logo" class="logo" />
+            <img src="{{showImage($setting->logo)}}" alt="Logo" class="logo" />
         </a>
 
         <!-- Desktop logo left -->
         <a href="#" class="navbar-brand desktop-only">
-            <img src="./assets/image/logo.png" alt="Logo" class="logo" />
+            <img src="{{showImage($setting->logo)}}" alt="Logo" class="logo" />
         </a>
 
         <!-- Desktop menu -->
         <div class="desktop-only">
             <ul class="navbar-nav flex-row">
                 <li class="nav-item">
-                    <a class="nav-link fw-bold" href="#gioi-thieu">Về Pureit</a>
+                    <a class="nav-link fw-bold" href="{{route('home')}}">Về Pureit</a>
                 </li>
-                @foreach ($categories as $category)
+                @foreach ($productCategories as $category)
                     <li class="nav-item">
                         <a class="nav-link fw-bold" href="{{ route('product', $category->slug) }}">
                             {{ $category->name }}
@@ -34,7 +34,7 @@
                     <a class="nav-link fw-bold" href="#">Dịch Vụ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fw-bold" href="#">Tin tức</a>
+                    <a class="nav-link fw-bold" href="{{route('news')}}">Tin tức</a>
                 </li>
             </ul>
         </div>
@@ -42,8 +42,8 @@
         <!-- Chỉ hiển thị trên desktop -->
         <div class="d-flex align-items-center gap-2">
             <div class="desktop-only d-flex align-items-center gap-2">
-                <a href="tel:1900633463" class="btn btn-outline-call d-flex align-items-center">
-                    <i class="bi bi-telephone me-2"></i>1900 633 463
+                <a href="tel:{{$setting->hotline}}" class="btn btn-outline-call d-flex align-items-center">
+                    <i class="bi bi-telephone me-2"></i>{{$setting->hotline}}
                 </a>
                 <a href="#" class="btn btn-advice btn-get-advice">NHẬN TƯ VẤN NGAY</a>
             </div>

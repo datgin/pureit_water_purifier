@@ -18,12 +18,18 @@ class Category extends Model
         'seo_description',
         'seo_keywords',
         'status',
-        'location'
+        'location',
+        'type'
     ];
 
     public function products()
     {
         return $this->hasMany(Product::class, 'category_id');
+    }
+
+    public function news()
+    {
+        return $this->hasMany(News::class, 'category_id');
     }
 
     protected $casts = [
