@@ -1,4 +1,5 @@
 @extends('frontend.master')
+
 @section('content')
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
@@ -90,27 +91,7 @@
                     <!-- Product Slide 1 -->
                     @foreach ($products as $product)
                         <div class="swiper-slide">
-                            <div class="product-card text-start rounded bg-white shadow-sm p-3">
-                                <span
-                                    class="discount-badge position-absolute top-0 start-0 bg-warning text-white rounded-circle d-flex align-items-center justify-content-center">36%</span>
-                                <img src="{{ $product->image }}" class="product-image mb-3" alt="Product Image" />
-                                <h6 class="fw-bold product-title">
-                                    {{ $product->name }}
-                                </h6>
-                                <div class="price mt-3">
-                                    <span
-                                        class="original-price text-muted text-decoration-line-through me-2">{{ number_format($product->price, 0, ',', '.')  }}
-                                        đ</span>
-                                    <span class="discounted-price text-primary fw-bold">
-                                        {{ number_format($product->discount_value, 0, ',', '.') }} đ
-                                    </span>
-                                </div>
-                                <div class="d-flex justify-content-between mt-3">
-                                    <a href="#" class="btn btn-outline-primary rounded-pill flex-grow-1 me-2">Chi
-                                        tiết</a>
-                                    <a href="#" class="btn btn-primary rounded-pill flex-grow-1">Mua ngay</a>
-                                </div>
-                            </div>
+                            <x-product-item :product="$product"/>
                         </div>
                     @endforeach
                 </div>

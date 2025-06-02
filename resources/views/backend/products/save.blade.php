@@ -372,7 +372,6 @@
                     </div>
                 </div>
 
-                <!-- Catalogue -->
                 <div class="card">
                     <div class="card-body">
                         <label class="mb-2 fw-semibold">Danh mục <span class="text-danger">*</span></label>
@@ -388,16 +387,26 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title fs-6 fw-bold">Hình ảnh nổi bật</h4>
+                        <h4 class="card-title fs-6 fw-bold required">Trạng thái
+                        </h4>
                     </div>
                     <div class="card-body">
-                        <img class="img-thumbnail" id="show_image"
-                            style="cursor: pointer; width: 100%; height: auto; object-fit: cover;"
-                            src="{{ $product->image ?? '' }}" alt=""
-                            onclick="document.getElementById('image').click();">
+                        <select name="status" class="form-select form-control" id="status">
+                            <option value="1" @selected($product->status ?? '')>Xuất bản </option>
+                            <option value="0" @selected(optional($product)->status === false)>Chưa xuất bản</option>
+                        </select>
+                    </div>
+                </div>
 
-                        <input type="file" name="image" id="image" class="form-control d-none"
-                            accept="image/*" onchange="previewImage(event, 'show_image')">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title fs-6 fw-bold">Là sản phẩm nổi bật?</h4>
+                    </div>
+                    <div class="card-body">
+                        <label class="switch">
+                            <input name="is_featured" type="checkbox" value="1" @checked(!empty($product) && $product->is_featured)>
+                            <span class="slider round"></span>
+                        </label>
                     </div>
                 </div>
 
@@ -411,6 +420,25 @@
                             value="{{ !empty($product) && $product->seo_keywords ? implode(',', $product->seo_keywords) : '' }}">
                     </div>
                 </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title fs-6 fw-bold required">Từ khóa seo
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <img class="img-thumbnail" id="show_image"
+                            style="cursor: pointer; width: 100%; height: auto; object-fit: cover;"
+                            src="{{ $product->image ?? '' }}" alt=""
+                            onclick="document.getElementById('image').click();">
+
+                        <input type="file" name="image" id="image" class="form-control d-none"
+                            accept="image/*" onchange="previewImage(event, 'show_image')">
+                    </div>
+                </div>
+
+
+
 
                 <div class="card">
                     <div class="card-header">
@@ -498,10 +526,10 @@
                         <label for="attribute_value_${attrId}" class="form-label">Chọn giá trị cho <strong>${attrName}</strong></label>
                         <select name="attribute_values[${attrId}][]" id="attribute_value_${attrId}" class="form-select select2">
                             ${values.map(v => `
-                                        <option value="${v.id}" ${selectedAttributeValues[attrId] && selectedAttributeValues[attrId].includes(v.id) ? 'selected' : ''}>
-                                            ${v.value}
-                                        </option>
-                                    `).join('')}
+                                                                    <option value="${v.id}" ${selectedAttributeValues[attrId] && selectedAttributeValues[attrId].includes(v.id) ? 'selected' : ''}>
+                                                                        ${v.value}
+                                                                    </option>
+                                                                `).join('')}
                         </select>
                     </div>`;
 

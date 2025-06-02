@@ -37,7 +37,8 @@ class BulkActionController extends Controller
             return response()->json(['message' => 'Model không hợp lệ.'], 400);
         }
 
-        if (!is_array($credentials['ids'])) $credentials['ids'] = [$credentials['ids']];
+        if (!is_array($credentials['ids']))
+            $credentials['ids'] = [$credentials['ids']];
 
         try {
             switch ($type) {
@@ -48,7 +49,7 @@ class BulkActionController extends Controller
 
                 case 'change-status':
                     $modelClass::whereIn('id', $credentials['ids'])->get()->map(function ($q) {
-                        return $q->update(['status' => $q->status == ! $q->status]);
+                        return $q->update(['status' => $q->status = !$q->status]);
                     });
                     return response()->json(['success' => true, 'message' => 'Thay đổi trạng thái thành công!'], 200);
 

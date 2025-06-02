@@ -122,8 +122,6 @@ class AttributeController extends Controller
 
         $attribute->delete();
 
-        toastr()->success('Thao tác thành công.');
-
         return back();
     }
 }
