@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Backend\AttributeController;
+use App\Http\Controllers\Backend\AttributeValueController;
 use App\Http\Controllers\Backend\BulkActionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Auth\AuthController;
@@ -37,6 +39,20 @@ Route::name('admin.')->group(function () {
             Route::delete('{id}/soft-delete', [KeywordController::class, 'softDelete'])->name('softDelete');
             Route::delete('{id}/delete', [KeywordController::class, 'delete'])->name('delete');
             Route::put('{id}/restore', [KeywordController::class, 'restore'])->name('restore');
+        });
+
+        Route::prefix('attributes')->name('attributes.')->group(function () {
+            Route::get('/', [AttributeController::class, 'index'])->name('index');
+            Route::post('/', [AttributeController::class, 'store'])->name('store');
+            Route::put('edit/{id}', [AttributeController::class, 'update'])->name('update');
+            Route::delete('delete/{id}', [AttributeController::class, 'delete'])->name('delete');
+        });
+
+        Route::prefix('attribute-values')->name('attribute-values.')->group(function () {
+            Route::get('/', [AttributeValueController::class, 'index'])->name('index');
+            Route::post('/', [AttributeValueController::class, 'store'])->name('store');
+            Route::put('edit/{id}', [AttributeValueController::class, 'update'])->name('update');
+            Route::delete('delete/{id}', [AttributeValueController::class, 'delete'])->name('delete');
         });
 
         Route::group([
