@@ -31,15 +31,25 @@ class Product extends Model
         'discount_end_date',
         'manual_vi',
         'manual_en',
-        'status'
+        'status',
+        'is_featured'
+        'features'
+
     ];
 
     protected $casts = [
         'status' => 'boolean',
         'discount_start_date' => 'datetime',
         'discount_end_date' => 'datetime',
-        'cross_sell' => 'array'
+        'cross_sell' => 'array',
+        'features' => 'array'
     ];
+
+    public function attributeValues()
+    {
+        return $this->belongsToMany(AttributeValue::class, 'product_attribute_values')
+            ->withPivot('attribute_id');
+    }
 
     public function images()
     {

@@ -36,11 +36,22 @@
                     Thông tin sản phẩm
                 </button>
             </li>
-
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="cross-sell-tab" data-bs-toggle="tab" data-bs-target="#cross-sell"
                     type="button" role="tab" aria-controls="cross-sell" aria-selected="false">
                     Sản phẩm bán chéo
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="features-tab" data-bs-toggle="tab" data-bs-target="#features" type="button"
+                    role="tab" aria-controls="features" aria-selected="false">
+                    Tính năng, đặc điểm
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs" type="button"
+                    role="tab" aria-controls="specs" aria-selected="false">
+                    Thông số kỹ thuật
                 </button>
             </li>
         </ul>
@@ -232,12 +243,88 @@
                             <div class="card-header">Sản phẩm đã chọn</div>
                             <div class="card-body">
                                 <div id="selectedCrossSell" class="d-flex flex-wrap gap-2">
-                                    <!-- Selected products will be displayed here -->
+                                    @foreach ($crossSellProducts as $item)
+                                        <div class="selected-product" data-id="{{ $item->id }}">
+                                            <img src="{{ $item->image }}" alt="{{ $item->name }}"
+                                                style="width: 40px; height: 40px; object-fit: cover;">
+                                            <span>{{ $item->name }}</span>
+                                            <span class="remove-btn">&times;</span>
+                                            <input name="cross_sell[]" type="hidden" value="{{ $item->id }}" />
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <div class="tab-pane fade" id="features" role="tabpanel" aria-labelledby="features-tab">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title">Tính năng sản phẩm</h5>
+                                    <button type="button" class="btn btn-primary btn-sm" id="addFeature">
+                                        <i class="fas fa-plus"></i> Thêm tính năng
+                                    </button>
+                                </div>
+
+                                <div id="featuresContainer">
+                                    @if (!empty($product) && !empty($product->features))
+                                        @foreach ($product->features as $index => $feature)
+                                            <div class="feature-item border rounded mt-3">
+                                                <div class="d-flex justify-content-between align-items-center mb-2 p-3">
+                                                    <h6 class="mb-0">Tính năng #{{ $index + 1 }}</h6>
+                                                    <button type="button" class="btn btn-danger btn-sm remove-feature">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Tiêu đề</label>
+                                                            <input type="text"
+                                                                name="features[{{ $index }}][title]"
+                                                                class="form-control" value="{{ $feature['title'] }}"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Nội dung</label>
+                                                            <textarea name="features[{{ $index }}][content]" class="form-control">{{ $feature['content'] }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="specs" role="tabpanel" aria-labelledby="specs-tab">
+                        <div class="card">
+                            <div class="card-body">
+                                <label for="" class="form-label">Chọn thông số</label>
+                                <select id="attribute_id" class="form-select select2" multiple>
+                                    @foreach ($attributes as $attribute)
+                                        <option value="{{ $attribute['id'] }}"
+                                            data-values='@json($attribute['values'])'>
+                                            {{ $attribute['name'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <div class="row" id="attribute-values-container">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
@@ -381,6 +468,55 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
 
     <script>
+        const selectedAttributeValues = @json($selectedAttributeValues);
+
+        function renderAttributeValues() {
+            const $select = $('#attribute_id');
+            const selectedOptions = $select.find(':selected');
+            const $container = $('#attribute-values-container');
+
+            $container.html('');
+
+            selectedOptions.each(function() {
+                const attrId = $(this).val();
+                const attrName = $(this).text();
+                const valuesData = $(this).data('values');
+
+                if (!valuesData) return;
+
+                let values;
+                try {
+                    values = typeof valuesData === 'string' ? JSON.parse(valuesData) : valuesData;
+                } catch (e) {
+                    console.error('Invalid JSON in data-values:', e, valuesData);
+                    return;
+                }
+
+                // Tạo HTML với các option được chọn sẵn nếu có trong selectedAttributeValues
+                let html = `
+                    <div class="mb-3 col-lg-4">
+                        <label for="attribute_value_${attrId}" class="form-label">Chọn giá trị cho <strong>${attrName}</strong></label>
+                        <select name="attribute_values[${attrId}][]" id="attribute_value_${attrId}" class="form-select select2">
+                            ${values.map(v => `
+                                        <option value="${v.id}" ${selectedAttributeValues[attrId] && selectedAttributeValues[attrId].includes(v.id) ? 'selected' : ''}>
+                                            ${v.value}
+                                        </option>
+                                    `).join('')}
+                        </select>
+                    </div>`;
+
+                $container.append(html);
+            });
+
+            // Re-init Select2
+            $('#attribute-values-container .select2').select2({
+                placeholder: 'Chọn giá trị',
+                width: '100%',
+                allowClear: true
+            });
+        }
+
+
         $(document).ready(function() {
             autoGenerateSlug('#name', '#slug');
 
@@ -389,6 +525,17 @@
                 allowClear: true,
                 width: '100%'
             });
+
+            $('#attribute_id').select2({
+                placeholder: 'Chọn thuộc tính',
+                width: '100%',
+                allowClear: true
+            }).on('change', renderAttributeValues);
+
+            const selectedAttrIds = Object.keys(selectedAttributeValues);
+            $('#attribute_id').val(selectedAttrIds).trigger('change');
+
+            renderAttributeValues();
 
             flatpickr(".datepicker", {
                 dateFormat: "d/m/Y",
@@ -425,6 +572,60 @@
                 preloadedInputName: 'old',
                 maxSize: 5 * 1024 * 1024,
                 maxFiles: 15,
+            });
+
+            let featureCount =
+                {{ !empty($product) && !empty($product->features) ? count($product->features) : 0 }};
+
+            // Thêm tính năng mới
+            $('#addFeature').click(function() {
+                const template = `
+                <div class="feature-item border rounded mt-3">
+                    <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+                        <h6 class="mb-0">Tính năng #${featureCount + 1}</h6>
+                        <button type="button" class="btn btn-danger btn-sm remove-feature">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Tiêu đề</label>
+                                <input type="text" name="features[${featureCount}][title]" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Nội dung</label>
+                                <textarea name="features[${featureCount}][content]" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+                $('#featuresContainer').append(template);
+                featureCount++;
+            });
+
+            // Xóa tính năng
+            $(document).on('click', '.remove-feature', function() {
+                $(this).closest('.feature-item').remove();
+
+                // Cập nhật lại chỉ số và name
+                $('.feature-item').each(function(index) {
+                    $(this).find('h6').text(`Tính năng #${index + 1}`);
+
+                    $(this).find('input, textarea').each(function() {
+                        const oldName = $(this).attr('name');
+                        const newName = oldName.replace(/features\[\d+\]/,
+                            `features[${index}]`);
+                        $(this).attr('name', newName);
+                    });
+                });
+
+                // Cập nhật lại tổng count
+                featureCount = $('.feature-item').length;
             });
 
             CKEDITOR.instances['description'].on('change', function() {
@@ -580,8 +781,11 @@
             let currentPage = 1;
             let totalPages = 1;
             let searchTimeout;
-            let selectedProducts = new Set();
+            let selectedProducts = new Set(@json($product->cross_sell ?? []));
             let apiCalled = false;
+
+            console.log(selectedProducts);
+
 
             // Function to render product item
             function renderProductItem(product) {
@@ -620,7 +824,8 @@
                         method: 'GET',
                         data: {
                             page: page,
-                            search: search
+                            search: search,
+                            productId: '{{ optional($product)->id }}'
                         },
                         success: function(response) {
                             apiCalled = true;
@@ -676,7 +881,8 @@
 
             // Handle product selection
             $(document).on('click', '.product-item', function() {
-                const productId = $(this).data('id');
+                const productId = String($(this).data('id'));
+
                 const product = {
                     id: productId,
                     name: $(this).find('h6').text(),
@@ -692,7 +898,7 @@
             // Handle product removal
             $(document).on('click', '.remove-btn', function() {
                 const productId = $(this).closest('.selected-product').data('id');
-                selectedProducts.delete(productId);
+                selectedProducts.delete(String(productId));
                 $(this).closest('.selected-product').remove();
             });
 
