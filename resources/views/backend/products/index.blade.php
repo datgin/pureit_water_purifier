@@ -2,87 +2,45 @@
 @section('title', 'Danh sách sản phẩm')
 
 @section('content')
+    <div class="page-header">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ url('admin') }}" class="mb-0 d-inline-block lh-1 text-uppercase">
+                        Tổng quan
+                    </a>
+                </li>
+                <li class="breadcrumb-item active text-uppercase" aria-current="page">
+                    sản phẩm
+                </li>
+            </ol>
+        </nav>
+    </div>
     <div class="card">
         <div class="card-header d-flex justify-content-between">
             <h4 class="card-title">Danh sách sản phẩm</h4>
             <div class="card-tools">
-                <a href="{{ route('admin.products.add') }}" class="btn btn-primary btn-sm">Thêm mới sản phẩm (+)</a>
-                <button onclick="window.location.reload()" class="btn btn-info btn-sm ms-2">
-                    <i class="fa-solid fa-rotate"></i> Tải lại
-                </button>
+                <a href="{{ route('admin.products.save') }}" class="btn btn-primary btn-sm">Thêm mới sản phẩm (+)</a>
             </div>
         </div>
 
         <div class="card-body">
             <div class="table-responsive">
-                <table id="myTable" class="table table-bordered table-striped">
+                <table id="myTable" class="">
                     <thead>
                         <tr>
                             <th><input type="checkbox" id="selectAll" /></th>
                             <th>STT</th>
-                            <th>Ảnh</th>
-                            <th>Tên</th>
+                            <th>Ảnh đại diện</th>
+                            <th>Tên sản phẩm</th>
                             <th>Danh mục</th>
-                            <th>Giá</th>
-                            <th>Lượt xem</th>
+                            <th>Giá gốc</th>
+                            <th>Giá khuyến mãi</th>
+                            <th>Trạng thái</th>
                             <th>Ngày tạo</th>
-                            <th>Điểm SEO</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {{-- @dd($blogs) --}}
-                        @foreach ($products as $item)
-                            <tr>
-                                <td class="text-center"><input type="checkbox" class="blog-checkbox" /></td>
-                                <td class="text-center">{{ $item->id }}</td>
-                                <td class="text-center">
-                                    <img src="{{ asset('storage/' . $item->image) }}" alt="" class="img-thumbnail">
-                                </td>
-                                <td class="text-left">{{ $item->name }}</td>
-                                <td class="text-left">{{ $item->category->name }}</td>
-                                <td class="text-left">{{ $item->price }}</td>
-                                <td class="text-center">{{ number_format($item->view_count) }}</td>
-
-                                <td class="text-center">{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</td>
-                                <td class="text-center align-middle">
-                                    @php
-                                        $score = $item->seoScore->seo_score ?? null;
-
-                                        if (is_null($score)) {
-                                            $bgClass = 'bg-secondary';
-                                            $text = 'Chưa có';
-                                        } elseif ($score < 50) {
-                                            $bgClass = 'bg-danger';
-                                            $text = $score;
-                                        } elseif ($score < 80) {
-                                            $bgClass = 'bg-warning';
-                                            $text = $score;
-                                        } else {
-                                            $bgClass = 'bg-success';
-                                            $text = $score;
-                                        }
-                                    @endphp
-
-                                    <span class="badge {{ $bgClass }} text-white px-3 py-2 rounded">
-                                        {{ $text }}
-                                    </span>
-                                </td>
-
-                                <td class="text-center">
-                                    <div class="action-buttons">
-                                        <a href="{{ route('admin.product.detail', $item->id) }}"
-                                            class="btn btn-sm btn-primary">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </a>
-                                        <button class="btn btn-sm btn-danger delete-blog" data-id="{{ $item->id }}">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -90,132 +48,101 @@
 @endsection
 
 @push('styles')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
-    <style>
-        .table th,
-        .table td {
-            vertical-align: middle !important;
-            text-align: center;
-            padding: 8px 6px;
-            font-size: 13px;
-        }
-
-        .table th {
-            background-color: #f8f9fa;
-            font-weight: 600;
-        }
-
-        .table td.text-left {
-            text-align: left !important;
-        }
-
-        .img-thumbnail {
-            width: 100px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
-            margin: 0 auto;
-        }
-
-        .badge {
-            padding: 4px 10px;
-            font-size: 11px;
-            border-radius: 10px;
-            font-weight: 500;
-        }
-
-        .btn-sm {
-            padding: 0.12rem 0.32rem;
-            margin: 0 3px;
-            border-radius: 7px;
-            font-size: 11px;
-            min-width: 26px;
-            min-height: 26px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        #myTable th,
-        #myTable td {
-            padding: 8px 6px;
-        }
-    </style>
 @endpush
 
 @push('scripts')
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function() {
 
-            // Xử lý checkbox select all
-            $('#selectAll').on('click', function() {
-                $('.select-item').prop('checked', $(this).prop('checked'));
-            });
+            const api = '{{ route('admin.products.index') }}'
 
-            // Xử lý xóa bài viết
-            $('.delete-blog').on('click', function() {
-                const id = $(this).data('id');
-                Swal.fire({
-                    title: 'Bạn có chắc chắn?',
-                    text: "Bạn không thể hoàn tác sau khi xóa!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Có, xóa nó!',
-                    cancelButtonText: 'Hủy'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Gửi request xóa
-                        $.ajax({
-                            url: `{{ route('admin.product.delete', ':id') }}`.replace(
-                                ':id', id),
-                            type: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            success: function(response) {
-                                if (response.success) {
-                                    Swal.fire(
-                                        'Đã xóa!',
-                                        response.message ||
-                                        'Sản phẩm đã được xóa thành công.',
-                                        'success'
-                                    ).then(() => {
-                                        window.location.reload();
-                                    });
-                                } else {
-                                    Swal.fire(
-                                        'Lỗi!',
-                                        response.message ||
-                                        'Có lỗi xảy ra khi xóa bài viết.',
-                                        'error'
-                                    );
-                                }
-                            },
-                            error: function(xhr) {
-                                console.error('Lỗi:', xhr);
-                                Swal.fire(
-                                    'Lỗi!',
-                                    xhr.responseJSON?.message ||
-                                    'Có lỗi xảy ra khi xóa bài viết.',
-                                    'error'
-                                );
-                            }
-                        });
-                    }
-                });
+            const columns = [{
+                    data: "checkbox",
+                    name: "checkbox",
+                    orderable: false,
+                    searchable: false,
+                    width: "5px",
+                    className: "text-center"
+                },
+                {
+                    data: "DT_RowIndex",
+                    name: "DT_RowIndex",
+                    orderable: false,
+                    searchable: false,
+                    width: "5px",
+                },
+                {
+                    data: 'image',
+                    name: 'image',
+                    searchable: false,
+                    orderable: false,
+                    className: "text-center",
+                },
+                {
+                    data: 'name',
+                    name: 'name',
+                    orderable: false,
+                    render(data, type, row) {
+                        return `<a href="/admin/products/save/${row.id}"><strong>${data}</strong></a>`
+                    },
+                },
+                {
+                    data: 'category',
+                    name: 'category',
+                    orderable: false,
+                    searchable: false,
+                },
+                {
+                    data: 'price',
+                    name: 'price',
+                    searchable: false,
+                    render(data) {
+                        return formatCurrency(data)
+                    },
+                },
+                {
+                    data: 'discount_value',
+                    name: 'discount_value',
+                    searchable: false,
+                    render(data) {
+                        return formatCurrency(data)
+                    },
+                },
+                {
+                    data: 'status',
+                    name: 'status',
+                    searchable: false,
+                    orderable: false,
+                    className: "text-center"
+                },
+                {
+                    data: 'created_at',
+                    name: 'created_at',
+                    searchable: false,
+                    className: "text-center",
+                },
+
+                {
+                    data: 'actions',
+                    name: 'actions',
+                    orderable: false,
+                    searchable: false,
+                    className: "text-center"
+                },
+            ];
+
+            dataTables(api, columns, 'Product', 8)
+
+            handleDestroy('Product')
+
+            initStatusToggle({
+                model: 'Product'
             });
         });
     </script>

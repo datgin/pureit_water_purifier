@@ -12,8 +12,17 @@
                         Tổng quan
                     </a>
                 </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('admin.categories.index') }}" class="mb-0 d-inline-block lh-1 text-uppercase">
+                        danh mục
+                    </a>
+                </li>
                 <li class="breadcrumb-item active text-uppercase" aria-current="page">
-                    sản phẩm
+                    @isset($category)
+                        Cập nhật danh mục - {{ $category->name }}
+                    @else
+                        Thêm mới danh mục
+                    @endisset
                 </li>
             </ol>
         </nav>
@@ -84,8 +93,7 @@
                                 <div class="mb-3 position-relative col-lg-12">
                                     <label for="seo_title" class="form-label">Tiêu đề seo</label>
                                     <input type="text" placeholder="Tiêu đề seo" class="form-control" name="seo_title"
-                                        id="seo_title" maxlength="250"
-                                        value="{{ $category->seo_title ?? '' }}">
+                                        id="seo_title" maxlength="250" value="{{ $category->seo_title ?? '' }}">
                                 </div>
                                 <div class="mb-3 position-relative col-lg-12">
                                     <label for="seo_description" class="form-label">Mô tả seo</label>
@@ -115,7 +123,7 @@
                             </svg>
                             Lưu</button>
 
-                        <a href="" class="btn btn-sm btn-light fs-6 border">
+                        <a href="{{ route('admin.categories.index') }}" class="btn btn-sm btn-light fs-6 border">
                             <svg class="icon icon-left svg-icon-ti-ti-refresh" xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -135,9 +143,20 @@
                     </div>
                     <div class="card-body">
                         <select name="status" class="form-select form-control" id="status">
-                            <option value="1" @checked($category->status ?? '')>Xuất bản </option>
-                            <option value="0" @checked(!$category->status ?? '')>Chưa xuất bản</option>
+                            <option value="1" @selected($category->status ?? '')>Xuất bản </option>
+                            <option value="0" @selected(optional($category)->status === false)>Chưa xuất bản</option>
                         </select>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title fs-6 fw-bold required">Vị trí thứ tự
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <input name="location" id="location" value="{{ $category->location ?? 0 }}" type="text"
+                            class="form-control" placeholder="Nhập thứ tự hiện thị">
                     </div>
                 </div>
 

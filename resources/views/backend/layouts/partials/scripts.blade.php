@@ -89,9 +89,7 @@
     });
 
 
-    const dataTables = (api, columns, model, filterDate = false, productFilter = false, sortable = false, column =
-        'id') => {
-
+    const dataTables = (api, columns, model, indexOrder = 0) => {
 
         let params = localStorage.getItem("params") || null; // Lấy giá trị của 'params'
 
@@ -113,25 +111,7 @@
             "createdRow": function(row, data, dataIndex) {
                 $(row).attr('data-id', data.id); // Gán data-id bằng giá trị id của sản phẩm
             },
-            "drawCallback": function() {
-                // Kiểm tra xem có cần khởi tạo sortable hay không
-                if (sortable) {
-                    // Khởi tạo SortableJS mỗi khi DataTables vẽ lại bảng
-                    new Sortable(document.querySelector('#myTable tbody'), {
-                        handle: 'td', // Vùng kéo thả
-                        onEnd: function(evt) {
-                            var order = [];
-                            $('#myTable tbody tr').each(function() {
-                                order.push($(this).data('id'));
-                            });
-
-                            // Gửi yêu cầu cập nhật thứ tự lên server
-                            updateOrderInDatabase(order, model);
-                        }
-                    });
-                }
-            },
-            order: [],
+            order: [indexOrder, 'desc'],
         });
 
         $(document).on('click', '#cancelEditBtn', function() {
@@ -320,7 +300,6 @@
         });
     };
 
-
     function toggleActionDiv() {
 
         if ($('.select-item:checked').length > 0) {
@@ -330,25 +309,40 @@
         }
     }
 
-    const handleDestroy = () => {
-        $('tbody').on('click', '.btn-destroy', function(e) {
-            e.preventDefault();
+    const handleDestroy = (model) => {
+        $(document).on('click', '.btn-delete', function() {
+            const id = $(this).data('id');
 
-            if (confirm('Chắc chắn muốn xóa?')) {
-                var form = $(this).closest('form');
-
-                $.ajax({
-                    url: form.attr('action'),
-                    method: 'POST',
-                    data: form.serialize(),
-                    success: function(response) {
-                        $('#myTable').DataTable().ajax.reload();
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        alert(jqXHR)
-                    }
-                });
-            }
+            Swal.fire({
+                title: "Bạn có chắc chắn?",
+                text: "Hành động này không thể hoàn tác!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Vâng, xóa ngay!",
+                cancelButtonText: "Hủy"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/admin/handle-bulk-action',
+                        type: 'POST',
+                        data: {
+                            type: 'delete',
+                            model,
+                            ids: id
+                        },
+                        success: function(res) {
+                            $('#myTable').DataTable().ajax.reload();
+                            datgin.success(res.message)
+                        },
+                        error: function(xhr) {
+                            datgin.error(xhr.responseJSON.message ||
+                                'Đã có lỗi xảy ra, vui lòng thử lại sau!')
+                        }
+                    });
+                }
+            });
         });
     }
 
@@ -447,6 +441,82 @@
             $(toSelector).val(slug).trigger("input"); // ✅ cập nhật rồi trigger input để char count update
         });
     }
+
+    function formatCurrency(amount) {
+        if (isNaN(amount)) return '₫0';
+        return '₫' + Number(amount).toLocaleString('vi-VN');
+    }
+
+    function initStatusToggle({
+        model,
+        successCallback = null,
+        errorCallback = null,
+    }) {
+        $(document).on('change', '.switch input[type="checkbox"]', function() {
+            const checkbox = $(this);
+            const newChecked = checkbox.prop('checked');
+            const id = checkbox.closest('.switch').data('id');
+
+            Swal.fire({
+                title: 'Bạn có chắc chắn?',
+                text: "Hành động này không thể hoàn tác!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Vâng, thay đổi!",
+                cancelButtonText: "Hủy"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/admin/handle-bulk-action',
+                        type: 'POST',
+                        data: {
+                            model: model,
+                            type: 'change-status',
+                            ids: id
+                        },
+                        success: function(res) {
+                            datgin.success(res.message);
+                            if (typeof successCallback === 'function') successCallback(res,
+                                id, newChecked);
+                        },
+                        error: function(xhr) {
+                            checkbox.prop('checked', !newChecked); // Quay về nếu lỗi
+                            datgin.error(
+                                xhr.responseJSON?.message ||
+                                'Đã có lỗi xảy ra, vui lòng thử lại sau!'
+                            );
+                            if (typeof errorCallback === 'function') errorCallback(xhr, id,
+                                newChecked);
+                        }
+                    });
+                } else {
+                    checkbox.prop('checked', !newChecked);
+                }
+            });
+        });
+    }
+
+    function formatCurrencyVND(number) {
+        number = number.toString().replace(/\D/g, '');
+        if (!number) return '';
+        return number.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
+    $(document).on('input', '.format-currency', function() {
+        const input = $(this);
+        const raw = input.val().replace(/\D/g, '');
+        const formatted = formatCurrencyVND(raw);
+        input.val(formatted);
+    });
+
+    $('.format-currency').each(function() {
+        const input = $(this);
+        const raw = input.val().replace(/\D/g, '');
+        const formatted = formatCurrencyVND(raw);
+        input.val(formatted);
+    });
 </script>
 @include('backend/includes/toastr')
 

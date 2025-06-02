@@ -12,24 +12,71 @@ use App\RankmathSEOForLaravel\Services\SeoAnalyzer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-
+use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
 {
 
     public function index(Request $request)
     {
-        $products = Product::with(['category'])->get();
-        return view('backend.products.index', compact('products'));
-    }
-    public function add()
-    {
-        $product = new Product();
-        $product->keyword_ids = [];
-        $category = Category::all();
-        $keywords = Keyword::pluck('name')->toArray();
+        if ($request->ajax()) {
 
-        return view('backend.products.create', compact('product', 'category', 'keywords'));
+            return DataTables::eloquent(Product::query()->with('category'))
+                ->addColumn('checkbox', function ($row) {
+                    return '<input type="checkbox" class="select-item" value="' . $row->id . '">';
+                })
+                ->addColumn('category', function ($row) {
+                    return !empty($row->category) ? $row->category->name : 'N/A';
+                })
+                ->editColumn('image', function ($row) {
+                    return '<img src="' . $row->image . '" width="50"/>';
+                })
+                ->editColumn('created_at', function ($row) {
+                    return $row->created_at->format('d/m/Y H:i');
+                })
+                ->editColumn('status', function ($row) {
+                    $checked = $row->status ? 'checked' : '';
+                    return '
+                        <label class="switch" data-id=' . $row->id . '>
+                            <input name="is_featured" type="checkbox" value="1" ' . $checked . '>
+                            <span class="slider round"></span>
+                        </label>
+                    ';
+                })
+                ->addColumn('actions', function ($row) {
+                    return '
+                    <a href="' . route('admin.categories.save', $row->id) . '" class="btn btn-sm btn-primary" title="Sửa">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <button class="btn btn-sm btn-danger btn-delete" data-id="' . $row->id . '" title="Xóa">
+                        <i class="fas fa-trash"></i>
+                    </button>';
+                })
+                ->rawColumns(['checkbox', 'actions', 'status', 'image'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+
+        return view('backend.products.index');
+    }
+
+    public function save($id = null)
+    {
+
+        $product = null;
+        $preloaded = [];
+        $category = Category::query()->pluck('name', 'id')->toArray();
+
+        if (!empty($id)) {
+            $product = Product::query()->with(['category', 'images'])->findOrFail($id);
+
+            $preloaded = $product->images->map(fn($img) => [
+                'id' => $img->id,
+                'src' => $img->image,
+            ]);
+        }
+
+        return view('backend.products.save', compact('product', 'category', 'preloaded'));
     }
 
     public function store(Request $request)
@@ -77,7 +124,6 @@ class ProductController extends Controller
                 $keyword = Keyword::query()->updateOrCreate(['name' => $item], ['slug' => Str::slug($item)]);
                 $arrayKeywords[] = $keyword->id;
             }
-
         }
 
         try {
@@ -129,8 +175,7 @@ class ProductController extends Controller
             // Lưu điểm SEO
             $this->saveSEOScore($product, $seoScoreValue);
 
-            return redirect()->route('admin.product.index')->with('success', 'Bài viết đã được thêm thành công');
-
+            return redirect()->route('admin.products.index')->with('success', 'Bài viết đã được thêm thành công');
         } catch (\Throwable $th) {
             // Ghi log hoặc xử lý lỗi
             Log::error('Lỗi khi tạo sản phẩm: ' . $th->getMessage());
@@ -263,31 +308,6 @@ class ProductController extends Controller
 
         return redirect()->back()->with('success', 'Sản phẩm đã được cập nhật thành công');
     }
-
-    public function delete($id)
-    {
-        try {
-            $product = Product::findOrFail($id);
-
-            // Xóa ảnh nếu tồn tại
-            if ($product->image && file_exists(public_path('storage/' . $product->image))) {
-                unlink(public_path('storage/' . $product->image));
-            }
-
-            $product->delete();
-            return response()->json([
-                'success' => true,
-                'message' => 'Xóa sản phẩm thành công!'
-            ]);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Có lỗi xảy ra: ',
-            ], 500);
-        }
-
-    }
-
 
     // Tính điểm
     private function calculateSeoScore($analysis, $suggestions)
@@ -424,6 +444,50 @@ class ProductController extends Controller
             'seoScoreVal' => $seoScoreValue,
             'seoColor' => $seoColor,
             'badgeClass' => $badgeClass
+        ]);
+    }
+
+    /**
+     * Search products for cross-sell functionality
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function searchProducts(Request $request)
+    {
+        $search = $request->input('search', '');
+        $page = $request->input('page', 1);
+        $perPage = 12; // Số sản phẩm hiển thị mỗi trang
+
+        $query = Product::query()
+            ->select('id', 'name', 'image', 'price', 'discount_value')
+            ->where('status', 1); // Chỉ lấy sản phẩm đang active
+
+        if (!empty($search)) {
+            $query->where('name', 'like', "%{$search}%");
+        }
+
+        $products = $query->paginate($perPage, ['*'], 'page', $page);
+
+        // Format lại dữ liệu trả về
+        $formattedProducts = $products->map(function ($product) {
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'image' => $product->image,
+                'price' => number_format($product->price) . 'đ',
+                'discount_price' => $product->discount_value > 0
+                    ? number_format($product->price * (1 - $product->discount_value / 100)) . 'đ'
+                    : null
+            ];
+        });
+
+        return response()->json([
+            'data' => $formattedProducts,
+            'current_page' => $products->currentPage(),
+            'last_page' => $products->lastPage(),
+            'per_page' => $products->perPage(),
+            'total' => $products->total()
         ]);
     }
 }
