@@ -31,7 +31,8 @@ class Product extends Model
         'discount_end_date',
         'manual_vi',
         'manual_en',
-        'status'
+        'status',
+        'is_featured'
     ];
 
     protected $casts = [

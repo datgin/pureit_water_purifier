@@ -22,12 +22,14 @@
                 <li class="nav-item">
                     <a class="nav-link fw-bold" href="#gioi-thieu">Về Pureit</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link fw-bold" href="#">Máy lọc nước</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link fw-bold" href="#">Lõi lọc thay thế</a>
-                </li>
+                @foreach ($categories as $category)
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold" href="{{ route('category', $category->slug) }}">
+                            {{ $category->name }}
+                        </a>
+                    </li>
+                @endforeach
+
                 <li class="nav-item">
                     <a class="nav-link fw-bold" href="#">Dịch Vụ</a>
                 </li>
