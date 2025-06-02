@@ -6,6 +6,7 @@
             <h2>Nhận tư vấn ngay</h2>
             <form method="POST" id="adviceForm" action="{{ route('send.email') }}">
                 @csrf
+                <input type="hidden" name="product_id" id="product_id">
                 <div>
                     <label>Họ và tên *</label>
                     <input type="text" name="name" placeholder="Họ và tên">
