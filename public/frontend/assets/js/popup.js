@@ -14,6 +14,8 @@ function openPopup() {
 document.querySelectorAll('.btn-get-advice').forEach(button => {
     button.addEventListener('click', function (e) {
         e.preventDefault();
+        let id = this.dataset.id || '';
+        document.getElementById('product_id').value = id;
         openPopup();
     });
 });
