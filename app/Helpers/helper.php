@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -76,9 +77,11 @@ function calculateDiscountPercentage($originalPrice, $discountedPrice, $type)
 
 
 
-function formatAmount($amount)
+function formatPrice($price)
 {
-    return number_format($amount, 0, ',', '.');
+    if ($price == 0)
+        return "₫0";
+    return '₫' . number_format($price, 0, ',', '.');
 }
 
 function uploadImages($flieName, string $directory = 'images', $resize = false, $isArray = false, $width = 150, $height = 150, $quality = 80)
@@ -121,8 +124,22 @@ function uploadImages($flieName, string $directory = 'images', $resize = false, 
     return $isArray ? $paths : $paths[0] ?? null;
 }
 
+function savePdfFile($filename, string $folder = 'manuals'): ?string
+{
+    $file = request()->file($filename);
 
+    if (!$file || !($file instanceof \Illuminate\Http\UploadedFile)) {
+        return null;
+    }
 
+    $newFilename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+
+    $path = "{$folder}/{$newFilename}";
+
+    Storage::disk('public')->put($path, file_get_contents($file));
+
+    return $path; // Trả về path tương đối
+}
 
 function getTextAfterFirstHeading($htmlContent = null)
 {

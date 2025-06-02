@@ -46,6 +46,8 @@ Route::name('admin.')->group(function () {
         ], function () {
             Route::get('/', 'index')->name('index');
             Route::get('save/{id?}', 'save')->name('save');
+            Route::post('/', 'store');
+            Route::put('/{id}', 'update');
             Route::get('search', 'searchProducts')->name('search');
         });
     });

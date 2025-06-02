@@ -17,13 +17,17 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item active text-uppercase" aria-current="page">
-                    thêm mới sản phẩm
+                    @if (!empty($product))
+                        cập nhật sản phẩm - {{ $product->name }}
+                    @else
+                        thêm mới sản phẩm
+                    @endif
                 </li>
             </ol>
         </nav>
     </div>
 
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data" id="myForm">
 
         <ul class="nav nav-tabs" id="productTabs" role="tablist">
             <li class="nav-item" role="presentation">
@@ -52,43 +56,47 @@
                                     <div class="mb-3 col-lg-12">
                                         <label for="name" class="form-label fw-bold">Tên sản phẩm</label>
                                         <input type="text" class="form-control" name="name" id="name"
-                                            placeholder="Nhập tên sản phẩm" value="">
+                                            placeholder="Nhập tên sản phẩm" value="{{ optional($product)->name }}">
                                     </div>
 
                                     <div class="mb-3 col-lg-12">
                                         <label for="slug" class="form-label fw-bold">Slug</label>
                                         <input type="text" id="slug" name="slug" class="form-control"
-                                            placeholder="Nhập slug">
+                                            placeholder="Nhập slug" value="{{ optional($product)->slug }}">
                                     </div>
 
                                     <div class="mb-3 col-lg-12">
                                         <label for="description" class="form-label fw-bold">Mô tả sản phẩm</label>
-                                        <textarea id="description" name="description" class="form-control ckeditor" placeholder="Mô tả sản phẩm"></textarea>
+                                        <textarea id="description" name="description" class="form-control ckeditor" placeholder="Mô tả sản phẩm">{!! optional($product)->description !!}</textarea>
                                     </div>
 
                                     <div class="col-lg-3 mb-3">
                                         <label for="price" class="form-label fw-bold">Giá gốc</label>
-                                        <input type="text" class="form-control format-currency" id="price"
-                                            placeholder="Giá bán sản phẩm" value="{{ old('price') }}">
+                                        <input type="text" name="price" class="form-control format-currency"
+                                            id="price" placeholder="Giá bán sản phẩm"
+                                            value="{{ formatPrice($product->price ?? 0) }}">
                                     </div>
 
                                     <div class="col-lg-3 mb-3">
-                                        <label for="discount_value" class="form-label format-currency">Giá khuyến
+                                        <label for="discount_value" class="form-label ">Giá khuyến
                                             mãi</label>
-                                        <input value="0" type="text" id="discount_value" class="form-control"
+                                        <input value="{{ formatPrice($product->discount_value ?? 0) }}" type="text"
+                                            id="discount_value" class="form-control format-currency"
                                             placeholder="Nhập giá khuyến mãi" name="discount_value">
                                     </div>
 
                                     <div class="col-lg-3 mb-3">
                                         <label for="start-date" class="form-label">Ngày bắt đầu:</label>
                                         <input type="text" class="form-control datepicker" name="discount_start_date"
-                                            id="discount_start_date">
+                                            id="discount_start_date"
+                                            value="{{ !empty($product) && $product->discount_start_date ? $product->discount_start_date->format('d/m/Y') : '' }}">
                                     </div>
 
                                     <div class="col-lg-3 mb-3">
                                         <label for="end-date" class="form-label">Ngày kết thúc:</label>
                                         <input type="text" class="form-control datepicker" name="discount_end_date"
-                                            id="discount_end_date">
+                                            id="discount_end_date"
+                                            value="{{ !empty($product) && $product->discount_end_date ? $product->discount_end_date->format('d/m/Y') : '' }}">
                                     </div>
 
 
@@ -115,12 +123,12 @@
                                     <div class="existed-seo-meta">
 
                                         <h4 class="page-title-seo text-truncate">
-                                            -
+                                            {{ $product->seo_title ?? '-' }}
                                         </h4>
 
                                         <div class="page-url-seo">
                                             <p>
-                                                {{ config('app.url') }}/<span></span>
+                                                {{ config('app.url') }}/<span>{{ $product->slug ?? '' }}</span>
                                             </p>
                                         </div>
 
@@ -128,7 +136,7 @@
                                             <span style="color: #70757a;">
                                                 {{ now()->format('d/m/Y') }} - </span>
                                             <span class="page-description-seo" style="color: #70757a;">
-
+                                                {{ $product->seo_title ?? '' }}
                                             </span>
                                         </div>
                                     </div>
@@ -140,12 +148,13 @@
                                         <div class="mb-3 position-relative col-lg-12">
                                             <label for="seo_title" class="form-label">Tiêu đề seo</label>
                                             <input type="text" placeholder="Tiêu đề seo" class="form-control"
-                                                name="seo_title" id="seo_title" maxlength="250" value="">
+                                                name="seo_title" id="seo_title" maxlength="250"
+                                                value="{{ optional($product)->seo_title }}">
                                         </div>
                                         <div class="mb-3 position-relative col-lg-12">
                                             <label for="seo_description" class="form-label">Mô tả seo</label>
                                             <textarea placeholder="Mô tả seo" class="form-control" name="seo_description" id="seo_description" rows="3"
-                                                maxlength="400"></textarea>
+                                                maxlength="400">{{ optional($product)->seo_description }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -250,7 +259,7 @@
                             </svg>
                             Lưu</button>
 
-                        <a href="{{ route('admin.categories.index') }}" class="btn btn-sm btn-light fs-6 border">
+                        <a href="{{ route('admin.products.index') }}" class="btn btn-sm btn-light fs-6 border">
                             <svg class="icon icon-left svg-icon-ti-ti-refresh" xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -270,8 +279,8 @@
                     </div>
                     <div class="card-body">
                         <select name="status" class="form-select form-control" id="status">
-                            <option value="1">Xuất bản </option>
-                            <option value="0">Chưa xuất bản</option>
+                            <option value="1" @selected($product->status ?? '')>Xuất bản </option>
+                            <option value="0" @selected(optional($product)->status === false)>Chưa xuất bản</option>
                         </select>
                     </div>
                 </div>
@@ -280,7 +289,7 @@
                 <div class="card">
                     <div class="card-body">
                         <label class="mb-2 fw-semibold">Danh mục <span class="text-danger">*</span></label>
-                        <select class="form-select select2" name="category_id" id="category_id" required>
+                        <select class="form-select select2" name="category_id" id="category_id">
                             <option value="">-- Chọn danh mục --</option>
                             @foreach ($category as $id => $name)
                                 <option value="{{ $id }}" @selected($id === (!empty($product) && $product->category ? $product->category->id : ''))>{{ $name }}
@@ -297,7 +306,7 @@
                     <div class="card-body">
                         <img class="img-thumbnail" id="show_image"
                             style="cursor: pointer; width: 100%; height: auto; object-fit: cover;"
-                            src="{{ showImage('') }}" alt=""
+                            src="{{ $product->image ?? '' }}" alt=""
                             onclick="document.getElementById('image').click();">
 
                         <input type="file" name="image" id="image" class="form-control d-none"
@@ -311,7 +320,8 @@
                         </h4>
                     </div>
                     <div class="card-body">
-                        <input name="seo_keywords" id="seo_keywords" value="">
+                        <input name="seo_keywords" id="seo_keywords"
+                            value="{{ !empty($product) && $product->seo_keywords ? implode(',', $product->seo_keywords) : '' }}">
                     </div>
                 </div>
 
@@ -324,7 +334,7 @@
                         <input type="file" class="form-control" name="manual_vi" id="manual_vi"
                             accept="application/pdf">
 
-                        @if (!empty($product->manual_vi))
+                        @if (!empty($product->manual_vi) && Storage::disk('public')->exists($product->manual_vi))
                             <a href="{{ showImage($product->manual_vi) }}" target="_blank"
                                 class="btn btn-sm btn-primary mt-2 w-100">
                                 Xem PDF (VI)
@@ -343,7 +353,7 @@
                         <input type="file" class="form-control" name="manual_en" id="manual_en"
                             accept="application/pdf">
 
-                        @if (!empty($product->manual_en))
+                        @if (!empty($product->manual_en) && Storage::disk('public')->exists($product->manual_en))
                             <a href="{{ showImage($product->manual_en) }}" target="_blank"
                                 class="btn btn-sm btn-primary mt-2 w-100">
                                 Xem PDF (EN)
@@ -372,6 +382,8 @@
 
     <script>
         $(document).ready(function() {
+            autoGenerateSlug('#name', '#slug');
+
             $('#category_id').select2({
                 placeholder: "Chọn danh mục",
                 allowClear: true,
@@ -380,7 +392,18 @@
 
             flatpickr(".datepicker", {
                 dateFormat: "d/m/Y",
-                locale: "vn"
+                locale: "vn",
+                onReady: function(selectedDates, dateStr, instance) {
+                    // Thêm nút clear
+                    const clearButton = document.createElement("button");
+                    clearButton.textContent = "Xóa";
+                    clearButton.type = "button";
+                    clearButton.className = "flatpickr-clear-button";
+                    clearButton.addEventListener("click", function() {
+                        instance.clear();
+                    });
+                    instance.calendarContainer.appendChild(clearButton);
+                }
             });
 
             $('#seo_keywords').selectize({
@@ -397,7 +420,7 @@
 
             // Thư viện ảnh
             $('.input-images').imageUploader({
-                preloaded: [],
+                preloaded: @json($preloaded),
                 imagesInputName: 'images',
                 preloadedInputName: 'old',
                 maxSize: 5 * 1024 * 1024,
@@ -408,68 +431,113 @@
                 clearTimeout(seoTimeout);
                 seoTimeout = setTimeout(runSeoAnalysis, 500);
             });
+
+            $('#myForm').on('submit', function(e) {
+                e.preventDefault();
+
+                // ✅ 2. Cập nhật dữ liệu từ CKEditor nếu có
+                for (instance in CKEDITOR.instances) {
+                    CKEDITOR.instances[instance].updateElement();
+                }
+
+                // ✅ 3. Tạo FormData sau khi đã xử lý dữ liệu
+                let formData = new FormData(this);
+
+                // ✅ 1. Loại bỏ dấu chấm trong các input có class "format-currency"
+                $('.format-currency').each(function() {
+                    let name = $(this).attr('name');
+                    let val = $(this).val();
+                    if (val) {
+                        let cleanVal = val.replace(/\./g, '');
+                        formData.set(name, cleanVal);
+                    }
+                });
+
+                let id = {{ isset($product) ? $product->id : 'null' }};
+                let url = id ? `/admin/products/${id}` : `/admin/products`;
+
+                if (id) {
+                    formData.append('_method', 'PUT');
+                }
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(res) {
+                        window.location.href = "/admin/products";
+                    },
+                    error: function(xhr) {
+                        console.log(xhr);
+                        datgin.error(xhr.responseJSON?.message || 'Đã xảy ra lỗi.');
+                    }
+                });
+            });
+
         });
 
         function runSeoAnalysis() {
-            const content = CKEDITOR.instances['content'].getData();
+            // const content = CKEDITOR.instances['content'].getData();
 
-            const rawKeywords = $('#keywords').val();
-            let keywords = [];
-            try {
-                const parsed = JSON.parse(rawKeywords);
-                if (Array.isArray(parsed)) {
-                    keywords = parsed.map(k => k.value?.trim()).filter(Boolean);
-                }
-            } catch (e) {
-                keywords = rawKeywords.split(',').map(k => k.trim());
-            }
+            // const rawKeywords = $('#keywords').val();
+            // let keywords = [];
+            // try {
+            //     const parsed = JSON.parse(rawKeywords);
+            //     if (Array.isArray(parsed)) {
+            //         keywords = parsed.map(k => k.value?.trim()).filter(Boolean);
+            //     }
+            // } catch (e) {
+            //     keywords = rawKeywords.split(',').map(k => k.trim());
+            // }
 
-            const title_seo = $('#title_seo').val();
-            const hasKeyword = keywords.some(keyword => title_seo.toLowerCase().includes(keyword
-                .toLowerCase()));
-            const description_seo = $('#description_seo').val();
-            const slug = $('#slug').val();
-            const description_short = $('#description_short').val();
+            // const title_seo = $('#title_seo').val();
+            // const hasKeyword = keywords.some(keyword => title_seo.toLowerCase().includes(keyword
+            //     .toLowerCase()));
+            // const description_seo = $('#description_seo').val();
+            // const slug = $('#slug').val();
+            // const description_short = $('#description_short').val();
 
-            const data = {
-                content,
-                keywords,
-                title_seo,
-                hasKeyword,
-                description_seo,
-                slug,
-                description_short,
-                _token: '{{ csrf_token() }}'
-            };
+            // const data = {
+            //     content,
+            //     keywords,
+            //     title_seo,
+            //     hasKeyword,
+            //     description_seo,
+            //     slug,
+            //     description_short,
+            //     _token: '{{ csrf_token() }}'
+            // };
 
-            console.log('Gửi dữ liệu SEO:', data);
+            // console.log('Gửi dữ liệu SEO:', data);
 
-            $.ajax({
-                url: '',
-                method: "POST",
-                data: JSON.stringify(data),
-                contentType: "application/json",
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    if (response.success) {
+            // $.ajax({
+            //     url: '',
+            //     method: "POST",
+            //     data: JSON.stringify(data),
+            //     contentType: "application/json",
+            //     headers: {
+            //         'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            //     },
+            //     success: function(response) {
+            //         if (response.success) {
 
-                        $('#seo-score-badge').removeClass().addClass(
-                            `badge ${response.badgeClass} fs-6`).text(response.seoScoreVal +
-                            '/100');
-                        $('#seo-score-progress').removeClass().addClass(
-                            `progress-bar ${response.seoColor}`).css('width', response
-                            .seoScoreVal + '%')
+            //             $('#seo-score-badge').removeClass().addClass(
+            //                 `badge ${response.badgeClass} fs-6`).text(response.seoScoreVal +
+            //                 '/100');
+            //             $('#seo-score-progress').removeClass().addClass(
+            //                 `progress-bar ${response.seoColor}`).css('width', response
+            //                 .seoScoreVal + '%')
 
-                        $('#result').html(response.html);
-                    }
-                    console.log('Phản hồi SEO:', response);
-                },
-                error: function(xhr) {
-                    console.error('Lỗi SEO:', xhr);
-                }
-            });
+            //             $('#result').html(response.html);
+            //         }
+            //         console.log('Phản hồi SEO:', response);
+            //     },
+            //     error: function(xhr) {
+            //         console.error('Lỗi SEO:', xhr);
+            //     }
+            // });
         }
 
         // Google Snippet Preview
@@ -539,6 +607,7 @@
                         <img src="${product.image}" alt="${product.name}" style="width: 40px; height: 40px; object-fit: cover;">
                         <span>${product.name}</span>
                         <span class="remove-btn">&times;</span>
+                        <input name="cross_sell[]" type="hidden" value="${product.id}"/>
                     </div>
                 `;
             }

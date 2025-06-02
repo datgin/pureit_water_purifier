@@ -99,7 +99,7 @@ class CategoryController extends Controller
     {
         $credentials = $this->validate($request);
 
-        if (!empty($credentials['success']) && !$credentials['success']) {
+        if (isset($credentials['success']) && !$credentials['success']) {
             return response()->json($credentials, 422);
         }
 
@@ -136,7 +136,7 @@ class CategoryController extends Controller
     {
         $credentials = $this->validate($request, $id);
 
-        if (!empty($credentials['success']) && !$credentials['success']) {
+        if (isset($credentials['success']) && !$credentials['success']) {
             return response()->json($credentials, 422);
         }
 

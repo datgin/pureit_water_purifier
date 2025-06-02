@@ -38,6 +38,7 @@ class Product extends Model
         'status' => 'boolean',
         'discount_start_date' => 'datetime',
         'discount_end_date' => 'datetime',
+        'cross_sell' => 'array'
     ];
 
     public function images()

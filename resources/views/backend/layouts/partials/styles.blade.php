@@ -69,6 +69,16 @@
     .select2-container--default .select2-selection--single .select2-selection__arrow {
         top: 7px !important;
     }
+
+    .flatpickr-clear-button {
+        margin: 5px;
+        padding: 3px 8px;
+        background: #f44336;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
 </style>
 
 @stack('styles')
