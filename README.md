@@ -59,3 +59,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+CREATE TABLE sliders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    stt INT,                    -- Cột STT để lưu số thứ tự
+    image VARCHAR(255) NOT NULL,
+    alt VARCHAR(255),
+    link VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

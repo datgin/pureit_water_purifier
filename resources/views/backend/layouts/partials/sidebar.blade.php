@@ -148,6 +148,34 @@
                     </a>
                 </li> --}}
 
+                <li class="nav-item ">
+                    <a data-bs-toggle="collapse" class="has-children" href="#promotion">
+                        <i class="fas fa-cogs"></i>
+                        <p>Cấu hình</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="promotion">
+                        <ul class="nav nav-collapse">
+                            <li class="nav-item {{ activeMenu('admin.config.index') }}">
+                                <a href="{{ route('admin.config.index') }}">
+                                    <span class="sub-item">Công ty</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ activeMenu('admin.config.seo') }}">
+                                <a href="{{ route('admin.config.seo') }}">
+                                    <span class="sub-item">SEO</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ activeMenu('admin.config.slider') }}">
+                                <a href="{{ route('admin.config.slider') }}">
+                                    <span class="sub-item">Slider</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+
             </ul>
         </div>
     </div>
