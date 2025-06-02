@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\Keyword;
 use App\Models\Product;
@@ -66,19 +67,36 @@ class ProductController extends Controller
     {
 
         $product = null;
+        $crossSellProducts = [];
         $preloaded = [];
         $category = Category::query()->pluck('name', 'id')->toArray();
+        $attributes = Attribute::query()->with('values')->get()->toArray();
+        $selectedAttributeValues = [];
 
         if (!empty($id)) {
-            $product = Product::query()->with(['category', 'images'])->findOrFail($id);
+            $product = Product::query()->with([
+                'category',
+                'images',
+                'attributeValues' => function ($q) {
+                    $q->withPivot('attribute_id');
+                }
+            ])->findOrFail($id);
+
+            foreach ($product->attributeValues as $value) {
+                $selectedAttributeValues[$value->pivot->attribute_id][] = $value->id;
+            }
+
+            // dd($selectedAttributeValues);
 
             $preloaded = $product->images->map(fn($img) => [
                 'id' => $img->id,
                 'src' => $img->image,
             ]);
+
+            $crossSellProducts = !empty($product->cross_sell) ? Product::query()->select(['id', 'name', 'image'])->whereIn('id', $product->cross_sell)->get() : [];
         }
 
-        return view('backend.products.save', compact('product', 'category', 'preloaded'));
+        return view('backend.products.save', compact('product', 'category', 'preloaded', 'crossSellProducts', 'attributes', 'selectedAttributeValues'));
     }
 
     private function validate($request, $id = null)
@@ -100,12 +118,15 @@ class ProductController extends Controller
             'status' => 'nullable|boolean',
             'category_id' => 'required|integer|exists:categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'manual_vi' => 'nullable|file|mimes:pdf|max:5120', // tối đa 5MB
+            'manual_vi' => 'nullable|file|mimes:pdf|max:5120',
             'manual_en' => 'nullable|file|mimes:pdf|max:5120',
             'cross_sell' => 'nullable|array',
             'cross_sell.*' => 'exists:products,id',
             'keywords' => 'nullable',
-            'keywords.*' => 'string|max:30'
+            'keywords.*' => 'string|max:30',
+            'features' => 'nullable|array',
+            'features.*.title' => 'required|string|max:255',
+            'features.*.content' => 'required|string|max:1000',
         ]);
 
         $credentials->after(function ($validator) use ($request) {
@@ -150,6 +171,7 @@ class ProductController extends Controller
             return response()->json($credentials, 422);
         }
 
+        $attributeValues = $request->input('attribute_values', []);
         $uploadImage = null;
         $uploadManualVi = null;
         $uploadManualEn = null;
@@ -185,6 +207,8 @@ class ProductController extends Controller
 
             $this->images($product, $uploadImages);
 
+            $this->attributeValues($product, $attributeValues);
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -214,6 +238,8 @@ class ProductController extends Controller
         if (isset($credentials['success']) && !$credentials['success']) {
             return response()->json($credentials, 422);
         }
+
+        $attributeValues = $request->input('attribute_values', []);
 
         $uploadImage = null;
         $uploadManualVi = null;
@@ -263,6 +289,8 @@ class ProductController extends Controller
 
             $this->images($product, $uploadImages, $request->old ?? []);
 
+            $this->attributeValues($product, $attributeValues);
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -283,6 +311,24 @@ class ProductController extends Controller
             ], 400);
         }
     }
+
+    private function attributeValues($product, $attributeValues)
+    {
+        if (count($attributeValues) > 0) {
+            $syncData = [];
+
+            foreach ($attributeValues as $attributeId => $valueIds) {
+                foreach ($valueIds as $valueId) {
+                    $syncData[$valueId] = ['attribute_id' => $attributeId];
+                }
+            }
+
+            $product->attributeValues()->sync($syncData);
+        } else {
+            $product->attributeValues()->detach();
+        }
+    }
+
 
     private function images($product, $newImages, $oldImages = [])
     {
@@ -539,10 +585,10 @@ class ProductController extends Controller
         $search = $request->input('search', '');
         $page = $request->input('page', 1);
         $perPage = 12; // Số sản phẩm hiển thị mỗi trang
+        $productId = $request->input('productId');
 
         $query = Product::query()
-            ->select('id', 'name', 'image', 'price', 'discount_value')
-            ->where('status', 1); // Chỉ lấy sản phẩm đang active
+            ->select('id', 'name', 'image', 'price', 'discount_value')->where('id', '<>', $productId);
 
         if (!empty($search)) {
             $query->where('name', 'like', "%{$search}%");
