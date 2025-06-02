@@ -10,7 +10,9 @@ use App\Models\ProductImage;
 use App\Models\SeoScoreProduct;
 use App\RankmathSEOForLaravel\Services\SeoAnalyzer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -45,7 +47,7 @@ class ProductController extends Controller
                 })
                 ->addColumn('actions', function ($row) {
                     return '
-                    <a href="' . route('admin.categories.save', $row->id) . '" class="btn btn-sm btn-primary" title="Sửa">
+                    <a href="' . route('admin.products.save', $row->id) . '" class="btn btn-sm btn-primary" title="Sửa">
                         <i class="fas fa-edit"></i>
                     </a>
                     <button class="btn btn-sm btn-danger btn-delete" data-id="' . $row->id . '" title="Xóa">
@@ -79,235 +81,314 @@ class ProductController extends Controller
         return view('backend.products.save', compact('product', 'category', 'preloaded'));
     }
 
-    public function store(Request $request)
+    private function validate($request, $id = null)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:products,slug',
-            'description' => 'required|string',
-            'category_id' => 'required|integer|exists:categories,id',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'description_short' => 'nullable|string|max:255',
-            'price' => 'required|numeric|min:0',
-
-
-            // SEO Fields
-            'title_seo' => 'nullable|string|max:60', // Tối ưu: 50-60 ký tự
-            'description_seo' => 'nullable|string|max:160', // Tối ưu: 120-160 ký tự
-
-            // Discount fields
+        $credentials = Validator::make($request->all(), [
+            'name' => "required|max:255|unique:products,name,{$id}",
+            'slug' => "required|max:255|unique:products,slug,{$id}",
+            'description' => 'nullable|string',
+            'price' => 'nullable|numeric|min:0',
             'discount_type' => 'nullable|in:percentage,amount',
             'discount_value' => 'nullable|numeric|min:0',
-            'discount_start_date' => 'nullable|date',
-            'discount_end_date' => 'nullable|date|after_or_equal:discount_start_date',
-
-            'keywords' => 'nullable',
-            'keywords.*' => 'string|max:30',
-        ]);
-
-        // Xử lý giá trước khi tạo sản phẩm
-        $price = str_replace(',', '', $request->price);
-        $price = (float) $price;
-
-        if (!empty($request->keywords)) {
-            // Giải mã chuỗi JSON thành mảng
-
-            $keywordsArray = json_decode($request->keywords, true);
-
-            $keywords = array_map(fn($keyword) => $keyword['value'], $keywordsArray);
-
-            // dd(vars: $tags);
-
-            $arrayKeywords = [];
-
-            foreach ($keywords as $item) {
-                $keyword = Keyword::query()->updateOrCreate(['name' => $item], ['slug' => Str::slug($item)]);
-                $arrayKeywords[] = $keyword->id;
-            }
-        }
-
-        try {
-            $product = Product::create([
-                'category_id' => $request->category_id,
-                'name' => $request->name,
-                'slug' => $request->slug,
-                'price' => $request->price,
-                'image' => saveImage($request, 'image', 'products_main_images'),
-                'description_short' => $request->description_short,
-                'description' => $request->description,
-                'title_seo' => $request->title_seo,
-                'description_seo' => $request->description_seo,
-                'discount_type' => $request->discount_type ?? 'amount',
-                'discount_value' => $request->discount_value ?? 0,
-                'discount_start_date' => $request->discount_start_date,
-                'discount_end_date' => $request->discount_end_date,
-                'view_count' => 0, // default ban đầu
-            ]);
-
-            $product->keywords()->sync($arrayKeywords);
-
-            $images = [];
-
-            if ($request->hasFile('images')) {
-                $uploadedImages = uploadImages('images', 'album_product', false, true); // ['img1.jpg', 'img2.jpg']
-
-                $images = array_map(fn($img) => ['image' => $img], $uploadedImages); // [['image' => 'img1.jpg'], ...]
-
-                $product->images()->createMany($images);
-            }
-
-            // Sau khi blog đã được tạo và gán từ khóa, tag
-            $focusKeyword = $product->keywords->first()->name ?? '';
-            $analyzer = app(SeoAnalyzer::class);
-
-            $analysisResult = $analyzer->analyze(
-                $product->title_seo,
-                $product->description,
-                $focusKeyword,
-                $product->description_seo ?? '',
-                $product->slug
-            );
-
-            $analysis = collect($analysisResult->checks ?? []);
-            $suggestions = collect($analysisResult->suggestions ?? []);
-            $seoScoreValue = $this->calculateSeoScore($analysis, $suggestions);
-
-            // Lưu điểm SEO
-            $this->saveSEOScore($product, $seoScoreValue);
-
-            return redirect()->route('admin.products.index')->with('success', 'Bài viết đã được thêm thành công');
-        } catch (\Throwable $th) {
-            // Ghi log hoặc xử lý lỗi
-            Log::error('Lỗi khi tạo sản phẩm: ' . $th->getMessage());
-            return back()->with('error', 'Đã xảy ra lỗi khi tạo sản phẩm!');
-        }
-    }
-
-    public function edit($id)
-    {
-        $product = Product::findOrFail($id);
-        $category = Category::all();
-        $keywords = Keyword::pluck('name')->toArray();
-
-        $preloadedImages = $product->images->map(function ($img) {
-            return [
-                'id' => $img->id,
-                'src' => asset('storage/' . $img->image),
-            ];
-        });
-        return view('backend.products.edit', compact('product', 'category', 'keywords', 'preloadedImages'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:products,slug,' . $id,
-            'description' => 'required|string',
-
+            'discount_start_date' => 'nullable|date_format:d/m/Y',
+            'discount_end_date' => 'nullable|date_format:d/m/Y|after_or_equal:discount_start_date',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'title_seo' => 'nullable|string|max:60',
+            'seo_description' => 'nullable|string|max:160',
+            'seo_keywords' => 'nullable|string|max:255',
+            'status' => 'nullable|boolean',
             'category_id' => 'required|integer|exists:categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'description_short' => 'nullable|string|max:500',
-            'price' => 'required|numeric|min:0',
-
-            // SEO Fields
-            'title_seo' => 'nullable|string|max:60',
-            'description_seo' => 'nullable|string|max:160',
-
-            // Discount fields
-            'discount_type' => 'nullable|in:percentage,amount',
-            'discount_value' => 'nullable|numeric|min:0',
-            'discount_start_date' => 'nullable|date',
-            'discount_end_date' => 'nullable|date|after_or_equal:discount_start_date',
-
+            'manual_vi' => 'nullable|file|mimes:pdf|max:5120', // tối đa 5MB
+            'manual_en' => 'nullable|file|mimes:pdf|max:5120',
+            'cross_sell' => 'nullable|array',
+            'cross_sell.*' => 'exists:products,id',
             'keywords' => 'nullable',
-            'keywords.*' => 'string|max:30',
+            'keywords.*' => 'string|max:30'
         ]);
 
-        $product = Product::findOrFail($id);
+        $credentials->after(function ($validator) use ($request) {
+            $discountValue = $request->input('discount_value');
+            $price = $request->input('price');
 
-        $arrayKeywords = [];
-
-        if (!empty($request->keywords)) {
-            $keywordsArray = json_decode($request->keywords, true);
-            $keywords = array_map(fn($keyword) => $keyword['value'], $keywordsArray);
-
-            foreach ($keywords as $item) {
-                $keyword = Keyword::updateOrCreate(['name' => $item], ['slug' => Str::slug($item)]);
-                $arrayKeywords[] = $keyword->id;
-            }
-        }
-
-        if ($request->hasFile('image')) {
-            deleteImage($product->image);
-            $product->image = saveImage($request, 'image', 'products_main_images');
-        }
-
-        // dd([
-        //     $request->description,
-        //     $request->description_short,
-
-        // ]);
-
-        // Cập nhật dữ liệu còn lại
-        $product->update([
-            'category_id' => $request->category_id,
-            'name' => $request->name,
-            'slug' => $request->slug,
-            'price' => $request->price ?? 0,
-            'description_short' => $request->description_short,
-            'description' => $request->description,
-            'title_seo' => $request->title_seo,
-            'description_seo' => $request->description_seo,
-            'keyword_seo' => $request->keyword_seo,
-            'discount_type' => $request->discount_type ?? 'amount',
-            'discount_value' => $request->discount_value ?? 0,
-            'discount_start_date' => $request->discount_start_date,
-            'discount_end_date' => $request->discount_end_date,
-        ]);
-
-        // Đồng bộ keywords
-        $product->keywords()->sync($arrayKeywords);
-
-        // Cập nhật lại ảnh album nếu có
-        if ($request->hasFile('images')) {
-            // Xóa ảnh album cũ
-            foreach ($product->images as $img) {
-                deleteImage($img->image);
-                $img->delete();
+            // Rule 1: Nếu có discount_value > 0 mà không có price
+            if (!is_null($discountValue) && $discountValue > 0 && (is_null($price) || $price === '')) {
+                $validator->errors()->add('price', 'Bạn chưa nhập giá khi có giảm giá.');
             }
 
-            // Thêm ảnh mới
-            $uploadedImages = uploadImages('images', 'album_product', false, true); // ['img1.jpg', ...]
-            $images = array_map(fn($img) => ['image' => $img], $uploadedImages);
-            $product->images()->createMany($images);
+            // Rule 2: Nếu có start và end date mà không có discount_value > 0
+            if (
+                $request->filled('discount_start_date') &&
+                $request->filled('discount_end_date') &&
+                (is_null($discountValue) || $discountValue <= 0)
+            ) {
+                $validator->errors()->add('discount_value', 'Phải nhập giá trị giảm giá > 0 nếu có thời gian giảm.');
+            }
+
+            // ✅ Rule 3: Nếu có cả price và discount_value > 0 thì discount_value phải nhỏ hơn price
+            if (!is_null($price) && !is_null($discountValue) && $discountValue > 0 && $price <= $discountValue) {
+                $validator->errors()->add('discount_value', 'Giá khuyến mãi phải nhỏ hơn giá gốc.');
+            }
+        });
+
+        if ($credentials->fails()) {
+            return [
+                'success' => false,
+                'message' => $credentials->errors()->first(),
+            ];
         }
 
-        // Phân tích lại SEO (nếu cần)
-        try {
-            $focusKeyword = $product->keywords->first()->name ?? '';
-            $analyzer = app(SeoAnalyzer::class);
-
-            $analysisResult = $analyzer->analyze(
-                $product->title_seo,
-                $product->description,
-                $focusKeyword,
-                $product->description_seo ?? '',
-                $product->slug
-            );
-
-            $analysis = collect($analysisResult->checks ?? []);
-            $suggestions = collect($analysisResult->suggestions ?? []);
-            $seoScoreValue = $this->calculateSeoScore($analysis, $suggestions);
-
-            // Lưu điểm SEO
-            $this->saveSEOScore($product, $seoScoreValue);
-        } catch (\Throwable $th) {
-            Log::warning('Lỗi khi phân tích SEO: ' . $th->getMessage());
-        }
-
-        return redirect()->back()->with('success', 'Sản phẩm đã được cập nhật thành công');
+        return $credentials->validated();
     }
+
+    public function store(Request $request)
+    {
+        $credentials = $this->validate($request);
+
+        if (isset($credentials['success']) && !$credentials['success']) {
+            return response()->json($credentials, 422);
+        }
+
+        $uploadImage = null;
+        $uploadManualVi = null;
+        $uploadManualEn = null;
+        $uploadImages = [];
+
+        try {
+            DB::beginTransaction();
+
+            if ($request->hasFile('image')) {
+                $uploadImage = uploadImages('image', 'product');
+                $credentials['image'] = $uploadImage;
+            }
+
+            if ($request->hasFile('images')) {
+                $uploadImages = uploadImages('images', 'product', false, true);
+            }
+
+            if ($request->hasFile('manual_vi')) {
+                $uploadManualVi = savePdfFile('manual_vi');
+                $credentials['manual_vi'] = $uploadManualVi;
+            }
+
+            if ($request->hasFile('manual_en')) {
+                $uploadManualEn = savePdfFile('manual_en');
+                $credentials['manual_en'] = $uploadManualEn;
+            }
+
+            if (!empty($credentials['seo_keywords'])) {
+                $credentials['seo_keywords'] = explode(',', $credentials['seo_keywords']);
+            }
+
+            $product = Product::create($credentials);
+
+            $this->images($product, $uploadImages);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            logger('ProductController(store): ' . $e->getMessage());
+
+            deleteImage($uploadImage);
+            deleteImage($uploadManualVi);
+            deleteImage($uploadManualEn);
+
+            array_map(function ($image) {
+                deleteImage($image);
+            }, $uploadImages);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Đã có lỗi xảy ra, vui lòng thử lại sau!'
+            ], 400);
+        }
+
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $credentials = $this->validate($request, $id);
+
+        if (isset($credentials['success']) && !$credentials['success']) {
+            return response()->json($credentials, 422);
+        }
+
+        $uploadImage = null;
+        $uploadManualVi = null;
+        $uploadManualEn = null;
+        $uploadImages = [];
+
+        try {
+            DB::beginTransaction();
+
+            $product = Product::findOrFail($id);
+
+            $oldImage = $product->image;
+            $oldManualVi = $product->manual_vi;
+            $oldManualEn = $product->manual_en;
+
+            if ($request->hasFile('image')) {
+                $uploadImage = uploadImages('image', 'product');
+                $credentials['image'] = $uploadImage;
+            }
+
+            if ($request->hasFile('images')) {
+                $uploadImages = uploadImages('images', 'product', false, true);
+            }
+
+            if ($request->hasFile('manual_vi')) {
+                $uploadManualVi = savePdfFile('manual_vi');
+                $credentials['manual_vi'] = $uploadManualVi;
+            }
+
+            if ($request->hasFile('manual_en')) {
+                $uploadManualEn = savePdfFile('manual_en');
+                $credentials['manual_en'] = $uploadManualEn;
+            }
+
+            if (!empty($credentials['seo_keywords'])) {
+                $credentials['seo_keywords'] = explode(',', $credentials['seo_keywords']);
+            }
+
+            if ($product->update($credentials)) {
+                if (!empty($uploadImage))
+                    deleteImage($oldImage);
+                if (!empty($uploadManualVi))
+                    deleteImage($oldManualVi);
+                if (!empty($uploadManualEn))
+                    deleteImage($oldManualEn);
+            }
+
+            $this->images($product, $uploadImages, $request->old ?? []);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            logger('ProductController(update): ' . $e->getMessage());
+
+            deleteImage($uploadImage);
+            deleteImage($uploadManualVi);
+            deleteImage($uploadManualEn);
+
+            array_map(function ($image) {
+                deleteImage($image);
+            }, $uploadImages);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Đã có lỗi xảy ra, vui lòng thử lại sau!'
+            ], 400);
+        }
+    }
+
+    private function images($product, $newImages, $oldImages = [])
+    {
+        // Lấy các ảnh hiện tại trong DB
+        $currentImages = $product->images()->pluck('image', 'id')->toArray();
+
+        // Duyệt tất cả ảnh hiện tại, nếu không nằm trong old thì xóa
+        foreach ($currentImages as $id => $imagePath) {
+            if (!in_array($id, $oldImages)) {
+                deleteImage($imagePath); // xóa file khỏi storage
+                $product->images()->where('id', $id)->delete(); // xóa record
+            }
+        }
+
+        // Thêm ảnh mới
+        if (!empty($newImages)) {
+            $product->images()->createMany(
+                collect($newImages)->map(fn($img) => ['image' => $img])->toArray()
+            );
+        }
+    }
+
+
+    // public function store(Request $request)
+    // {
+
+
+    //     // Xử lý giá trước khi tạo sản phẩm
+    //     $price = str_replace(',', '', $request->price);
+    //     $price = (float) $price;
+
+    //     if (!empty($request->keywords)) {
+    //         // Giải mã chuỗi JSON thành mảng
+
+    //         $keywordsArray = json_decode($request->keywords, true);
+
+    //         $keywords = array_map(fn($keyword) => $keyword['value'], $keywordsArray);
+
+    //         // dd(vars: $tags);
+
+    //         $arrayKeywords = [];
+
+    //         foreach ($keywords as $item) {
+    //             $keyword = Keyword::query()->updateOrCreate(['name' => $item], ['slug' => Str::slug($item)]);
+    //             $arrayKeywords[] = $keyword->id;
+    //         }
+    //     }
+
+    //     try {
+    //         $product = Product::create([
+    //             'category_id' => $request->category_id,
+    //             'name' => $request->name,
+    //             'slug' => $request->slug,
+    //             'price' => $request->price,
+    //             'image' => saveImage($request, 'image', 'products_main_images'),
+    //             'description_short' => $request->description_short,
+    //             'description' => $request->description,
+    //             'title_seo' => $request->title_seo,
+    //             'description_seo' => $request->description_seo,
+    //             'discount_type' => $request->discount_type ?? 'amount',
+    //             'discount_value' => $request->discount_value ?? 0,
+    //             'discount_start_date' => $request->discount_start_date,
+    //             'discount_end_date' => $request->discount_end_date,
+    //             'view_count' => 0, // default ban đầu
+    //         ]);
+
+    //         $product->keywords()->sync($arrayKeywords);
+
+    //         $images = [];
+
+    //         if ($request->hasFile('images')) {
+    //             $uploadedImages = uploadImages('images', 'album_product', false, true); // ['img1.jpg', 'img2.jpg']
+
+    //             $images = array_map(fn($img) => ['image' => $img], $uploadedImages); // [['image' => 'img1.jpg'], ...]
+
+    //             $product->images()->createMany($images);
+    //         }
+
+    //         // Sau khi blog đã được tạo và gán từ khóa, tag
+    //         $focusKeyword = $product->keywords->first()->name ?? '';
+    //         $analyzer = app(SeoAnalyzer::class);
+
+    //         $analysisResult = $analyzer->analyze(
+    //             $product->title_seo,
+    //             $product->description,
+    //             $focusKeyword,
+    //             $product->description_seo ?? '',
+    //             $product->slug
+    //         );
+
+    //         $analysis = collect($analysisResult->checks ?? []);
+    //         $suggestions = collect($analysisResult->suggestions ?? []);
+    //         $seoScoreValue = $this->calculateSeoScore($analysis, $suggestions);
+
+    //         // Lưu điểm SEO
+    //         $this->saveSEOScore($product, $seoScoreValue);
+
+    //         return redirect()->route('admin.products.index')->with('success', 'Bài viết đã được thêm thành công');
+    //     } catch (\Throwable $th) {
+    //         // Ghi log hoặc xử lý lỗi
+    //         Log::error('Lỗi khi tạo sản phẩm: ' . $th->getMessage());
+    //         return back()->with('error', 'Đã xảy ra lỗi khi tạo sản phẩm!');
+    //     }
+    // }
+
+
 
     // Tính điểm
     private function calculateSeoScore($analysis, $suggestions)
