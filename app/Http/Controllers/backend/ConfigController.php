@@ -205,7 +205,7 @@ class ConfigController extends Controller
         $links = $request->input('link');
         $images = $request->file('image');
         $old_images = $request->input('old_image');
-        $slider_ids = $request->input('slider_id');
+        $slider_ids = $request->input('slider_id') ?? [];
 
 
         $currentIds = Slider::pluck('id')->toArray();
