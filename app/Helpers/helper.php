@@ -221,6 +221,66 @@ function saveImage($request, string $inputName, string $directory = 'images')
     }
 }
 
+if (!function_exists('isOnSale')) {
+    function isOnSale($record)
+    {
+        // Kiểm tra xem có discount_value không
+        if ($record->discount_value > 0) {
+            // Nếu không có discount_start_date và discount_end_date, có nghĩa là giảm giá vô thời gian
+            if (empty($record->discount_start_date) && empty($record->discount_end_date)) {
+                return true; // Giảm giá vô thời gian
+            }
+
+            // Nếu có discount_start_date và discount_end_date, kiểm tra theo thời gian
+            if ($record->discount_start_date && $record->discount_end_date) {
+                // Chuyển đổi discount_start_date và discount_end_date thành định dạng Carbon (d-m-Y)
+                $discountStart = $record->discount_start_date;
+                $discountEnd = $record->discount_end_date;
+                $now = Carbon::now(); // Thời gian hiện tại
+
+                // Kiểm tra điều kiện giảm giá hợp lệ
+                if ($discountStart->lte($now) && $discountEnd->gte($now)) {
+                    return true;
+                }
+            }
+
+            if ($record->discount_start_date && empty($record->discount_end_date)) {
+                $discountStart = $record->discount_start_date;
+                $now = Carbon::now(); // Thời gian hiện tại
+                if ($discountStart->gt($now)) {
+                    return true; // Giảm giá bắt đầu trong tương lai
+                }
+            }
+
+            // Nếu chỉ có discount_end_date và không có discount_start_date, kiểm tra discount_end_date < thời gian hiện tại
+            if (empty($record->discount_start_date) && $record->discount_end_date) {
+                $discountEnd = $record->discount_end_date;
+                $now = Carbon::now(); // Thời gian hiện tại
+                if ($discountEnd->lt($now)) {
+                    return true; // Giảm giá đã kết thúc
+                }
+            }
+        }
+
+        // Trả về false nếu không thỏa mãn điều kiện giảm giá
+        return false;
+    }
+}
+
+if (!function_exists('getDiscountPercent')) {
+
+    function getDiscountPercent($originalPrice, $salePrice)
+    {
+        if ($originalPrice <= 0 || $salePrice >= $originalPrice) {
+            return 0; // Không giảm hoặc giá trị không hợp lệ
+        }
+
+        $discount = (($originalPrice - $salePrice) / $originalPrice) * 100;
+
+        return (int) $discount; // Lấy phần nguyên
+    }
+}
+
 if (!function_exists('showImage')) {
     function showImage($image)
     {

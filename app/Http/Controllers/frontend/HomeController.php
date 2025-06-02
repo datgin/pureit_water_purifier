@@ -11,7 +11,9 @@ class HomeController extends Controller
     {
         $products = Product::query()
             ->whereHas('category', function ($q) {
-                $q->where('status', 1); })
+                $q->where('status', 1);
+            })
+            ->with('category')
             ->where(['status' => 1, 'is_featured' => 1])
             ->get();
 

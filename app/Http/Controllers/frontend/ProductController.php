@@ -10,20 +10,40 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
 
-    public function category($slug)
+    // public function category($slug)
+    // {
+    //     $category = Category::where('slug', $slug)->firstOrFail();
+
+    //     $products = Product::where('category_id', $category->id)
+    //         ->where('status', 1)
+    //         ->get();
+    //     return view('frontend.pages.shop', compact('products', 'category'));
+    // }
+
+    // public function detail($slug)
+    // {
+    //     $product = Product::where('slug', $slug)->firstOrFail();
+
+    //     return view('frontend.pages.detail', compact('product'));
+    // }
+
+    public function product($categoryPath, $productPath = null)
     {
-        $category = Category::where('slug', $slug)->firstOrFail();
 
-        $products = Product::where('category_id', $category->id)
-            ->where('status', 1)
-            ->get();
-        return view('frontend.pages.shop', compact('products', 'category'));
-    }
+        if (!empty($productPath)) {
+            $product = Product::query()->with(['images', 'category', 'attributeValues'])->where(['slug' => $productPath, 'status' => 1])->firstOrFail();
+            $images = array_merge([$product->image], $product->images->pluck('image')->toArray());
+            $attributeValues = $product->attributeValues;
 
-    public function detail($slug)
-    {
-        $product = Product::where('slug', $slug)->firstOrFail();
+            return view('frontend.pages.detail', compact('images', 'product', 'attributeValues.attribute'));
+        }
 
-        return view('frontend.pages.detail', compact('product'));
+        $category = Category::query()
+            ->where('slug', $categoryPath)
+            ->firstOrFail();
+
+        $products = Product::query()->with('category')->where(['category_id' => $category->id, 'status' => 1])->paginate(12);
+
+        return view('frontend.pages.shop', compact('category', 'products'));
     }
 }
