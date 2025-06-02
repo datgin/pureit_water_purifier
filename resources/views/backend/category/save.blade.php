@@ -149,6 +149,18 @@
                     </div>
                 </div>
 
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h4 class="card-title fs-6 fw-bold required">Loại danh mục (Type)</h4>
+                    </div>
+                    <div class="card-body">
+                        <select name="type" class="form-select form-control" id="type">
+                            <option value="product" @selected(old('type', $category->type ?? '') === 'product')>Sản phẩm</option>
+                            <option value="blog" @selected(old('type', $category->type ?? '') === 'blog')>Bài viết</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title fs-6 fw-bold required">Vị trí thứ tự

@@ -12,6 +12,7 @@ class News extends Model
     protected $table = 'news';
 
     protected $fillable = [
+        'category_id',
         'title',
         'slug',
         'image',
@@ -24,11 +25,22 @@ class News extends Model
         'seo_title',
         'seo_description',
         'seo_keyword',
+        'type'
     ];
 
     protected $casts = [
         'posted_at' => 'datetime',
         'remove_at' => 'datetime',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function getImageAttribute($value)
+    {
+        return showImage($value);
+    }
 
 }

@@ -32,7 +32,7 @@ class Product extends Model
         'manual_vi',
         'manual_en',
         'status',
-        'is_featured'
+        'is_featured',
         'features'
 
     ];

@@ -82,6 +82,7 @@ class CategoryController extends Controller
             'seo_description' => 'nullable|string',
             'seo_keywords' => 'nullable|max:255|string',
             'status' => 'nullable',
+            'type' => 'nullable',
             'location' => 'nullable|int|numeric|min:0'
         ]);
 
