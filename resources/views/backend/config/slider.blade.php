@@ -30,20 +30,22 @@
                                     <div class="col-md-12 row align-items-center slider-row">
                                         <div class="form-group col-lg-3 text-center">
                                             <img class="img-fluid img-thumbnail w-70 preview-image" style="cursor: pointer;"
-                                                src="{{ showImage('') }}" alt=""
+                                                src="{{ !empty($slider->image) ? asset('storage/' . $slider->image) : asset('backend/assets/img/image-default.jpg') }}" alt=""
                                                 onclick="this.nextElementSibling.click();">
                                             <input type="file" name="image[]" class="form-control d-none image-input"
                                                 accept="image/*" onchange="previewImageNew(event)">
                                             <input type="hidden" name="old_image[]" value="{{ $slider->image }}">
                                             <input type="hidden" name="slider_id[]" value="{{ $slider->id ?? '' }}">
                                         </div>
-                                        <div class="form-group col-lg-4">
-                                            <input value="{{ $slider->alt }}" name="alt[]" class="form-control"
-                                                type="text" placeholder="Alt">
-                                        </div>
-                                        <div class="form-group col-lg-4">
-                                            <input value="{{ $slider->link }}" name="link[]" class="form-control"
-                                                type="text" placeholder="Link">
+                                        <div class="row col-md-8">
+                                            <div class="form-group col-lg-12">
+                                                <input value="{{ $slider->alt }}" name="alt[]" class="form-control"
+                                                    type="text" placeholder="Alt">
+                                            </div>
+                                            <div class="form-group col-lg-12">
+                                                <input value="{{ $slider->link }}" name="link[]" class="form-control"
+                                                    type="text" placeholder="Link">
+                                            </div>
                                         </div>
                                         <div class="form-group col-lg-1 d-flex justify-content-center align-items-center">
                                             <button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">
@@ -53,7 +55,7 @@
                                     </div>
                                 @endforeach
                             @else
-                                <div class="col-md-12 row align-items-center slider-row">
+                                {{-- <div class="col-md-12 row align-items-center slider-row">
                                     <div class="form-group col-lg-3 text-center">
                                         <img class="img-fluid img-thumbnail w-70 preview-image" style="cursor: pointer;"
                                             src="{{ showImage('') }}" alt=""
@@ -75,13 +77,20 @@
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </div>
-                                </div>
+                                </div> --}}
                             @endif
                         </div>
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-center mt-3">
-                            <button type="submit" class="btn btn-primary">Lưu</button>
+                            <div class="text-center mt-4">
+                                <a class="btn btn-success btn-sm" onclick="addRow()">
+                                    <i class="fas fa-plus"></i> Thêm mới
+                                </a>
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-save"></i> Lưu thay đổi
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
