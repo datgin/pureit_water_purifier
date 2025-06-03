@@ -374,18 +374,30 @@ a {
 }
 
 .product-card {
+    height: 100%;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 450px;
 }
 
 .product-title {
     color: #1e2878;
     font-size: 1rem;
+    min-height: 48px; /* tương ứng với 2 dòng */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Giới hạn 2 dòng */
+    -webkit-box-orient: vertical;
 }
 
 .product-image {
     width: 100%;
     max-width: 570px;
+    height: 270px;
 }
 
 .original-price {
@@ -825,7 +837,6 @@ a {
     .image-container img.main {
         height: 390px !important;
     }
-
 }
 
 @media (max-width: 575.98px) {

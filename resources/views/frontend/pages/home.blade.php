@@ -127,7 +127,7 @@
                 Nhận xét từ khách hàng
             </h5>
             <h2 class="fw-bold mb-5" data-aos="fade-up">
-                Khách hàng nói gì về Pureit
+                Khách hàng nói gì về chúng tôi
             </h2>
 
             <div class="row align-items-center mb-4">

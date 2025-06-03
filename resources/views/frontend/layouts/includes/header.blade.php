@@ -20,7 +20,7 @@
         <div class="desktop-only">
             <ul class="navbar-nav flex-row">
                 <li class="nav-item">
-                    <a class="nav-link fw-bold" href="{{route('home')}}">Về Pureit</a>
+                    <a class="nav-link fw-bold" href="{{route('home')}}">Trang chủ</a>
                 </li>
                 @foreach ($productCategories as $category)
                     <li class="nav-item">
