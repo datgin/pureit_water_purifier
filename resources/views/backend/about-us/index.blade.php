@@ -54,16 +54,16 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row align-items-center">
-                            <div class="col-md-2 text-center">
+                            <div class="col-md-3 text-center">
                                 <div class="form-group">
-                                    <img class="img-fluid img-thumbnail w-100 rounded-circle show-image"
-                                        style="cursor: pointer; height: 200px;" src="{{ showImage('') }}" alt=""
+                                    <img class="img-fluid img-thumbnail w-100  show-image"
+                                        style="cursor: pointer; height: 140px;" src="{{ showImage('') }}" alt=""
                                         onclick="document.getElementById('image-input-{index}').click();">
                                     <input type="file" name="data[][image]" class="form-control d-none image-input"
                                         accept="image/*" onchange="previewImage(event, 'show-image-{index}')">
                                 </div>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <div class="mb-3">
                                     <input type="text" name="data[][title]" class="form-control"
                                         placeholder="Nhập tiêu đề">
@@ -132,6 +132,7 @@
                     e.preventDefault();
 
                     let formData = new FormData(this)
+                    console.log(formData);
 
                     $.ajax({
                         url: '/admin/aboutus',

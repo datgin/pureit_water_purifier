@@ -22,9 +22,9 @@ class AboutUsController extends Controller
 
         $credentials = Validator::make($request->all(), [
             'data' => 'nullable|array',
-            'data.title' => 'required|max:255',
-            'data.description' => 'nullable|max:255',
-            'data.image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'data.*.title' => 'required|max:255',
+            'data.*.description' => 'nullable|max:255',
+            'data.*.image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
         if ($credentials->fails()) {
