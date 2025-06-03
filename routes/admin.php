@@ -28,21 +28,6 @@ Route::name('admin.')->group(function () {
             Route::get('save/{id?}', [CategoryController::class, 'save'])->name('save');
             Route::post('/', [CategoryController::class, 'store'])->name('store');
             Route::put('{id}', [CategoryController::class, 'update'])->name('update');
-
-            Route::get('trash', [CategoryController::class, 'trash'])->name('trash');
-            Route::delete('{id}/soft-delete', [CategoryController::class, 'softDelete'])->name('softDelete');
-            Route::delete('{id}', [CategoryController::class, 'destroy'])->name('destroy');
-            Route::put('change-status/{id}', [CategoryController::class, 'changeStatus']);
-        });
-
-        Route::prefix('keywords')->name('keywords.')->group(function () {
-            Route::get('/', [KeywordController::class, 'index'])->name('index');
-            Route::get('trash', [KeywordController::class, 'trash'])->name('trash');
-            Route::post('store', [KeywordController::class, 'store'])->name('store');
-            Route::put('{id}', [KeywordController::class, 'update'])->name('update');
-            Route::delete('{id}/soft-delete', [KeywordController::class, 'softDelete'])->name('softDelete');
-            Route::delete('{id}/delete', [KeywordController::class, 'delete'])->name('delete');
-            Route::put('{id}/restore', [KeywordController::class, 'restore'])->name('restore');
         });
 
         Route::group([
