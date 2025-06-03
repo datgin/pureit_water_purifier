@@ -151,7 +151,7 @@
 
                 <div class="card mt-3">
                     <div class="card-header">
-                        <h4 class="card-title fs-6 fw-bold required">Loại danh mục (Type)</h4>
+                        <h4 class="card-title fs-6 fw-bold required">Loại danh mục</h4>
                     </div>
                     <div class="card-body">
                         <select name="type" class="form-select form-control" id="type">

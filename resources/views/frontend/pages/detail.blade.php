@@ -7,7 +7,7 @@
 
         <div class="row g-0 container mx-auto">
             <!-- Left Column: Image & Text -->
-            <div class="col-md-6 product-image-col">
+            <div class="col-md-6 product-image-col px-0">
                 <div class="image-container position-relative">
                     <!-- Main Swiper -->
                     <div class="swiper productMainSwiper mb-3">
@@ -78,38 +78,44 @@
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features-section container bg-light p-4 rounded">
-        <h2 class="text-primary mb-4">Tính năng, đặc điểm</h2>
+    @if (count($product->features) > 0)
+        <!-- Features Section -->
+        <section class="features-section container bg-light p-4 rounded">
+            <h2 class="text-primary mb-4">Tính năng, đặc điểm</h2>
 
-        <div class="row">
-            @foreach ($product->features ?? [] as $feature)
-                <div class="col-md-4">
-                    <h5 class="text-primary">{{ $feature['title'] }}</h5>
-                    <p class="text-muted">
-                        {{ $feature['content'] }}
-                    </p>
-                </div>
-            @endforeach
-        </div>
-
-    </section>
-
-    <!-- Technical Specs Section -->
-    <section class="specs-section container mt-5 mb-5">
-        <h2 class="text-primary mb-4">Thông số kỹ thuật</h2>
-        <table class="table table-bordered">
-            <tbody>
-
-                @foreach ($attributeValues as $attrValue)
-                    <tr>
-                        <th scope="row">{{ $attrValue->attribute->name }}:</th>
-                        <td>{{ $attrValue->value }}</td>
-                    </tr>
+            <div class="row">
+                @foreach ($product->features as $feature)
+                    <div class="col-md-4">
+                        <h5 class="text-primary">{{ $feature['title'] }}</h5>
+                        <p class="text-muted">
+                            {{ $feature['content'] }}
+                        </p>
+                    </div>
                 @endforeach
-            </tbody>
-        </table>
-    </section>
+            </div>
+
+        </section>
+    @endif
+
+
+    @if ($attributeValues->isNotEmpty())
+        <!-- Technical Specs Section -->
+        <section class="specs-section container mt-5 mb-5 px-0">
+            <h2 class="text-primary mb-4">Thông số kỹ thuật</h2>
+            <table class="table table-bordered">
+                <tbody>
+
+                    @foreach ($attributeValues as $attrValue)
+                        <tr>
+                            <th scope="row">{{ $attrValue->attribute->name }}:</th>
+                            <td>{{ $attrValue->value }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </section>
+    @endif
+
 
     <!-- Recommended Products Section -->
     <section class="recommended-products container mt-5 mb-5">
@@ -117,109 +123,11 @@
         <div class="swiper recommendedProductsSwiper">
             <div class="swiper-wrapper">
                 <!-- Recommended Product Card 1 -->
-                <div class="swiper-slide">
-                    <div class="product-card text-start rounded bg-white shadow-sm p-3 h-100">
-                        <span
-                            class="discount-badge position-absolute top-0 start-0 bg-warning text-white rounded-circle d-flex align-items-center justify-content-center">36%</span>
-                        <img src="./assets/image/Ultima-WHT_goc-nghieng-300x300.png" class="product-image mb-3"
-                            alt="Recommended Product Image" />
-                        <h6 class="fw-bold product-title">
-                            Máy lọc nước treo tường/để bàn Ultima Trắng
-                        </h6>
-                        <div class="price mt-3">
-                            <span class="original-price text-muted text-decoration-line-through me-2">12.400.000 đ</span>
-                            <span class="discounted-price text-primary fw-bold">7.990.000 đ</span>
-                        </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <a href="#" class="btn btn-outline-primary rounded-pill flex-grow-1 me-2">Chi tiết</a>
-                            <a href="#" class="btn btn-primary rounded-pill flex-grow-1">Mua ngay</a>
-                        </div>
+                @foreach ($relatedProducts as $item)
+                    <div class="swiper-slide">
+                        <x-product-item :product="$item" />
                     </div>
-                </div>
-
-                <!-- Recommended Product Card 2 -->
-                <div class="swiper-slide">
-                    <div class="product-card text-start rounded bg-white shadow-sm p-3 h-100">
-                        <span
-                            class="discount-badge position-absolute top-0 start-0 bg-warning text-white rounded-circle d-flex align-items-center justify-content-center">36%</span>
-                        <img src="./assets/image/Ultima-WHT_goc-nghieng-300x300.png" class="product-image mb-3"
-                            alt="Recommended Product Image" />
-                        <h6 class="fw-bold product-title">
-                            Máy lọc nước treo tường/để bàn Ultima Trắng
-                        </h6>
-                        <div class="price mt-3">
-                            <span class="original-price text-muted text-decoration-line-through me-2">12.400.000 đ</span>
-                            <span class="discounted-price text-primary fw-bold">7.990.000 đ</span>
-                        </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <a href="#" class="btn btn-outline-primary rounded-pill flex-grow-1 me-2">Chi tiết</a>
-                            <a href="#" class="btn btn-primary rounded-pill flex-grow-1">Mua ngay</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Recommended Product Card 3 -->
-                <div class="swiper-slide">
-                    <div class="product-card text-start rounded bg-white shadow-sm p-3 h-100">
-                        <span
-                            class="discount-badge position-absolute top-0 start-0 bg-warning text-white rounded-circle d-flex align-items-center justify-content-center">36%</span>
-                        <img src="./assets/image/Ultima-WHT_goc-nghieng-300x300.png" class="product-image mb-3"
-                            alt="Recommended Product Image" />
-                        <h6 class="fw-bold product-title">
-                            Máy lọc nước treo tường/để bàn Ultima Trắng
-                        </h6>
-                        <div class="price mt-3">
-                            <span class="original-price text-muted text-decoration-line-through me-2">12.400.000 đ</span>
-                            <span class="discounted-price text-primary fw-bold">7.990.000 đ</span>
-                        </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <a href="#" class="btn btn-outline-primary rounded-pill flex-grow-1 me-2">Chi tiết</a>
-                            <a href="#" class="btn btn-primary rounded-pill flex-grow-1">Mua ngay</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Recommended Product Card 4 -->
-                <div class="swiper-slide">
-                    <div class="product-card text-start rounded bg-white shadow-sm p-3 h-100">
-                        <span
-                            class="discount-badge position-absolute top-0 start-0 bg-warning text-white rounded-circle d-flex align-items-center justify-content-center">36%</span>
-                        <img src="./assets/image/Ultima-WHT_goc-nghieng-300x300.png" class="product-image mb-3"
-                            alt="Recommended Product Image" />
-                        <h6 class="fw-bold product-title">
-                            Máy lọc nước treo tường/để bàn Ultima Trắng
-                        </h6>
-                        <div class="price mt-3">
-                            <span class="original-price text-muted text-decoration-line-through me-2">12.400.000 đ</span>
-                            <span class="discounted-price text-primary fw-bold">7.990.000 đ</span>
-                        </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <a href="#" class="btn btn-outline-primary rounded-pill flex-grow-1 me-2">Chi tiết</a>
-                            <a href="#" class="btn btn-primary rounded-pill flex-grow-1">Mua ngay</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="product-card text-start rounded bg-white shadow-sm p-3 h-100">
-                        <span
-                            class="discount-badge position-absolute top-0 start-0 bg-warning text-white rounded-circle d-flex align-items-center justify-content-center">36%</span>
-                        <img src="./assets/image/Ultima-WHT_goc-nghieng-300x300.png" class="product-image mb-3"
-                            alt="Recommended Product Image" />
-                        <h6 class="fw-bold product-title">
-                            Máy lọc nước treo tường/để bàn Ultima Trắng
-                        </h6>
-                        <div class="price mt-3">
-                            <span class="original-price text-muted text-decoration-line-through me-2">12.400.000 đ</span>
-                            <span class="discounted-price text-primary fw-bold">7.990.000 đ</span>
-                        </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <a href="#" class="btn btn-outline-primary rounded-pill flex-grow-1 me-2">Chi tiết</a>
-                            <a href="#" class="btn btn-primary rounded-pill flex-grow-1">Mua ngay</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Add more product cards as needed -->
+                @endforeach
             </div>
             <!-- Add Navigation -->
             <div class="swiper-button-next"></div>
@@ -228,17 +136,29 @@
     </section>
 
     <!-- Product Usage Instructions Section -->
-    <section class="product-instructions-section py-5">
-        <div class="container text-center">
-            <h2 class="text-primary mb-4">Hướng dẫn sử dụng sản phẩm</h2>
-            <div class="d-flex justify-content-center gap-3 flex-wrap">
-                <a href="#" class="btn btn-primary rounded-pill px-4 py-2 d-inline-flex align-items-center">
-                    Tải PDF VN <i class="bi bi-download ms-2"></i>
-                </a>
-                <a href="#" class="btn btn-primary rounded-pill px-4 py-2 d-inline-flex align-items-center">
-                    Tải PDF EN <i class="bi bi-download ms-2"></i>
-                </a>
+
+
+    @if ($product->manual_vi || $product->manual_en)
+        <section class="product-instructions-section py-5">
+            <div class="container text-center">
+                <h2 class="text-primary mb-4">Hướng dẫn sử dụng sản phẩm</h2>
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                    @if ($product->manual_vi)
+                        <a href="{{ showImage($product->manual_vi) }}" download
+                            class="btn btn-primary rounded-pill px-4 py-2 d-inline-flex align-items-center">
+                            Tải PDF VN <i class="bi bi-download ms-2"></i>
+                        </a>
+                    @endif
+
+                    @if ($product->manual_en)
+                        <a href="{{ showImage($product->manual_en) }}" download
+                            class="btn btn-primary rounded-pill px-4 py-2 d-inline-flex align-items-center">
+                            Tải PDF EN <i class="bi bi-download ms-2"></i>
+                        </a>
+                    @endif
+
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 @endsection

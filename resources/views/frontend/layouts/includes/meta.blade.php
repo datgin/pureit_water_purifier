@@ -22,9 +22,6 @@
 <!-- Apple Touch Icon -->
 <link rel="apple-touch-icon" href="{{showImage($setting->icon)}}">
 
-<!-- Android Chrome -->
-<link rel="manifest" href="{{showImage($setting->icon)}}">
-
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 <title>Pureit Header</title>
