@@ -30,45 +30,20 @@
             <h5 class="text-uppercase fw-bold text-muted mb-2">Về chúng tôi</h5>
             <h2 class="fw-bold mb-5" data-aos="fade-up">Pureit tự hào vì</h2>
             <div class="row about-wrapper">
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
-                    <div class="about-item px-3 rounded">
-                        <div class="icon-wrapper mx-auto mb-3">
-                            <img src="assets/image/gioi-thieu-01.png" alt="Toàn cầu" />
+                @foreach ($aboutUs as $about)
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                        <div class="about-item px-3 rounded">
+                            <div class="icon-wrapper mx-auto mb-3">
+                                <img src="{{showImage($about->image)}}" alt="Toàn cầu" />
+                            </div>
+                            <h5 class="fw-bold">{{$about->title}}</h5>
+                            <div class="underline mb-2"></div>
+                            <p class="">
+                                {{$about->description}}
+                            </p>
                         </div>
-                        <h5 class="fw-bold">Nhãn hiệu máy lọc nước toàn cầu</h5>
-                        <div class="underline mb-2"></div>
-                        <p class="">
-                            Nhãn hiệu máy lọc nước toàn cầu tự hào với hành trình hơn 20
-                            năm kinh nghiệm
-                        </p>
                     </div>
-                </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="about-item px-3 rounded">
-                        <div class="icon-wrapper mx-auto mb-3">
-                            <img src="assets/image/gioi-thieu-03.png" alt="Hiệp hội WQA" />
-                        </div>
-                        <h5 class="fw-bold">Thành viên của Hiệp hội WQA</h5>
-                        <div class="underline mb-2"></div>
-                        <p class="">
-                            Pureit là thành viên Hiệp hội chất lượng nước Hoa Kỳ, cam kết
-                            mang lại nguồn nước an toàn, tinh khiết
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
-                    <div class="about-item px-3 rounded">
-                        <div class="icon-wrapper mx-auto mb-3">
-                            <img src="assets/image/gioi-thieu-03.png" alt="Giải thưởng" />
-                        </div>
-                        <h5 class="fw-bold">Giải thưởng uy tín tại Việt Nam</h5>
-                        <div class="underline mb-2"></div>
-                        <p class="">
-                            "Máy lọc nước âm tủ bếp của năm 2022"* và "Máy lọc nước âm tủ
-                            yêu thích nhất hè 2023" do người tiêu dùng bình chọn**
-                        </p>
-                    </div>
-                </div>
+                @endforeach
             </div>
 
             <div class="mt-5" data-aos="fade-up">
@@ -146,46 +121,28 @@
                 <div class="col-md-7" data-aos="fade-left">
                     <div class="swiper testimonialSwiper">
                         <div class="swiper-wrapper">
-                            <!-- Testimonial Slide 1 -->
-                            <div class="swiper-slide">
-                                <div class="testimonial-card position-relative d-md-flex p-4 rounded shadow-sm bg-white">
-                                    <div class="testimonial-image-wrapper me-md-4 mb-3 mb-md-0">
-                                        <img src="./assets/image/a.jpg" alt="Customer" class="img-fluid rounded"
-                                            style="max-width: 150px" />
-                                        <h6 class="fw-bold mb-0 mt-2">Chị Trinh</h6>
-                                        <p class="text-muted mb-0">Hồ Chí Minh</p>
-                                    </div>
-                                    <div class="testimonial-content text-start">
-                                        <p class="mb-3">
-                                            Là một trong những chủ nhân đầu tiên của chiếc máy lọc
-                                            nước Âm tủ bếp Delica UR5840. Chị nhận xét "siêu phẩm"
-                                            này có thiết kế nhỏ gọn, hiện đại, đặc biệt hệ thống
-                                            đèn UV thông minh, có thể hiện chất lượng nước đầu ra,
-                                            kích thước tiện lợi nhỏ gọn cho các hộ gia đình sử
-                                            dụng.
-                                        </p>
+                            @foreach ($customerReview as $customer)
+                                <!-- Testimonial Slide 1 -->
+                                <div class="swiper-slide">
+                                    <div
+                                        class="testimonial-card position-relative d-md-flex p-4 rounded shadow-sm bg-white">
+                                        <div class="testimonial-image-wrapper me-md-4 mb-3 mb-md-0">
+                                            <img src="{{ showImage($customer->image) }}" alt="Customer"
+                                                class="img-fluid rounded" style="max-width: 150px" />
+                                            <h6 class="fw-bold mb-0 mt-2">{{ $customer->name }}</h6>
+                                            <p class="text-muted mb-0">{{ $customer->address }}</p>
+                                        </div>
+                                        <div class="testimonial-content text-start">
+                                            <p class="mb-3">
+                                                {{ $customer->description }}
+                                            </p>
 
-                                        <i class="bi bi-quote text-primary" style="font-size: 3rem"></i>
+                                            <i class="bi bi-quote text-primary" style="font-size: 3rem"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="testimonial-card position-relative d-md-flex p-4 rounded shadow-sm bg-white">
-                                    <div class="testimonial-image-wrapper me-md-4 mb-3 mb-md-0">
-                                        <img src="./assets/image/a.jpg" alt="Customer" class="img-fluid rounded"
-                                            style="max-width: 150px" />
-                                    </div>
-                                    <div class="testimonial-content text-start">
-                                        <p class="mb-3">
-                                            Là một trong những chủ nhân đầu tiên của chiếc máy lọc
-                                            nước Âm tủ bếp Delica UR5840. Chị nhận xé
-                                        </p>
-                                        <h6 class="fw-bold mb-0">Chị Trinh</h6>
-                                        <p class="text-muted">Hồ Chí Minh</p>
-                                        <i class="bi bi-quote text-primary" style="font-size: 3rem"></i>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
+
                         </div>
                         <!-- Pagination -->
                         <div class="swiper-pagination testimonial-pagination"></div>
@@ -219,13 +176,13 @@
                         THÔNG TIN CHUYỂN KHOẢN
                     </h4>
                     <p class="mb-1">
-                        <strong>Tên tài khoản:</strong> {{$setting->ttk}}
+                        <strong>Tên tài khoản:</strong> {{ $setting->ttk }}
                     </p>
-                    <p class="mb-1"><strong>Số tài khoản:</strong> {{$setting->stk}}</p>
+                    <p class="mb-1"><strong>Số tài khoản:</strong> {{ $setting->stk }}</p>
                     <p class="mb-1">
-                        <strong>Ngân hàng:</strong> {{$setting->bank}}
+                        <strong>Ngân hàng:</strong> {{ $setting->bank }}
                     </p>
-                    <p class="mb-1"><strong>Chi nhánh:</strong> {{$setting->branch}}</p>
+                    <p class="mb-1"><strong>Chi nhánh:</strong> {{ $setting->branch }}</p>
                     <p class="mb-1">
                         <strong>Nội dung:</strong> Tên Khách Hàng + Số điện thoại đăng
                         ký mua máy

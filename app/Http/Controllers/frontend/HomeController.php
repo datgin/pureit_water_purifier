@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AboutUs;
+use App\Models\CustomerReview;
 use App\Models\Product;
 use App\Models\Slider;
 
@@ -20,6 +22,10 @@ class HomeController extends Controller
             ->where(['status' => 1, 'is_featured' => 1])
             ->get();
 
-        return view('frontend.pages.home', compact('products', 'sliders'));
+        $customerReview = CustomerReview::query()->get();
+        // dd($customerReview);
+        $aboutUs = AboutUs::query()->get();
+
+        return view('frontend.pages.home', compact('products', 'sliders', 'customerReview', 'aboutUs'));
     }
 }
