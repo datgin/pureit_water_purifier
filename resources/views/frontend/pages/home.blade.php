@@ -8,7 +8,7 @@
                 <div class="swiper-slide">
                     @if (!empty($slider->link))
                         <a href="{{ $slider->link }}">
-                            <img src="{{ asset('storage/' . $slider->image ?? 'backend/assets/img/image-default.jpg') }}}" class="w-100" alt="{{ $slider->alt }}" />
+                            <img src="{{ asset('storage/' . $slider->image ?? 'backend/assets/img/image-default.jpg') }}" class="w-100" alt="{{ $slider->alt }}" />
                         </a>
                     @else
                         <img src="{{ asset('storage/' . $slider->image ?? 'backend/assets/img/image-default.jpg') }}" class="w-100" alt="{{ $slider->alt }}" />
