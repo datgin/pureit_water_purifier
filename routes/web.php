@@ -17,5 +17,5 @@ Route::post('send-email', [EmailController::class, 'submitAdvice'])->name('send.
 Route::get('/news', [NewsController::class, 'news'])->name('news');
 Route::get('/category/{slug}', [NewsController::class, 'category'])->name('category');
 Route::get('/news/{slug}', [NewsController::class, 'detail'])->name('detail');
-Route::get('{categoryPath}/{productPath?}', [ProductController::class, 'product'])->name('product');
+Route::get('{categoryPath?}/{productPath?}', [ProductController::class, 'product'])->name('product');
 
