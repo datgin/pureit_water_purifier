@@ -4,13 +4,17 @@
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
             <!-- Slide 1 -->
-            <div class="swiper-slide">
-                <img src="./assets/image/banner-1.jpg" class="w-100" alt="Banner 1" />
-            </div>
-            <!-- Slide 2 -->
-            <div class="swiper-slide">
-                <img src="./assets/image/banner-2.jpg" class="w-100" alt="Banner 2" />
-            </div>
+            @foreach ($sliders as $slider)
+                <div class="swiper-slide">
+                    @if (!empty($slider->link))
+                        <a href="{{ $slider->link }}">
+                            <img src="{{ $slider->image }}" class="w-100" alt="{{ $slider->alt }}" />
+                        </a>
+                    @else
+                        <img src="{{ $slider->image }}" class="w-100" alt="{{ $slider->alt }}" />
+                    @endif
+                </div>
+            @endforeach
         </div>
 
         <!-- Pagination -->
@@ -68,7 +72,8 @@
             </div>
 
             <div class="mt-5" data-aos="fade-up">
-                <a href="#" class="btn btn-outline-primary rounded-pill d-inline-flex align-items-center btn-get-advice">
+                <a href="#"
+                    class="btn btn-outline-primary rounded-pill d-inline-flex align-items-center btn-get-advice">
                     Tư vấn ngay
                     <span
                         class="ms-2 d-inline-flex align-items-center justify-content-center text-white bg-primary rounded-circle"
@@ -84,14 +89,14 @@
     <section class="product-section py-5 text-center bg-light">
         <div class="container">
             <h5 class="text-uppercase fw-bold text-muted mb-2">Sản phẩm</h5>
-            <h2 class="fw-bold mb-5">Các sản phẩm nổi bật của Pureit</h2>
+            <h2 class="fw-bold mb-5">Các sản phẩm nổi bật</h2>
 
             <div class="swiper productSwiper mb-4">
                 <div class="swiper-wrapper">
                     <!-- Product Slide 1 -->
                     @foreach ($products as $product)
                         <div class="swiper-slide">
-                            <x-product-item :product="$product"/>
+                            <x-product-item :product="$product" />
                         </div>
                     @endforeach
                 </div>
@@ -102,7 +107,8 @@
             </div>
 
             <div class="mt-5" data-aos="fade-up">
-                <a href="#" class="btn btn-outline-primary rounded-pill d-inline-flex align-items-center btn-get-advice">
+                <a href="#"
+                    class="btn btn-outline-primary rounded-pill d-inline-flex align-items-center btn-get-advice">
                     Tư vấn ngay
                     <span
                         class="ms-2 d-inline-flex align-items-center justify-content-center text-white bg-primary rounded-circle"
@@ -188,7 +194,8 @@
             </div>
 
             <div class="mt-5" data-aos="fade-up">
-                <a href="#" class="btn btn-outline-primary rounded-pill d-inline-flex align-items-center btn-get-advice">
+                <a href="#"
+                    class="btn btn-outline-primary rounded-pill d-inline-flex align-items-center btn-get-advice">
                     Tư vấn ngay
                     <span
                         class="ms-2 d-inline-flex align-items-center justify-content-center text-white bg-primary rounded-circle"

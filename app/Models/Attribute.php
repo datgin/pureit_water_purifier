@@ -12,6 +12,7 @@ class Attribute extends Model
     protected $fillable = [
         "name",
         "slug",
+        'status'
     ];
 
     public function products()
@@ -29,4 +30,8 @@ class Attribute extends Model
     {
         return $this->hasMany(AttributeValue::class);
     }
+
+    protected $casts = [
+        'status' => 'boolean'
+    ];
 }

@@ -821,6 +821,11 @@ a {
     .footer-bottom .col-md-6:first-child {
         margin-bottom: 10px; /* Space between copyright and agency on mobile */
     }
+
+    .image-container img.main {
+        height: 390px !important;
+    }
+
 }
 
 @media (max-width: 575.98px) {
@@ -1147,7 +1152,7 @@ a {
 
 .image-container img.main {
     width: 100% !important;
-    height: 500px !important;
+    height: 500px;
     object-fit: contain;
 }
 

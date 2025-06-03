@@ -44,7 +44,7 @@
 
             <!-- Right Column: Product Info -->
             <div class="col-md-6 product-info-col">
-                <div class="product-info p-4 p-md-3">
+                <div class="product-info  p-md-3">
                     <h1 class="product-title mb-3">
                         {{ $product->name }}
                     </h1>

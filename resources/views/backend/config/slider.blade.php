@@ -4,9 +4,9 @@
 @section('content')
     <div class="card">
         <div class="card-header  d-flex justify-content-between align-items-center">
-            <h3 class="card-title m-0">Cấu hình Slider</h3>
+            <h4 class="card-title">Cấu hình Slider</h4>
             <button type="button" class="btn btn-success btn-sm me-2" onclick="addRow()">
-                <i class="fas fa-plus"></i>
+                Thêm slider
             </button>
         </div>
     </div>
@@ -29,7 +29,6 @@
                                                 accept="image/*" onchange="previewImageNew(event)">
                                             <input type="hidden" name="old_image[]" value="{{ $slider->image }}">
                                             <input type="hidden" name="slider_id[]" value="{{ $slider->id ?? '' }}">
-                                            {{-- <input type="hidden" name="order[]" value="{{ $slider->stt ?? '' }}"> --}}
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <input value="{{ $slider->alt }}" name="alt[]" class="form-control"
@@ -40,9 +39,6 @@
                                                 type="text" placeholder="Link">
                                         </div>
                                         <div class="form-group col-lg-1 d-flex justify-content-center align-items-center">
-                                            {{-- <button type="button" class="btn btn-light btn-sm drag-handle me-2">
-                                                <i class="fas fa-bars"></i>
-                                            </button> --}}
                                             <button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
@@ -79,15 +75,16 @@
                                 </div>
                             @endif
                         </div>
-
+                    </div>
+                    <div class="card-footer">
                         <div class="d-flex justify-content-center mt-3">
                             <button type="submit" class="btn btn-primary">Lưu</button>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
+
     </form>
 
 
@@ -170,27 +167,28 @@
             }
         }
 
-    //     $(document).ready(function() {
-    //         $("#row-container").sortable({
-    //             handle: ".drag-handle",
-    //             axis: "y", // chỉ kéo theo chiều dọc
-    //             update: function(event, ui) {
-    //                 console.log("Sortable updated — gọi updateOrder()");
-    //                 updateOrder();
-    //             }
-    //         });
-    //     });
+        //     $(document).ready(function() {
+        //         $("#row-container").sortable({
+        //             handle: ".drag-handle",
+        //             axis: "y", // chỉ kéo theo chiều dọc
+        //             update: function(event, ui) {
+        //                 console.log("Sortable updated — gọi updateOrder()");
+        //                 updateOrder();
+        //             }
+        //         });
+        //     });
 
-    //     // Cập nhật thứ tự vào hidden input order[]
-    //     function updateOrder() {
-    //         console.log("updateOrder() đang chạy...");
-    //         $('#row-container .slider-row').each(function(index) {
-    //             // index = 0,1,2... nên +1 để bắt đầu từ 1
-    //             $(this).find('input[name="order[]"]').val(index + 1);
-    //             console.log("Row", index, "set order =", index + 1);
-    //         });
-    //     }
-    // </script>
+        //     // Cập nhật thứ tự vào hidden input order[]
+        //     function updateOrder() {
+        //         console.log("updateOrder() đang chạy...");
+        //         $('#row-container .slider-row').each(function(index) {
+        //             // index = 0,1,2... nên +1 để bắt đầu từ 1
+        //             $(this).find('input[name="order[]"]').val(index + 1);
+        //             console.log("Row", index, "set order =", index + 1);
+        //         });
+        //     }
+        //
+    </script>
 @endpush
 
 @push('styles')
