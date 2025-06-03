@@ -7,12 +7,12 @@
         </button>
 
         <!-- Logo center -->
-        <a href="#" class="navbar-brand mx-auto mobile-only">
+        <a href="{{ url('/') }}" class="navbar-brand mx-auto mobile-only">
             <img src="{{showImage($setting->logo)}}" alt="Logo" class="logo" />
         </a>
 
         <!-- Desktop logo left -->
-        <a href="#" class="navbar-brand desktop-only">
+        <a href="{{ url('/') }}" class="navbar-brand desktop-only">
             <img src="{{showImage($setting->logo)}}" alt="Logo" class="logo" />
         </a>
 
@@ -42,7 +42,7 @@
         <!-- Chỉ hiển thị trên desktop -->
         <div class="d-flex align-items-center gap-2">
             <div class="desktop-only d-flex align-items-center gap-2">
-                <a href="tel:{{$setting->hotline}}" class="btn btn-outline-call d-flex align-items-center">
+                <a href="tel:{{ preg_replace('/[^0-9+]/', '', $setting->hotline) }}" class="btn btn-outline-call d-flex align-items-center">
                     <i class="bi bi-telephone me-2"></i>{{$setting->hotline}}
                 </a>
                 <a href="#" class="btn btn-advice btn-get-advice">NHẬN TƯ VẤN NGAY</a>

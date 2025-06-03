@@ -158,7 +158,7 @@
                         <ul class="nav nav-collapse">
                             <li class="nav-item {{ activeMenu('admin.config.index') }}">
                                 <a href="{{ route('admin.config.index') }}">
-                                    <span class="sub-item">Công ty</span>
+                                    <span class="sub-item">Cấu hình chung</span>
                                 </a>
                             </li>
                             <li class="nav-item {{ activeMenu('admin.config.seo') }}">

@@ -28,7 +28,7 @@
     <section class="about-section py-5 text-center" id="gioi-thieu">
         <div class="container">
             <h5 class="text-uppercase fw-bold text-muted mb-2">Về chúng tôi</h5>
-            <h2 class="fw-bold mb-5" data-aos="fade-up">Pureit tự hào vì</h2>
+            <h2 class="fw-bold mb-5" data-aos="fade-up">Chúng tôi tự hào vì</h2>
             <div class="row about-wrapper">
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
                     <div class="about-item px-3 rounded">

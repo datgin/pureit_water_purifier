@@ -1137,7 +1137,8 @@ a {
 
 .product-detail-top-section.container,
 .features-section.container,
-.specs-section.container {
+.specs-section.container,
+.recommended-products.container {
     max-width: 1140px !important;
 }
 
