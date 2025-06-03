@@ -45,18 +45,15 @@ Route::name('admin.')->group(function () {
             Route::put('{id}/restore', [KeywordController::class, 'restore'])->name('restore');
         });
 
-        Route::prefix('attributes')->name('attributes.')->group(function () {
-            Route::get('/', [AttributeController::class, 'index'])->name('index');
-            Route::post('/', [AttributeController::class, 'store'])->name('store');
-            Route::put('edit/{id}', [AttributeController::class, 'update'])->name('update');
-            Route::delete('delete/{id}', [AttributeController::class, 'delete'])->name('delete');
-        });
-
-        Route::prefix('attribute-values')->name('attribute-values.')->group(function () {
-            Route::get('/', [AttributeValueController::class, 'index'])->name('index');
-            Route::post('/', [AttributeValueController::class, 'store'])->name('store');
-            Route::put('edit/{id}', [AttributeValueController::class, 'update'])->name('update');
-            Route::delete('delete/{id}', [AttributeValueController::class, 'delete'])->name('delete');
+        Route::group([
+            'prefix' => 'attributes',
+            'controller' => AttributeController::class,
+            'as' => 'attributes.'
+        ], function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('save/{id?}', 'save')->name('save');
+            Route::post('/', 'store');
+            Route::put('/{id}', 'update');
         });
 
         Route::prefix('news')->name('news.')->group(function () {

@@ -5,7 +5,7 @@
         <div class="offcanvas-body">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link fw-bold text-dark" href="#">Về Pureit</a>
+                    <a class="nav-link fw-bold text-dark" href="#">Trang chủ</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fw-bold text-dark" href="#">Máy lọc nước</a>

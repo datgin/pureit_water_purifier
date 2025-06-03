@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="footer-logo">
-                    <img src="{{showImage($setting)}}" alt="Pureit Logo" class="img-fluid" />
+                    <img src="{{ showImage($setting) }}" alt="Pureit Logo" class="img-fluid" />
                 </div>
                 <div class="footer-about mt-4">
                     <h6 class="fw-bold">Chúng tôi tự hào là</h6>
@@ -16,7 +16,7 @@
                     <h5 class="fw-bold mb-3">Địa chỉ Showroom</h5>
                     <ul class="list-unstyled">
                         <li>
-                            <i class="bi bi-geo-alt me-2"></i> {{$setting->address}}
+                            <i class="bi bi-geo-alt me-2"></i> {{ $setting->address }}
                         </li>
                     </ul>
                     <div class="social-icons mt-3">
@@ -30,13 +30,13 @@
                     <h5 class="fw-bold mb-3">Tư vấn và liên hệ</h5>
                     <ul class="list-unstyled">
                         <li>
-                            <i class="bi bi-telephone me-2"></i> Tổng đài: {{$setting->hotline}}
+                            <i class="bi bi-telephone me-2"></i> Tổng đài: {{ $setting->hotline }}
                         </li>
-                        <li>Bảo trì: {{$setting->hotline_baotri}}</li>
-                        <li>Kinh doanh: {{$setting->hotline_kinhdoanh}}</li>
+                        <li>Bảo trì: {{ $setting->hotline_baotri }}</li>
+                        <li>Kinh doanh: {{ $setting->hotline_kinhdoanh }}</li>
                         <li class="mt-3">
                             <i class="bi bi-envelope me-2"></i>
-                           {{$setting->email}}
+                            {{ $setting->email }}
                         </li>
                     </ul>
                 </div>
@@ -45,9 +45,10 @@
     </div>
     <div class="footer-menu-bottom mt-4 pb-3">
         <ul class="list-inline text-center mb-0">
-            <li class="list-inline-item"><a href="#">Về Pureit</a></li>
-            <li class="list-inline-item"><a href="#">Máy lọc nước</a></li>
-            <li class="list-inline-item"><a href="#">Lõi lọc thay thế</a></li>
+            <li class="list-inline-item"><a href="#">Trang chủ</a></li>
+            @foreach ($productCategories as $category)
+                <li class="list-inline-item"><a href="{{ route('product', $category->slug) }}">{{ $category->name }}</a></li>
+            @endforeach
             <li class="list-inline-item"><a href="#">Dịch Vụ</a></li>
             <li class="list-inline-item"><a href="#">Tin tức</a></li>
         </ul>
@@ -56,7 +57,7 @@
         <div class="row align-items-center">
             <div class="col-md-12 text-center">
                 <p class="mb-0 copyright">
-                    &copy; {{$setting->footer}}
+                    &copy; {{ $setting->footer }}
                 </p>
             </div>
         </div>
