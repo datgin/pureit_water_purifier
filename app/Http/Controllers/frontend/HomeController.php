@@ -7,11 +7,22 @@ use App\Models\AboutUs;
 use App\Models\CustomerReview;
 use App\Models\Product;
 use App\Models\Slider;
+use Illuminate\Http\Request;
+
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('s') && trim($request->s) !== '') {
+            $keyword = trim($request->s);
+
+            $products = Product::with('category')
+                ->where('name', 'like', "%{$keyword}%")
+                ->where('status', 1)
+                ->paginate(12);
+                return view('frontend.pages.search', compact('products', 'keyword'));
+        }
         $sliders = Slider::query()->latest()->get();
 
         $products = Product::query()

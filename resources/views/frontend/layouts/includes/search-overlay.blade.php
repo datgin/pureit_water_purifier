@@ -2,5 +2,10 @@
     <i class="bi bi-x-lg"></i>
 </button>
 <div class="overlay-content">
-    <input type="search" class="form-control form-control-lg" placeholder="Tìm kiếm sản phẩm..." />
+    <form action="/" method="GET">
+        <input type="search" class="form-control form-control-lg" name="s"
+               placeholder="Tìm kiếm sản phẩm..." autocomplete="off">
+        <button type="submit" style="display: none;"></button> <!-- Ẩn nút submit -->
+    </form>
+
 </div>
