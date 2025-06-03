@@ -86,8 +86,6 @@ class ProductController extends Controller
                 $selectedAttributeValues[$value->pivot->attribute_id][] = $value->id;
             }
 
-            // dd($selectedAttributeValues);
-
             $preloaded = $product->images->map(fn($img) => [
                 'id' => $img->id,
                 'src' => $img->image,
@@ -101,6 +99,7 @@ class ProductController extends Controller
 
     private function validate($request, $id = null)
     {
+
         $credentials = Validator::make($request->all(), [
             'name' => "required|max:255|unique:products,name,{$id}",
             'slug' => "required|max:255|unique:products,slug,{$id}",
@@ -120,6 +119,7 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'manual_vi' => 'nullable|file|mimes:pdf|max:10240',
             'manual_en' => 'nullable|file|mimes:pdf|max:10240',
+            'is_featured' => 'nullable',
             'cross_sell' => 'nullable|array',
             'cross_sell.*' => 'exists:products,id',
             'keywords' => 'nullable',
@@ -277,6 +277,8 @@ class ProductController extends Controller
             if (!empty($credentials['seo_keywords'])) {
                 $credentials['seo_keywords'] = explode(',', $credentials['seo_keywords']);
             }
+
+            $credentials['is_featured'] ??= 0;
 
             if ($product->update($credentials)) {
                 if (!empty($uploadImage))

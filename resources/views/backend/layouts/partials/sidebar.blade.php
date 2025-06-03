@@ -161,20 +161,15 @@
                                     <span class="sub-item">Cấu hình chung</span>
                                 </a>
                             </li>
-                            <li class="nav-item {{ activeMenu('admin.config.seo') }}">
-                                <a href="{{ route('admin.config.seo') }}">
-                                    <span class="sub-item">SEO</span>
-                                </a>
-                            </li>
                             <li class="nav-item {{ activeMenu('admin.config.slider') }}">
                                 <a href="{{ route('admin.config.slider') }}">
-                                    <span class="sub-item">Slider</span>
+                                    <span class="sub-item">Cấu hình Slider</span>
                                 </a>
                             </li>
 
                             <li class="nav-item {{ activeMenu('admin.reviews.index') }}">
                                 <a href="{{ route('admin.reviews.index') }}">
-                                    <span class="sub-item">Khách hàng đánh giá</span>
+                                    <span class="sub-item">Đánh giá khách hàng</span>
                                 </a>
                             </li>
 

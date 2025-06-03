@@ -1,243 +1,153 @@
 @extends('backend.layouts.master')
+
 @section('title', 'Đánh giá của khách hàng')
+
 @section('content')
-    <div class="card">
-        <div class="card-header  d-flex justify-content-between align-items-center">
-            <h3 class="card-title m-0">Đánh giá</h3>
-
-        </div>
+    <div class="page-header">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ url('admin') }}" class="mb-0 d-inline-block lh-1 text-uppercase">
+                        Tổng quan
+                    </a>
+                </li>
+                <li class="breadcrumb-item active text-uppercase" aria-current="page">
+                    Về chúng tôi
+                </li>
+            </ol>
+        </nav>
     </div>
-    <div class="row">
-        <!-- Form Thêm/Sửa Bài Viết -->
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-title mb-0">Thêm/Sửa Bài Viết</h5>
-                </div>
 
-                <div class="card-body">
-                    <form id="postForm" enctype="multipart/form-data" action="{{ route('admin.aboutus.store') }}">
+    <form action="" method="post" id="myForm">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Thông tin về chúng tôi</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div id="about-us-rows">
+                                <!-- Rows will be added here dynamically -->
+                            </div>
 
-                        <input type="hidden" name="id" id="postId">
-
-                        <div class="mb-3">
-                            <label for="title" class="form-label">Tiêu đề <span
-                                    class="text-danger">*</span></label>
-                            <input id="title" name="title" class="form-control" type="text"
-                                placeholder="Nhập tiêu đề">
-                            <div class="error-message text-danger"></div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="image" class="form-label">Ảnh <span class="text-danger">*</span></label>
-                            <img class="img-fluid img-thumbnail w-100" id="show_image"
-                                style="cursor: pointer; height: 170px !important;" src="{{ showImage($post->image ?? '') }}"
-                                alt="" onclick="document.getElementById('image').click();">
-                            <input type="file" name="image" id="image" class="form-control d-none" accept="image/*"
-                                onchange="previewImage(event, 'show_image')">
-                        </div>
-
-
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Mô tả</label>
-                            <textarea name="description" class="form-control" id="description" placeholder="Nhập mô tả"></textarea>
-                            <div class="error-message text-danger"></div>
-                        </div>
-
-
-                        <div class="d-flex justify-content-end">
-                            <button class="btn btn-primary" type="button" id="save">Lưu</button>
-                            <button type="button" id="cancelEdit" style="display: none"
-                                class="btn btn-secondary ms-2">Hủy</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Danh sách bài viết -->
-        <div class="col-lg-8">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-content-center">
-                    <h3 class="card-title">DANH SÁCH </h3>
-                </div>
-
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="myTable" class="display" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th><input type="checkbox" id="selectAll" /></th>
-
-                                    <th>Tiêu đề</th>
-
-                                    <th>nội dung</th>
-
-                                </tr>
-                            </thead>
-                        </table>
+                            <div class="text-center mt-4">
+                                <button type="button" class="btn btn-success btn-sm" id="add-row">
+                                    <i class="fas fa-plus"></i> Thêm hàng mới
+                                </button>
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-save"></i> Lưu thay đổi
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
+    <!-- Template for new row -->
+    <template id="row-template">
+        <div class="row mb-4 about-us-row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-2 text-center">
+                                <div class="form-group">
+                                    <img class="img-fluid img-thumbnail w-100 rounded-circle show-image"
+                                        style="cursor: pointer; height: 200px;" src="{{ showImage('') }}" alt=""
+                                        onclick="document.getElementById('image-input-{index}').click();">
+                                    <input type="file" name="data[][image]" class="form-control d-none image-input"
+                                        accept="image/*" onchange="previewImage(event, 'show-image-{index}')">
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="mb-3">
+                                    <input type="text" name="data[][title]" class="form-control"
+                                        placeholder="Nhập tiêu đề">
+                                </div>
+                                <div class="">
+                                    <textarea name="data[][description]" class="form-control" rows="3" placeholder="Nhập nội dung"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-1 d-flex align-items-center justify-content-center">
+                                <button type="button" class="btn btn-danger btn-sm delete-row">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
 
-@endsection
+    @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const container = document.getElementById('about-us-rows');
+                const template = document.getElementById('row-template');
+                const addButton = document.getElementById('add-row');
+                let rowCount = 0;
 
-@push('scripts')
-<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+                // Add first row by default
+                addNewRow();
 
-<!-- SweetAlert2 JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                // Add new row
+                addButton.addEventListener('click', addNewRow);
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+                // Delete row
+                container.addEventListener('click', function(e) {
+                    if (e.target.closest('.delete-row')) {
+                        const row = e.target.closest('.about-us-row');
+                        row.remove();
+                        // if (container.children.length > 1) {
 
-
-    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            const api = '{{ route('admin.aboutus.index') }}';
-
-            const columns = [{
-                    data: "checkbox",
-                    name: "checkbox",
-                    orderable: false,
-                    searchable: false,
-                    width: "5px",
-                    className: "text-center"
-                },
-                {
-                    data: 'title',
-                    name: 'title',
-                    orderable: false
-                },
-
-                {
-                    data: 'description',
-                    name: 'description',
-                    searchable: false,
-                    className: "text-center"
-                },
-
-            ];
-
-
-            dataTables(api, columns, 'AboutUs', 8)
-            handleDestroy('AboutUs')
-
-            initStatusToggle({
-                model: 'AboutUs'
-            });
-
-
-            $('#save').click(function(event) {
-
-                if (!validateForm()) {
-                    event.preventDefault();
-                    return; // Dừng nếu có lỗi
-                }
-                submitForm('#postForm', function(event) {
-                    $('#myTable').DataTable().ajax.reload(); // Reload bảng sau khi lưu
-                    reset();
-                })
-            })
-
-            $(document).on('click', '.edit', function() {
-                let title = $(this).data('title');
-                let image = $(this).data('image');
-
-                let description = $(this).data('description');
-                let id = $(this).closest('tr').data('id');
-
-                // Xóa input _method cũ (nếu có)
-                $('#postForm input[name="_method"]').remove();
-                // Thêm input _method mới
-                $('#postForm').append('<input type="hidden" name="_method" value="PUT">');
-
-                // Gán dữ liệu vào form
-                $('#title').val(title);
-                $('#description').val(description);
-
-                $('#postId').val(id);
-
-                let imageUrl = "{{ asset('storage') }}/" + image;
-                $('#show_image').attr('src', imageUrl);
-
-                $('#cancelEdit').show();
-                $('#postForm').attr('action', "{{ route('admin.aboutus.update', ':id') }}".replace(':id',
-                    id));
-
-                $('#cancelEdit').off('click').on('click', function() {
-                    reset();
-                });
-            });
-
-
-            function validateForm() {
-                let isValid = true;
-                $('.error-message').text('').hide();
-
-                let title = $('#title').val().trim();
-
-                let description = $('#description').val().trim();
-
-                if (!title) {
-                    $('#title').next('.error-message').text('Vui lòng nhập tiêu đề').show();
-                    isValid = false;
-                }
-
-                if (!description) {
-                    $('#description').next('.error-message').text('Vui lòng nhập mô tả').show();
-                    isValid = false;
-                }
-
-                return isValid;
-            }
-
-            function reset() {
-                $('#postForm').attr('action', "{{ route('admin.aboutus.store') }}");
-                $('#postForm')[0].reset();
-                $('#postId').val('');
-                $('#show_image').attr('src', '{{ showImage('') }}');
-                $('#postForm input[name="_method"]').remove();
-                $('#cancelEdit').show();
-
-            }
-
-
-            function submitForm(formSelector, onSuccess) {
-                const form = $(formSelector);
-                const url = form.attr('action');
-                const formData = new FormData(form[0]);
-                formData.append('_token', '{{ csrf_token() }}');
-
-                $.ajax({
-                    url: url,
-                    method: 'POST', // DÙNG POST để tránh lỗi upload file
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        if (typeof onSuccess === 'function') {
-                            onSuccess(response);
-                        }
-                    },
-                    error: function(xhr) {
-                        alert('Đã xảy ra lỗi khi lưu dữ liệu!');
+                        // } else {
+                        //     alert('Phải có ít nhất một hàng!');
+                        // }
                     }
                 });
-            }
 
+                function addNewRow() {
+                    const clone = template.content.cloneNode(true);
+                    const row = clone.querySelector('.about-us-row');
 
+                    // Update IDs with unique index
+                    const imageInput = row.querySelector('.image-input');
+                    const showImage = row.querySelector('.show-image');
 
-        })
-    </script>
-@endpush
+                    imageInput.id = `image-input-${rowCount}`;
+                    showImage.id = `show-image-${rowCount}`;
+                    showImage.setAttribute('onclick', `document.getElementById('image-input-${rowCount}').click();`);
+                    imageInput.setAttribute('onchange', `previewImage(event, 'show-image-${rowCount}')`);
 
-@push('styles')
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+                    container.appendChild(clone);
+                    rowCount++;
+                }
 
-    <link rel="stylesheet" href="{{ asset('backend/assets/css/image-uploader.min.css') }}">
-@endpush
+                $('#myForm').on('submit', function(e) {
+                    e.preventDefault();
+
+                    let formData = new FormData(this)
+
+                    $.ajax({
+                        url: '/admin/aboutus',
+                        type: "POST",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(res) {
+                            datgin.success(res.message)
+                        },
+                        error: function(xhr) {
+                            datgin.error(xhr.responseJSON?.message || 'Đã xảy ra lỗi.');
+                        }
+                    });
+                })
+            });
+        </script>
+    @endpush
+@endsection

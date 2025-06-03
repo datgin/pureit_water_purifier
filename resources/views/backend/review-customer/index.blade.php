@@ -1,12 +1,23 @@
 @extends('backend.layouts.master')
-@section('title', 'Đánh giá của khách hàng')
-@section('content')
-    <div class="card">
-        <div class="card-header  d-flex justify-content-between align-items-center">
-            <h3 class="card-title m-0">Đánh giá</h3>
 
-        </div>
+@section('title', 'Đánh giá của khách hàng')
+
+@section('content')
+    <div class="page-header">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ url('admin') }}" class="mb-0 d-inline-block lh-1 text-uppercase">
+                        Tổng quan
+                    </a>
+                </li>
+                <li class="breadcrumb-item active text-uppercase" aria-current="page">
+                    cấu hình chung
+                </li>
+            </ol>
+        </nav>
     </div>
+
     <div class="row">
         <!-- Form Thêm/Sửa Bài Viết -->
         <div class="col-lg-4">
@@ -92,10 +103,10 @@
 @endsection
 
 @push('scripts')
-<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 
-<!-- SweetAlert2 JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery.scrollbar/jquery.scrollbar.min.js"></script>
 
