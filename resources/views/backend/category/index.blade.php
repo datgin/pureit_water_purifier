@@ -32,7 +32,7 @@
                         <tr>
                             <th><input type="checkbox" id="selectAll" /></th>
                             <th>STT</th>
-                            <th>Ảnh đại diện</th>
+                            <th>Banner</th>
                             <th>Tên danh mục</th>
                             <th>Đường dẫn</th>
                             <th>Số lượng sản phẩm</th>
