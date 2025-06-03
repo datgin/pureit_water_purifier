@@ -171,6 +171,18 @@
                                     <span class="sub-item">Slider</span>
                                 </a>
                             </li>
+
+                            <li class="nav-item {{ activeMenu('admin.reviews.index') }}">
+                                <a href="{{ route('admin.reviews.index') }}">
+                                    <span class="sub-item">Khách hàng đánh giá</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item {{ activeMenu('admin.aboutus.index') }}">
+                                <a href="{{ route('admin.aboutus.index') }}">
+                                    <span class="sub-item">Về chúng tôi</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

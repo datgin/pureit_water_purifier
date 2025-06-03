@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\AboutUsController;
 use App\Http\Controllers\Backend\AttributeController;
 use App\Http\Controllers\Backend\AttributeValueController;
 use App\Http\Controllers\Backend\BulkActionController;
@@ -11,7 +12,8 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\KeywordController;
 use App\Http\Controllers\Backend\ProductController;
-
+use App\Http\Controllers\Backend\ReviewController;
+use App\Models\AboutUs;
 
 Route::name('admin.')->group(function () {
     Route::middleware(\App\Http\Middleware\AdminAuthenticate::class)->group(function () {
@@ -86,6 +88,9 @@ Route::name('admin.')->group(function () {
             Route::get('slider', [ConfigController::class, 'slider'])->name('slider');
             Route::post('slider', [ConfigController::class, 'sliderUpdate'])->name('slider.update');
         });
+
+        Route::resource('reviews', ReviewController::class);
+        Route::resource('aboutus', AboutUsController::class);
     });
 
     Route::middleware(\App\Http\Middleware\AdminRedirectIfAuthenticated::class)->group(function () {
