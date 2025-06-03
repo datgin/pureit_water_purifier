@@ -10,7 +10,7 @@ class Slider extends Model
     protected $guarded = [];
     public $timestamps = true;
 
-    public function getImageAttribute($value){
-        return showImage($value);
-    }
+    // public function getImageAttribute($value){
+    //     return showImage($value);
+    // }
 }
