@@ -219,14 +219,13 @@
                         THÔNG TIN CHUYỂN KHOẢN
                     </h4>
                     <p class="mb-1">
-                        <strong>Tên tài khoản:</strong> Công ty TNHH Thương Mại Đầu Tư
-                        Mai Thanh
+                        <strong>Tên tài khoản:</strong> {{$setting->ttk}}
                     </p>
-                    <p class="mb-1"><strong>Số tài khoản:</strong> 2022208</p>
+                    <p class="mb-1"><strong>Số tài khoản:</strong> {{$setting->stk}}</p>
                     <p class="mb-1">
-                        <strong>Ngân hàng:</strong> Thương mại cổ phần Á Châu – ACB
+                        <strong>Ngân hàng:</strong> {{$setting->bank}}
                     </p>
-                    <p class="mb-1"><strong>Chi nhánh:</strong> Phú Thọ, TP. HCM</p>
+                    <p class="mb-1"><strong>Chi nhánh:</strong> {{$setting->branch}}</p>
                     <p class="mb-1">
                         <strong>Nội dung:</strong> Tên Khách Hàng + Số điện thoại đăng
                         ký mua máy

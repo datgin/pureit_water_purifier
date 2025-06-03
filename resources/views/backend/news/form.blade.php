@@ -63,7 +63,18 @@
 
                         </div>
 
-                        <label for="status" class="form-label">Trạng thái</label>
+                        <label for="category_id" class="form-label">Danh mục</label>
+                        <select id="category_id" name="category_id" class="form-select">
+                            <option value="">-- Chọn danh mục --</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ old('category_id', $new->category_id ?? '') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        <label for="status" class="form-label mt-3">Trạng thái</label>
                         <select id="status" name="status" class="form-select">
                             <option value="1" {{ old('status', $new->status ?? '') == 1 ? 'selected' : '' }}>Hiển thị
                             </option>
@@ -99,8 +110,7 @@
                             <label for="seo_keyword" class="form-label">Từ khóa SEO</label>
                             <input type="text" id="seo_keyword" name="seo_keyword"
                                 class="form-control @error('seo_keyword') is-invalid @enderror"
-                                placeholder="Enter SEO keywords"
-                                value="{{ old('seo_keyword', $new->seo_keyword ?? '') }}">
+                                placeholder="Enter SEO keywords" value="{{ old('seo_keyword', $new->seo_keyword ?? '') }}">
                             @error('seo_keyword')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -258,11 +268,6 @@
                 }
             });
 
-            CKEDITOR.replace('content', {
-                filebrowserImageUploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token()]) }}",
-                filebrowserUploadMethod: 'form',
-            });
         });
-
     </script>
 @endpush

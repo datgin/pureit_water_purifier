@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\Config;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,9 +22,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $categories = Category::where('status', 1)->get();
+        $productCategories = Category::where('status', 1)->where('type', 'product')->get();
+        $blogCategories = Category::where('status', 1)->where('type', 'blog')->get();
+        $setting = Config::firstOrCreate();
 
-        View::share('categories', $categories); 
+        View::share('productCategories', $productCategories);
+        View::share('blogCategories', $blogCategories);
+        View::share('setting', $setting);
+
     }
+
 
 }

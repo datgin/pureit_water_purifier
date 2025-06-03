@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\AttributeController;
 use App\Http\Controllers\Backend\AttributeValueController;
 use App\Http\Controllers\Backend\BulkActionController;
 use App\Http\Controllers\Backend\ConfigController;
+use App\Http\Controllers\Backend\NewsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Auth\AuthController;
 use App\Http\Controllers\Backend\CategoryController;
@@ -53,6 +54,15 @@ Route::name('admin.')->group(function () {
             Route::put('/{id}', 'update');
         });
 
+        Route::prefix('news')->name('news.')->group(function () {
+            Route::get('', [NewsController::class, 'index'])->name('index');
+            Route::get('create', [NewsController::class, 'create'])->name('create');
+            Route::post('store', [NewsController::class, 'store'])->name('store');
+            Route::get('edit/{id}', [NewsController::class, 'edit'])->name('edit');
+            Route::put('edit/{id}', [NewsController::class, 'update'])->name('update');
+            Route::delete('delete/{id}', [NewsController::class, 'delete'])->name('delete');
+        });
+
         Route::group([
             'prefix' => 'products',
             'controller' => ProductController::class,
@@ -80,3 +90,5 @@ Route::name('admin.')->group(function () {
         Route::post('login', [AuthController::class, 'authenticate']);
     });
 });
+
+

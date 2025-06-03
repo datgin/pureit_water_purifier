@@ -17,13 +17,13 @@
 <meta property="og:image:type" content="image/jpeg" />
 
 <!-- Favicon cho trình duyệt -->
-<link rel="icon" href="" type="image/png" sizes="32x32">
+<link rel="icon" href="{{showImage($setting->icon)}}" type="" sizes="32x32">
 
 <!-- Apple Touch Icon -->
-<link rel="apple-touch-icon" href="">
+<link rel="apple-touch-icon" href="{{showImage($setting->icon)}}">
 
 <!-- Android Chrome -->
-<link rel="manifest" href="">
+<link rel="manifest" href="{{showImage($setting->icon)}}">
 
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 

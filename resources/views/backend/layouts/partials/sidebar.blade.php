@@ -80,7 +80,7 @@
                     </div>
                 </li> --}}
 
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a data-bs-toggle="collapse" class="has-children" href="#news">
                         <i class="fas fa-newspaper"></i>
                         <p>Bài viết</p>
@@ -100,7 +100,7 @@
                             </li>
                         </ul>
                     </div>
-                </li> --}}
+                </li>
 
                 {{-- <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#home">
