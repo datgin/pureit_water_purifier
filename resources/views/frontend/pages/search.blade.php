@@ -22,7 +22,7 @@
             </div>
 
             <!-- Pagination -->
-            {{ $products->links('vendor.pagination.custom') }}
+            {{ $products->appends(['s' => $keyword])->links('vendor.pagination.custom') }}
         @else
             <p>It seems we can't find what you're looking for.</p>
         @endif
