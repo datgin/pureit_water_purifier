@@ -181,14 +181,17 @@
                             <li class="nav-item {{ activeMenu('admin.advertisement.index') }}">
                                 <a href="{{ route('admin.advertisement.index') }}">
                                     <span class="sub-item">Quảng cáo</span>
-
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
-
-
+               <li class="nav-item {{ activeMenu('admin.contacts.index') }}">
+                    <a href="{{ route('admin.contacts.index') }}" class="collapsed">
+                        <i class="fa-solid fa-headphones-simple"></i>
+                        <p>Yêu cầu tư vấn</p>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
