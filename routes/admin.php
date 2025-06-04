@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\NewsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Auth\AuthController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\KeywordController;
 use App\Http\Controllers\Backend\ProductController;
@@ -70,6 +71,8 @@ Route::name('admin.')->group(function () {
             Route::get('slider', [ConfigController::class, 'slider'])->name('slider');
             Route::post('slider', [ConfigController::class, 'sliderUpdate'])->name('slider.update');
         });
+
+        Route::resource('contacts', ContactController::class);
 
         Route::resource('reviews', ReviewController::class);
         Route::resource('aboutus', AboutUsController::class);

@@ -9,4 +9,9 @@ class Contact extends Model
     //
     protected $guarded = [];
     public $timestamps = true;
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }
