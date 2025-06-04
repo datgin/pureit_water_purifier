@@ -107,15 +107,12 @@
 
             <div class="row align-items-center mb-4">
                 <div class="col-md-5 text-md-start" data-aos="fade-right">
-                    <h1 class="display-1 fw-bold text-primary">2,000+</h1>
+                    <h1 class="display-1 fw-bold text-primary">{{ $advertisement_front->quantity }}</h1>
                     <h4 class="fw-bold">
-                        Khách hàng đã tin dùng sản phẩm của Pureit
+                        {{ $advertisement_front->title }}
                     </h4>
                     <p class="text-muted mt-3">
-                        Các sản phẩm của Pureit đã đạt được hơn 2000+ khách hàng trên
-                        toàn quốc sử dụng và nhận được nhiều đánh giá tích cực. Đội ngũ
-                        nhân viên của Pureit chân thành cảm ơn tất cả các khách hàng đã
-                        và đang tin dùng sản phẩm của chúng tôi!
+                        {{ $advertisement_front->description }}
                     </p>
                 </div>
                 <div class="col-md-7" data-aos="fade-left">

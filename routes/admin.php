@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\AboutUsController;
+use App\Http\Controllers\Backend\AdvertisementController;
 use App\Http\Controllers\Backend\AttributeController;
 use App\Http\Controllers\Backend\AttributeValueController;
 use App\Http\Controllers\Backend\BulkActionController;
@@ -46,7 +47,7 @@ Route::name('admin.')->group(function () {
             Route::get('create', [NewsController::class, 'create'])->name('create');
             Route::post('/', [NewsController::class, 'store'])->name('store');
             Route::get('{id}', [NewsController::class, 'edit'])->name('edit');
-            Route::put('{id}', [NewsController::class, 'update'])->name('update');        
+            Route::put('{id}', [NewsController::class, 'update'])->name('update');
         });
 
         Route::group([
@@ -72,6 +73,7 @@ Route::name('admin.')->group(function () {
 
         Route::resource('reviews', ReviewController::class);
         Route::resource('aboutus', AboutUsController::class);
+        Route::resource('advertisement', AdvertisementController::class);
     });
 
     Route::middleware(\App\Http\Middleware\AdminRedirectIfAuthenticated::class)->group(function () {

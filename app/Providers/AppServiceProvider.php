@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Advertisement;
 use App\Models\Category;
 use App\Models\Config;
 use Illuminate\Support\Facades\View;
@@ -26,9 +27,12 @@ class AppServiceProvider extends ServiceProvider
         $blogCategories = Category::where('status', 1)->where('type', 'blog')->get();
         $setting = Config::firstOrCreate();
 
+        $advertisement_front = Advertisement::firstOrCreate();
+
         View::share('productCategories', $productCategories);
         View::share('blogCategories', $blogCategories);
         View::share('setting', $setting);
+        View::share('advertisement_front', $advertisement_front);
 
     }
 
