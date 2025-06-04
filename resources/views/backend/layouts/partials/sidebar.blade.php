@@ -181,6 +181,7 @@
                             <li class="nav-item {{ activeMenu('admin.advertisement.index') }}">
                                 <a href="{{ route('admin.advertisement.index') }}">
                                     <span class="sub-item">Quảng cáo</span>
+
                                 </a>
                             </li>
                         </ul>
