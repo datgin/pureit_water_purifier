@@ -526,10 +526,10 @@
                         <label for="attribute_value_${attrId}" class="form-label">Chọn giá trị cho <strong>${attrName}</strong></label>
                         <select name="attribute_values[${attrId}][]" id="attribute_value_${attrId}" class="form-select select2">
                             ${values.map(v => `
-                                                                    <option value="${v.id}" ${selectedAttributeValues[attrId] && selectedAttributeValues[attrId].includes(v.id) ? 'selected' : ''}>
-                                                                        ${v.value}
-                                                                    </option>
-                                                                `).join('')}
+                                                                        <option value="${v.id}" ${selectedAttributeValues[attrId] && selectedAttributeValues[attrId].includes(v.id) ? 'selected' : ''}>
+                                                                            ${v.value}
+                                                                        </option>
+                                                                    `).join('')}
                         </select>
                     </div>`;
 

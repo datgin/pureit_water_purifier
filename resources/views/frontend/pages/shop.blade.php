@@ -4,7 +4,7 @@
     <!-- Banner Section -->
     <section class="category-banner">
         <div class="banner-content">
-            <img src="./assets/image/b6df7eede994ed1377548649c671f4a4-1.png" alt="Category Banner" class="w-100" />
+            <img src="{{asset('frontend/assets/image/banner_category.png')}}" alt="Category Banner" class="w-100" />
         </div>
     </section>
 
