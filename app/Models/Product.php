@@ -23,8 +23,8 @@ class Product extends Model
         'slug',
         'description',
         'cross_sell',
-        'title_seo',
-        'description_seo',
+        'seo_title',
+        'seo_description',
         'view_count',
         'discount_value',
         'discount_start_date',
@@ -33,7 +33,8 @@ class Product extends Model
         'manual_en',
         'status',
         'is_featured',
-        'features'
+        'features',
+        'seo_keywords'
 
     ];
 
@@ -42,6 +43,7 @@ class Product extends Model
         'discount_start_date' => 'datetime',
         'discount_end_date' => 'datetime',
         'cross_sell' => 'array',
+        'seo_keywords' => 'array',
         'features' => 'array',
         'is_featured' => 'boolean'
     ];

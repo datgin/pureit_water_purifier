@@ -1,5 +1,12 @@
 @extends('frontend.master')
 
+@section('og:image', content: showImage($images[0] ?? ''))
+@section('seo_keywords', !empty($product->seo_keywords) && is_array($product->seo_keywords) ? implode(',',
+    $product->seo_keywords) : $product->seo_keywords)
+@section('title', $product->name)
+@section('seo_title', $product->seo_title)
+@section('seo_description', $product->seo_description)
+
 @section('content')
     <!-- Product Detail Top Section -->
     <section class="product-detail-top-section container px-0">
@@ -78,7 +85,7 @@
         </div>
     </section>
 
-    @if (count($product->features) > 0)
+    @if (count($product->features ?? []) > 0)
         <!-- Features Section -->
         <section class="features-section container bg-light p-4 rounded">
             <h2 class="text-primary mb-4">Tính năng, đặc điểm</h2>

@@ -28,6 +28,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="mb-3 col-lg-12">
+                                <label for="title" class="form-label fw-bold">Tiêu đề</label>
+                                <input value="{{ $config->title }}" id="title" name="title"class="form-control"
+                                    type="text" placeholder="Nhập tiêu đề">
+                            </div>
+
+                            <div class="mb-3 col-lg-12">
                                 <label for="company" class="form-label fw-bold">Tên công ty</label>
                                 <input value="{{ $config->company }}" id="company" name="company"class="form-control"
                                     type="text" placeholder="Nhập tên công ty">
@@ -116,10 +122,10 @@
                                     type="text" placeholder="Chi nhánh">
                             </div>
 
-                            <div class=" mb-3 col-lg-12">
+                            {{-- <div class=" mb-3 col-lg-12">
                                 <label for="content" class="form-label">Nội dung</label>
                                 <input value="{{ $setting->content }}" id="content" name="content" class="form-control" type="text" placeholder="Nội dung">
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -208,6 +214,20 @@
                             onclick="document.getElementById('icon').click();">
                         <input type="file" name="icon" id="icon" class="form-control d-none"
                             accept="image/*" onchange="previewImage(event, 'show_icon')">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Chứng chỉ</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <img class="img-fluid img-thumbnail w-100" id="show_certificate" style="cursor: pointer;"
+                            src="{{ showImage($setting->certificate) }}" alt=""
+                            onclick="document.getElementById('certificate').click();">
+                        <input type="file" name="certificate" id="certificate" class="form-control d-none"
+                            accept="image/*" onchange="previewImage(event, 'show_certificate')">
                     </div>
                 </div>
 
