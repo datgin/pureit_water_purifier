@@ -19,7 +19,8 @@ class Category extends Model
         'seo_keywords',
         'status',
         'location',
-        'type'
+        'type',
+        'banner'
     ];
 
     public function products()
