@@ -178,6 +178,12 @@
                                     <span class="sub-item">Về chúng tôi</span>
                                 </a>
                             </li>
+                            <li class="nav-item {{ activeMenu('admin.advertisement.index') }}">
+                                <a href="{{ route('admin.advertisement.index') }}">
+                                    <span class="sub-item">Quảng cáo</span>
+
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
