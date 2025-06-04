@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="footer-logo">
-                    <img src="{{ showImage($setting) }}" alt="Pureit Logo" class="img-fluid" />
+                    <img src="{{showImage($setting->logo)}}" alt="Logo" class="logo" />
                 </div>
                 <div class="footer-about mt-4">
                     <h6 class="fw-bold">Chúng tôi tự hào là</h6>

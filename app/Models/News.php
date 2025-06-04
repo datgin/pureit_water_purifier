@@ -9,8 +9,6 @@ class News extends Model
 {
     use HasFactory;
 
-    protected $table = 'news';
-
     protected $fillable = [
         'category_id',
         'title',
@@ -24,13 +22,14 @@ class News extends Model
         'status',
         'seo_title',
         'seo_description',
-        'seo_keyword',
+        'seo_keywords',
         'type'
     ];
 
     protected $casts = [
         'posted_at' => 'datetime',
         'remove_at' => 'datetime',
+        'seo_keywords' => 'array'
     ];
 
     public function category()
@@ -42,5 +41,4 @@ class News extends Model
     {
         return showImage($value);
     }
-
 }

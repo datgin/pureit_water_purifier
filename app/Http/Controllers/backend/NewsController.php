@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\NewsRequest;
 use App\Models\Category;
 use App\Models\Keyword;
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
@@ -15,12 +15,51 @@ use Yajra\DataTables\DataTables;
 class NewsController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        // Lấy tất cả bài viết (có thể thêm paginate nếu cần)
-        $news = News::all();
-        // Trả về view kèm dữ liệu
-        return view('backend.news.index', compact('news'));
+        if ($request->ajax()) {
+
+            return DataTables::of(News::query()->with('category'))
+                ->addColumn('checkbox', function ($row) {
+                    return '<input type="checkbox" class="select-item" value="' . $row->id . '">';
+                })
+                ->addColumn('category', function ($row) {
+                    return !empty($row->category) ? $row->category->name : 'N/A';
+                })
+                ->editColumn('image', function ($row) {
+                    return '<img src="' . $row->image . '" width="50"/>';
+                })
+                ->editColumn('created_at', function ($row) {
+                    return $row->created_at->format('d/m/Y');
+                })
+                ->editColumn('posted_at', function ($row) {
+                    return  !empty($row->posted_at) ?$row->posted_at->format('d/m/Y') : 'N/A';
+                })
+                ->editColumn('status', function ($row) {
+                    $checked = $row->status ? 'checked' : '';
+                    return '
+                        <label class="switch" data-id=' . $row->id . '>
+                            <input name="is_featured" type="checkbox" value="1" ' . $checked . '>
+                            <span class="slider round"></span>
+                        </label>
+                    ';
+                })
+                ->addColumn('actions', function ($row) {
+                    return '
+                    <a href="' . route('admin.news.edit', $row->id) . '" class="btn btn-sm btn-primary" title="Sửa">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <button class="btn btn-sm btn-danger btn-delete" data-id="' . $row->id . '" title="Xóa">
+                        <i class="fas fa-trash"></i>
+                    </button>';
+                })
+                ->rawColumns(['checkbox', 'actions', 'status', 'image'])
+                ->addIndexColumn()
+                ->make(true);
+
+        }
+
+        return view('backend.news.index');
     }
 
 
@@ -29,8 +68,7 @@ class NewsController extends Controller
         $isEdit = false;
         $page = 'Bài viết';
         $title = 'Thêm Bài viết';
-        $new = new News();
-        $new->keyword_ids = [];
+        $new =null;
         $keywords = Keyword::pluck('name')->toArray();
         $categories = Category::where('type', 'blog')->get();
 
@@ -45,6 +83,7 @@ class NewsController extends Controller
         $new = News::find($id);
         $keywords = Keyword::pluck('name')->toArray();
         $categories = Category::where('type', 'blog')->get();
+        // dd($new);
 
         return view('backend.news.form', compact('new', 'title', 'page', 'keywords', 'isEdit', 'categories'));
     }
@@ -64,11 +103,12 @@ class NewsController extends Controller
             'status' => 'required|boolean',
             'seo_title' => 'nullable|string|max:255',
             'seo_description' => 'nullable|string',
-            'seo_keyword' => 'nullable|string|max:255',
+            'seo_keywords' => 'nullable|string|max:255',
         ]);
 
+        // dd($request->all());
+
         try {
-            // dd(vars: $request->all());
 
             // Tạo slug nếu không có
             if (empty($credentials['slug'])) {
@@ -85,11 +125,18 @@ class NewsController extends Controller
                 $credentials['view_count'] = 0;
             }
 
-            News::create($credentials);
+            if (!empty($credentials['seo_keywords'])) {
+                $credentials['seo_keywords'] = explode(',', $credentials['seo_keywords']);
+            }
 
-            return redirect()->route('admin.news.index')->with('success', 'Bài viết đã được thêm thành công');
+            News::create($credentials);
+            session()->flash('success', 'Thêm bài viết thành công!');
+
         } catch (\Exception $e) {
-            return back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Đã có lỗi xảy ra, vui lòng thử lại sau!'
+            ], 400);
         }
     }
 
@@ -108,7 +155,8 @@ class NewsController extends Controller
             'status' => 'required|boolean',
             'seo_title' => 'nullable|string|max:255',
             'seo_description' => 'nullable|string',
-            'seo_keyword' => 'nullable|string|max:255',
+            'seo_keywords' => 'nullable|string|max:255',
+
         ]);
 
         try {
@@ -134,37 +182,21 @@ class NewsController extends Controller
                 $credentials['image'] = saveImage($request, 'image', 'news_image');
             }
 
-            $news->update($credentials);
+            if (!empty($credentials['seo_keywords'])) {
+                $credentials['seo_keywords'] = explode(',', $credentials['seo_keywords']);
+            }
+            // dd($credentials);
 
-            return redirect()->route('admin.news.index')->with('success', 'Cập nhật bài viết thành công');
+            $news->update($credentials);
+            session()->flash('success', 'Thay đổi bài viết thành công!');
+            return response()->json([
+                'success' => true
+               
+            ], 201);
+
         } catch (\Exception $e) {
             return back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
         }
     }
-
-    public function delete($id)
-    {
-        try {
-            $new = News::findOrFail($id);
-
-            // Xóa ảnh nếu tồn tại
-            if ($new->image && file_exists(public_path('storage/' . $new->image))) {
-                unlink(public_path('storage/' . $new->image));
-            }
-
-            $new->delete();
-            return response()->json([
-                'success' => true,
-                'message' => 'Xóa sản phẩm thành công!'
-            ]);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Có lỗi xảy ra: ',
-            ], 500);
-        }
-
-    }
-
 
 }

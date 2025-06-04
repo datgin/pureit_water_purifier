@@ -44,10 +44,9 @@ Route::name('admin.')->group(function () {
         Route::prefix('news')->name('news.')->group(function () {
             Route::get('', [NewsController::class, 'index'])->name('index');
             Route::get('create', [NewsController::class, 'create'])->name('create');
-            Route::post('store', [NewsController::class, 'store'])->name('store');
-            Route::get('edit/{id}', [NewsController::class, 'edit'])->name('edit');
-            Route::put('edit/{id}', [NewsController::class, 'update'])->name('update');
-            Route::delete('delete/{id}', [NewsController::class, 'delete'])->name('delete');
+            Route::post('/', [NewsController::class, 'store'])->name('store');
+            Route::get('{id}', [NewsController::class, 'edit'])->name('edit');
+            Route::put('{id}', [NewsController::class, 'update'])->name('update');        
         });
 
         Route::group([
