@@ -19,7 +19,7 @@ class ContactController extends Controller
                     return '<input type="checkbox" class="select-item" value="' . $row->id . '">';
                 })
                 ->editColumn('name', function ($row) {
-                    return '<a href="' . route('admin.categories.save', $row->id) . '"><strong>' . e($row->name) . '</strong></a>';
+                    return '<strong>' . e($row->name) . '</strong>';
                 })
                  ->addColumn('product', function ($row) {
                     return !empty($row->product) ? $row->product->name : 'N/A';
