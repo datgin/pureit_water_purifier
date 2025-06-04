@@ -174,7 +174,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Banner</h4>
+                        <h4 class="card-title">Logo</h4>
                     </div>
                     <div class="card-body">
                         <img class="img-thumbnail" id="show_logo"
@@ -184,6 +184,21 @@
 
                         <input type="file" name="logo" id="logo" class="form-control d-none"
                             accept="image/*" onchange="previewImage(event, 'show_logo')">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Banner</h4>
+                    </div>
+                    <div class="card-body">
+                        <img class="img-thumbnail" id="show_banner"
+                            style="cursor: pointer; width: 100%; height: auto; object-fit: cover;"
+                            src="{{ showImage($category->banner ?? '') }}" alt=""
+                            onclick="document.getElementById('banner').click();">
+
+                        <input type="file" name="banner" id="banner" class="form-control d-none"
+                            accept="image/*" onchange="previewImage(event, 'show_banner')">
                     </div>
                 </div>
 

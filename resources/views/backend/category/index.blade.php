@@ -32,6 +32,7 @@
                         <tr>
                             <th><input type="checkbox" id="selectAll" /></th>
                             <th>STT</th>
+                            <th>Logo</th>
                             <th>Banner</th>
                             <th>Tên danh mục</th>
                             <th>Đường dẫn</th>
@@ -82,6 +83,12 @@
                 {
                     data: 'logo',
                     name: 'logo',
+                    orderable: false,
+                    searchable: false,
+                },
+                {
+                    data: 'banner',
+                    name: 'banner',
                     orderable: false,
                     searchable: false,
                 },

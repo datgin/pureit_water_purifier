@@ -24,6 +24,9 @@ class CategoryController extends Controller
                 ->editColumn('logo', function ($row) {
                     return '<img src="' . showImage($row->logo) . '" width="50"/>';
                 })
+                ->editColumn('banner', function ($row) {
+                    return '<img src="' . showImage($row->banner) . '" width="50"/>';
+                })
                 ->editColumn('name', function ($row) {
                     return '<a href="' . route('admin.categories.save', $row->id) . '"><strong>' . e($row->name) . '</strong></a>';
                 })
@@ -51,7 +54,7 @@ class CategoryController extends Controller
                         <i class="fas fa-trash"></i>
                     </button>';
                 })
-                ->rawColumns(['checkbox', 'name', 'actions', 'status', 'logo'])
+                ->rawColumns(['checkbox', 'name', 'actions', 'status', 'logo', 'banner'])
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -78,6 +81,7 @@ class CategoryController extends Controller
             'slug' => "required|max:255|string|unique:categories,slug,{$id}",
             'description' => 'nullable|max:255|string',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'banner' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'seo_title' => 'nullable|max:255|string',
             'seo_description' => 'nullable|string',
             'seo_keywords' => 'nullable|max:255|string',
@@ -105,12 +109,18 @@ class CategoryController extends Controller
         }
 
         $uploadImage = null;
+        $uploadBanner = null;
 
         try {
 
             if ($request->hasFile('logo')) {
                 $uploadImage   = uploadImages('logo', 'category', false, false);
                 $credentials['logo'] = $uploadImage;
+            }
+
+            if ($request->hasFile('banner')) {
+                $uploadBanner   = uploadImages('banner', 'category');
+                $credentials['banner'] = $uploadBanner;
             }
 
             if (!empty($credentials['seo_keywords'])) {
@@ -144,11 +154,17 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $uploadImage = null;
         $oldImage = $category->logo;
+        $oldBanner = $category->banner;
 
         try {
             if ($request->hasFile('logo')) {
                 $uploadImage = uploadImages('logo', 'category', false, false);
                 $credentials['logo'] = $uploadImage;
+            }
+
+            if ($request->hasFile('banner')) {
+                $uploadBanner   = uploadImages('banner', 'category');
+                $credentials['banner'] = $uploadBanner;
             }
 
             if (!empty($credentials['seo_keywords'])) {

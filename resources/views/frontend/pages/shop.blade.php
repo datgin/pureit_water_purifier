@@ -2,11 +2,15 @@
 
 @section('content')
     <!-- Banner Section -->
-    <section class="category-banner">
-        <div class="banner-content">
-            <img src="{{asset('frontend/assets/image/banner_category.png')}}" alt="Category Banner" class="w-100" />
-        </div>
-    </section>
+    @isset($category)
+        <section class="category-banner">
+            <div class="banner-content">
+                <img src="{{ showImage($category->banner)}}" alt="Category Banner" class="w-100" />
+            </div>
+        </section>
+    @endisset
+
+
 
     <section class="product-list container mt-3 mb-5">
         <h2 class="mb-3">{{ $category->name }}</h2>
