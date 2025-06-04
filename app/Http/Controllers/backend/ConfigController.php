@@ -33,6 +33,14 @@ class ConfigController extends Controller
             $data['icon'] = uploadImages('icon', 'icon');
         }
 
+         if ($request->hasFile('certificate')) {
+            $data['certificate'] = uploadImages('certificate', 'certificate');
+        }
+
+         if (!empty($credentials['seo_keywords'])) {
+                $credentials['seo_keywords'] = explode(',', $data['seo_keywords']);
+            }
+
         $config = Config::first();
 
         $config->update($data);

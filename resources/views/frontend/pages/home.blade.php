@@ -1,5 +1,13 @@
 @extends('frontend.master')
 
+@section('og:image', content: showImage($images[0] ?? ''))
+@section('seo_keywords', !empty($setting->seo_keywords) && is_array($setting->seo_keywords) ? implode(',',
+    $setting->seo_keywords) : $setting->seo_keywords)
+@section('title', $setting->title)
+@section('seo_title', $setting->seo_title)
+@section('seo_description', $setting->seo_description)
+
+
 @section('content')
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
@@ -8,10 +16,12 @@
                 <div class="swiper-slide">
                     @if (!empty($slider->link))
                         <a href="{{ $slider->link }}">
-                            <img src="{{ asset('storage/' . $slider->image ?? 'backend/assets/img/image-default.jpg') }}" class="w-100" alt="{{ $slider->alt }}" />
+                            <img src="{{ asset('storage/' . $slider->image ?? 'backend/assets/img/image-default.jpg') }}"
+                                class="w-100" alt="{{ $slider->alt }}" />
                         </a>
                     @else
-                        <img src="{{ asset('storage/' . $slider->image ?? 'backend/assets/img/image-default.jpg') }}" class="w-100" alt="{{ $slider->alt }}" />
+                        <img src="{{ asset('storage/' . $slider->image ?? 'backend/assets/img/image-default.jpg') }}"
+                            class="w-100" alt="{{ $slider->alt }}" />
                     @endif
                 </div>
             @endforeach
@@ -34,12 +44,12 @@
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
                         <div class="about-item px-3 rounded">
                             <div class="icon-wrapper mx-auto mb-3">
-                                <img src="{{showImage($about->image)}}" alt="Toàn cầu" />
+                                <img src="{{ showImage($about->image) }}" alt="Toàn cầu" />
                             </div>
-                            <h5 class="fw-bold">{{$about->title}}</h5>
+                            <h5 class="fw-bold">{{ $about->title }}</h5>
                             <div class="underline mb-2"></div>
                             <p class="">
-                                {{$about->description}}
+                                {{ $about->description }}
                             </p>
                         </div>
                     </div>
@@ -164,7 +174,7 @@
     <!-- ✅ Distributor and Certificate Section -->
     <section class="distributor-certificate-section bg-light">
         <div class="container distributor-certificate">
-            <div class="row align-items-center">
+            {{-- <div class="row align-items-center">
                 <div class="col-md-6">
                     <h2 class="fw-bold mb-4 text-primary">Nhà phân phối</h2>
                     <p>Công ty TNHH Thương Mại Đầu Tư Mai Thanh</p>
@@ -186,10 +196,10 @@
                     </p>
                 </div>
                 <div class="col-md-6 text-center">
-                    <img src="./assets/image/241114_UVN_PUREIT_P2411169-1_Pureit-landing-page-revert_R1-2048x1078.png"
+                    <img src="{{ showImage($setting->certificate) }}"
                         alt="Pureit Certificate" class="img-fluid" />
                 </div>
-            </div>
+            </div> --}}
         </div>
     </section>
 @endsection

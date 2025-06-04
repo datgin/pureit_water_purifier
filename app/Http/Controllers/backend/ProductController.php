@@ -111,7 +111,7 @@ class ProductController extends Controller
             'discount_end_date' => 'nullable|date_format:d/m/Y|after_or_equal:discount_start_date',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'title_seo' => 'nullable|string|max:60',
+            'seo_title' => 'nullable|string|max:60',
             'seo_description' => 'nullable|string|max:160',
             'seo_keywords' => 'nullable|string|max:255',
             'status' => 'nullable|boolean',
