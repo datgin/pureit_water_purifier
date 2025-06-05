@@ -6,7 +6,9 @@ class KeywordPositionRule implements RuleInterface
 {
     public function check(string $seoTitle, string $content, string $focusKeyword, string $seoDescription): array
     {
+        $content = html_entity_decode($content);
         $content = strip_tags($content);
+        $content = preg_replace('/[^\p{L}\p{N}\s]+/u', '', $content);
         $content = trim($content);
 
         if (empty($focusKeyword)) {

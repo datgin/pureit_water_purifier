@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\RankmathSEOForLaravel\DTO\SeoAnalysisResult;
+use App\RankmathSEOForLaravel\Services\SeoAnalyzer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\SeoScoreNews;
 use Illuminate\Database\Eloquent\Model;
 
 class News extends Model
@@ -40,5 +43,20 @@ class News extends Model
     public function getImageAttribute($value)
     {
         return showImage($value);
+    }
+
+    public function getSeoAnalysisAttribute(): ?SeoAnalysisResult
+    {
+        if (!$this->seo_title) {
+            return null;
+        }
+
+        $analyzer = app(SeoAnalyzer::class);
+        return $analyzer->analyzeFromBlog($this);
+    }
+
+    public function seoScore()
+    {
+        return $this->hasOne(SeoScoreNews::class, 'new_id', 'id');
     }
 }

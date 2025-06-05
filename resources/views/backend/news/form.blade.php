@@ -123,7 +123,7 @@
                     </div>
 
                     {{-- Điểm SEO --}}
-                    {{-- @php
+                    @php
 
                         $seoScoreValue = $seoData['seoScoreValue'] ?? 0;
                         $analysis = $seoData['analysis'] ?? [];
@@ -139,9 +139,9 @@
                             $seoColor = 'bg-warning'; // vàng (trung bình)
                             $badgeClass = 'bg-warning text-dark';
                         }
-                    @endphp --}}
+                    @endphp
 
-                    {{-- <div class="card mb-3">
+                    <div class="card mb-3">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <h5 class="mb-0">Điểm SEO tổng thể</h5>
@@ -156,13 +156,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
 
                     {{-- List SEO --}}
-                    {{-- <div class="" id="result">
+                    <div class="" id="result">
                         @include('backend.news.seo', ['seoData' => $seoData])
 
-                    </div> --}}
+                    </div>
 
                 </div>
 
@@ -492,89 +492,88 @@
     </script>
 
     {{-- Xử lí khi thêm mới bài viết --}}
-    {{-- <script>
-        $(document).ready(function() {
-            let seoTimeout;
+    <script>
+        let seoTimeout;
 
-            $('#seo_title, #keywords, #seo_description, #slug, #short_description').on('input', function() {
-                clearTimeout(seoTimeout);
-                seoTimeout = setTimeout(runSeoAnalysis, 500);
-            });
+        // Định nghĩa hàm trước
+        function runSeoAnalysis() {
+            const content = CKEDITOR.instances['content']?.getData() || '';
 
-            // Lắng nghe sự kiện thay đổi nội dung trong CKEditor
-            CKEDITOR.instances['content'].on('change', function() {
-                clearTimeout(seoTimeout);
-                seoTimeout = setTimeout(runSeoAnalysis, 500);
-            });
+            const rawKeywords = $('#seo_keywords').val();
+            let seo_keywords = [];
 
-            @if (isset($new))
-
-                setTimeout(runSeoAnalysis, 500);
-            @endif
-
-            function runSeoAnalysis() {
-                const content = CKEDITOR.instances['content'].getData();
-
-                const rawKeywords = $('#keywords').val();
-                let keywords = [];
-                try {
-                    const parsed = JSON.parse(rawKeywords);
-                    if (Array.isArray(parsed)) {
-                        keywords = parsed.map(k => k.value?.trim()).filter(Boolean);
-                    }
-                } catch (e) {
-                    keywords = rawKeywords.split(',').map(k => k.trim());
+            try {
+                const parsed = JSON.parse(rawKeywords);
+                if (Array.isArray(parsed)) {
+                    seo_keywords = parsed.map(k => k.value?.trim()).filter(Boolean);
                 }
-
-                const seo_title = $('#seo_title').val();
-                const hasKeyword = keywords.some(keyword => seo_title.toLowerCase().includes(keyword
-                    .toLowerCase()));
-                const seo_description = $('#seo_description').val();
-                const slug = $('#slug').val();
-                const short_description = $('#short_description').val();
-
-                const data = {
-                    content,
-                    keywords,
-                    seo_title,
-                    hasKeyword,
-                    seo_description,
-                    slug,
-                    short_description,
-                    _token: '{{ csrf_token() }}'
-                };
-
-                console.log('Gửi dữ liệu SEO:', data);
-
-                $.ajax({
-                    url: "",
-                    method: "POST",
-                    data: JSON.stringify(data),
-                    contentType: "application/json",
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        if (response.success) {
-
-                            $('#seo-score-badge').removeClass().addClass(
-                                `badge ${response.badgeClass} fs-6`).text(response.seoScoreVal +
-                                '/100');
-                            $('#seo-score-progress').removeClass().addClass(
-                                `progress-bar ${response.seoColor}`).css('width', response
-                                .seoScoreVal + '%')
-                            // console.log(response.seoScoreVal);
-
-                            $('#result').html(response.html);
-                        }
-                        console.log('Phản hồi SEO:', response);
-                    },
-                    error: function(xhr) {
-                        console.error('Lỗi SEO:', xhr);
-                    }
-                });
+            } catch (e) {
+                seo_keywords = (rawKeywords || '').split(',').map(k => k.trim()).filter(Boolean);
             }
 
+            const seo_title = $('#seo_title').val();
+            const hasKeyword = seo_keywords.some(keyword => seo_title.toLowerCase().includes(keyword.toLowerCase()));
+            const seo_description = $('#seo_description').val();
+            const slug = $('#slug').val();
+            const short_description = $('#short_description').val();
+
+            const data = {
+                content,
+                seo_keywords,
+                seo_title,
+                hasKeyword,
+                seo_description,
+                slug,
+                short_description,
+                _token: '{{ csrf_token() }}'
+            };
+
+            console.log('⏳ Gửi dữ liệu SEO:', data);
+
+            $.ajax({
+                url: "{{ route('admin.news.seo.analysis.live') }}",
+                method: "POST",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('#seo-score-badge').removeClass().addClass(`badge ${response.badgeClass} fs-6`).text(
+                            response.seoScoreVal + '/100');
+                        $('#seo-score-progress').removeClass().addClass(`progress-bar ${response.seoColor}`)
+                            .css('width', response.seoScoreVal + '%');
+                        $('#result').html(response.html);
+                    }
+                    console.log('✅ Phản hồi SEO:', response);
+                },
+                error: function(xhr) {
+                    console.error('❌ Lỗi SEO:', xhr);
+                }
+            });
+        }
+
+        // Chờ document sẵn sàng
+        $(document).ready(function() {
+            // Các input thông thường
+            $('#seo_title, #seo_keywords, #seo_description, #slug, #short_description').on('input', function() {
+                clearTimeout(seoTimeout);
+                seoTimeout = setTimeout(runSeoAnalysis, 500);
+            });
+
+            // CKEditor ready
+            CKEDITOR.on('instanceReady', function(evt) {
+                evt.editor.on('change', function() {
+                    clearTimeout(seoTimeout);
+                    seoTimeout = setTimeout(runSeoAnalysis, 500);
+                });
+
+                // Nếu là trang chỉnh sửa thì gọi luôn
+                @if (isset($new))
+                    setTimeout(runSeoAnalysis, 500);
+                @endif
+            });
         });
-    </script> --}}
+    </script>
 @endpush

@@ -21,7 +21,7 @@ class HomeController extends Controller
                 ->where('name', 'like', "%{$keyword}%")
                 ->where('status', 1)
                 ->paginate(12);
-                return view('frontend.pages.search', compact('products', 'keyword'));
+            return view('frontend.pages.search', compact('products', 'keyword'));
         }
         $sliders = Slider::query()->latest()->get();
 
@@ -31,13 +31,25 @@ class HomeController extends Controller
             })
             ->with('category')
             ->where(['status' => 1, 'is_featured' => 1])
+            ->take(8)
             ->get();
-            // dd($products);
+        // dd($products);
+
+        // Lấy sp lõi lọc
+        $replacementFilters = Product::query()
+            ->whereHas('category', function ($q) {
+                $q->where('status', 1)
+                    ->where('slug', 'loi-loc-thay-the');  
+            })
+            ->with('category')
+            ->where('status', 1)
+            ->get();
+
 
         $customerReview = CustomerReview::query()->get();
         // dd($customerReview);
         $aboutUs = AboutUs::query()->get();
 
-        return view('frontend.pages.home', compact('products', 'sliders', 'customerReview', 'aboutUs'));
+        return view('frontend.pages.home', compact('products', 'sliders', 'customerReview', 'aboutUs', 'replacementFilters'));
     }
 }

@@ -1,17 +1,33 @@
 <?php
 
 namespace App\RankmathSEOForLaravel\Suggestions;
+
 use App\RankmathSEOForLaravel\Suggestions\SuggestionInterface;
 
 class KeywordDensitySuggestion implements SuggestionInterface
 {
-    public function check(string $seoTitle, string $content, string $focusKeyword, string $seoDescription, string $slug): array
+    public function check(string $seoTitle, string $content, $focusKeyword, string $seoDescription, string $slug): array
     {
+        $content = html_entity_decode($content);
         $content = strip_tags($content);
-        $content = trim($content);
+        $content = preg_replace('/[^\p{L}\p{N}\s]+/u', '', $content);
+        $contentLower = mb_strtolower($content);
 
         $wordsArray = preg_split('/\s+/u', $content);
         $totalWords = count($wordsArray);
+
+        // ✨ Nếu là chuỗi JSON thì decode thành mảng
+        if (is_string($focusKeyword)) {
+            $decoded = json_decode($focusKeyword, true);
+            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                $focusKeyword = $decoded;
+            } else {
+                $focusKeyword = [$focusKeyword]; // nếu không decode được thì gán vào mảng
+            }
+        }
+
+        // ✅ Lấy từ khóa đầu tiên (nếu có)
+        $focusKeyword = is_array($focusKeyword) ? ($focusKeyword[0] ?? '') : $focusKeyword;
 
         if (empty($focusKeyword) || $totalWords === 0) {
             return [
@@ -24,8 +40,8 @@ class KeywordDensitySuggestion implements SuggestionInterface
             ];
         }
 
-        $pattern = '/\b' . preg_quote(mb_strtolower($focusKeyword), '/') . '\b/u';
-        preg_match_all($pattern, mb_strtolower($content), $matches);
+        $pattern = '/' . preg_quote(mb_strtolower($focusKeyword), '/') . '/u';
+        preg_match_all($pattern, $contentLower, $matches);
         $keywordCount = count($matches[0]);
 
         $density = ($keywordCount / $totalWords) * 100;
