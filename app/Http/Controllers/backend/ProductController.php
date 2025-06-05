@@ -280,6 +280,9 @@ class ProductController extends Controller
 
             $credentials['is_featured'] ??= 0;
 
+            $credentials['discount_start_date'] = $request->filled('discount_start_date') ? $request->input('discount_start_date') : null;
+            $credentials['discount_end_date'] = $request->filled('discount_end_date') ? $request->input('discount_end_date') : null;
+
             if ($product->update($credentials)) {
                 if (!empty($uploadImage))
                     deleteImage($oldImage);

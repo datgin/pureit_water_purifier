@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Config;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,8 @@ class AppServiceProvider extends ServiceProvider
         View::share('blogCategories', $blogCategories);
         View::share('setting', $setting);
         View::share('advertisement_front', $advertisement_front);
+
+        URL::forceScheme('https');
 
     }
 
