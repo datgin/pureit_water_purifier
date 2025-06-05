@@ -46,34 +46,34 @@ $(function () {
         },
     });
 
-    const productSwiper = new Swiper(".productSwiper", {
-        slidesPerView: 1,
-        spaceBetween: 20,
-        loop: true,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-        navigation: {
-            nextEl: ".product-swiper-next",
-            prevEl: ".product-swiper-prev",
-        },
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-        },
-        breakpoints: {
-            768: {
-                slidesPerView: 2,
-            },
-            992: {
-                slidesPerView: 3,
-            },
-            1200: {
-                slidesPerView: 4,
-            },
-        },
-    });
+    // const productSwiper = new Swiper(".productSwiper", {
+    //     slidesPerView: 1,
+    //     spaceBetween: 20,
+    //     loop: true,
+    //     pagination: {
+    //         el: ".swiper-pagination",
+    //         clickable: true,
+    //     },
+    //     navigation: {
+    //         nextEl: ".product-swiper-next",
+    //         prevEl: ".product-swiper-prev",
+    //     },
+    //     autoplay: {
+    //         delay: 3000,
+    //         disableOnInteraction: false,
+    //     },
+    //     breakpoints: {
+    //         768: {
+    //             slidesPerView: 2,
+    //         },
+    //         992: {
+    //             slidesPerView: 3,
+    //         },
+    //         1200: {
+    //             slidesPerView: 4,
+    //         },
+    //     },
+    // });
 
     const testimonialSwiper = new Swiper(".testimonialSwiper", {
         slidesPerView: 1,
