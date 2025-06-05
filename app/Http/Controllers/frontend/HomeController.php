@@ -43,6 +43,7 @@ class HomeController extends Controller
             })
             ->with('category')
             ->where('status', 1)
+            ->take(8)
             ->get();
 
 
