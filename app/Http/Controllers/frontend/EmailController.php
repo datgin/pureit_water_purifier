@@ -21,7 +21,7 @@ class EmailController extends Controller
             'product_id' => 'nullable|exists:products,id'
         ]);
         Contact::create($credentials);
-        $emailAdmin = config('mail.email_admin');
+        $emailAdmin = config('mail.to');
         if($request->product_id){
             $productName = Product::find($request->product_id)->name;
             $credentials['product_name'] = $productName;

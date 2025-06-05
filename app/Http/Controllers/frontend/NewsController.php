@@ -35,7 +35,7 @@ class NewsController extends Controller
     {
         
         $news = News::where('slug', $slug)->firstOrFail();
-        dd($news);
+        // dd($news);
 
         $relatedNews = News::where('category_id', $news->category_id)
             ->where('id', '!=', $news->id)  
