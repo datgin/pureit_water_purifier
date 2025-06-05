@@ -49,7 +49,12 @@ Route::name('admin.')->group(function () {
             Route::get('create', [NewsController::class, 'create'])->name('create');
             Route::post('/', [NewsController::class, 'store'])->name('store');
             Route::get('{id}', [NewsController::class, 'edit'])->name('edit');
-            Route::put('{id}', [NewsController::class, 'update'])->name('update');
+            Route::put('{id}', [NewsController::class, 'update'])->name('update'); 
+
+            // SEO 
+            Route::post('{id}/seo-analysis', [NewsController::class,'getSeoAnalysis'])->name('seo.analysis');
+            Route::post('seo-analysis-live', [NewsController::class, 'getSeoAnalysisLive'])->name('seo.analysis.live');
+
         });
 
         Route::group([

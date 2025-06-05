@@ -8,6 +8,7 @@
 @section('seo_description', $setting->seo_description)
 
 
+
 @section('content')
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
@@ -63,7 +64,8 @@
                     <span
                         class="ms-2 d-inline-flex align-items-center justify-content-center text-white bg-primary rounded-circle"
                         style="width: 24px; height: 24px">
-                        <i class="bi bi-arrow-right"></i>
+                        <i class="bi bi-headset"></i>
+
                     </span>
                 </a>
             </div>
@@ -78,26 +80,71 @@
 
             <div class="row">
                 {{-- @dd($products->count()) --}}
-                 @foreach ($products as $product)
-                        <div class="col-lg-3 col-sm-6">
-                            <x-product-item :product="$product" />
-                        </div>
-                    @endforeach
+                @foreach ($products as $product)
+                    <div class="col-lg-3 col-sm-6">
+                        <x-product-item :product="$product" />
+                    </div>
+                @endforeach
             </div>
 
-            <div class="mt-5" data-aos="fade-up">
+            <div class="mt-5 d-flex justify-content-center gap-4" data-aos="fade-up">
                 <a href="#"
                     class="btn btn-outline-primary rounded-pill d-inline-flex align-items-center btn-get-advice">
                     Tư vấn ngay
                     <span
                         class="ms-2 d-inline-flex align-items-center justify-content-center text-white bg-primary rounded-circle"
                         style="width: 24px; height: 24px">
-                        <i class="bi bi-arrow-right"></i>
+                        <i class="bi bi-headset"></i>
+                    </span>
+                </a>
+
+                <a href="{{ route('product', 'may-loc-nuoc') }}" class="btn btn-primary rounded-pill d-inline-flex align-items-center">
+                    Xem thêm
+                    <span
+                        class="ms-2 d-inline-flex align-items-center justify-content-center text-white bg-white rounded-circle"
+                        style="width: 24px; height: 24px">
+                        <i class="bi bi-arrow-right text-dark"></i>
                     </span>
                 </a>
             </div>
         </div>
     </section>
+
+    <section class="product-section py-5 text-center bg-light">
+        <div class="container">
+            <h2 class="fw-bold mb-5">Các sản phẩm lõi lọc thay thế</h2>
+
+            <div class="row">
+                @foreach ($replacementFilters as $product)
+                    <div class="col-lg-3 col-sm-6">
+                        <x-product-item :product="$product" />
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="mt-5 d-flex justify-content-center gap-4" data-aos="fade-up">
+                <a href="#"
+                    class="btn btn-outline-primary rounded-pill d-inline-flex align-items-center btn-get-advice">
+                    Tư vấn ngay
+                    <span
+                        class="ms-2 d-inline-flex align-items-center justify-content-center text-white bg-primary rounded-circle"
+                        style="width: 24px; height: 24px">
+                        <i class="bi bi-headset"></i>
+                    </span>
+                </a>
+
+                <a href="{{ route('product', 'loi-loc-thay-the') }}" class="btn btn-primary rounded-pill d-inline-flex align-items-center">
+                    Xem thêm
+                    <span
+                        class="ms-2 d-inline-flex align-items-center justify-content-center text-white bg-white rounded-circle"
+                        style="width: 24px; height: 24px">
+                        <i class="bi bi-arrow-right text-dark"></i>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
 
     <!-- ✅ Testimonial Section -->
     <section class="testimonial-section py-5 text-center">
@@ -158,9 +205,11 @@
                     <span
                         class="ms-2 d-inline-flex align-items-center justify-content-center text-white bg-primary rounded-circle"
                         style="width: 24px; height: 24px">
-                        <i class="bi bi-arrow-right"></i>
+                        <i class="bi bi-headset"></i>
+
                     </span>
                 </a>
+
             </div>
         </div>
     </section>

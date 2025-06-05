@@ -132,31 +132,56 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Kiên kết</h4>
+                        <h4 class="card-title">Liên kết mạng xã hội</h4>
                     </div>
 
                     <div class="card-body">
                         <div class="row">
-                            <div class=" mb-3 col-lg-4">
-                                <label for="facebook_link" class="form-label">Link FaceBook</label>
-                                <input value="{{ $config->facebook_link }}" id="facebook_link"
-                                    name="facebook_link"class="form-control" type="text" placeholder="Link FaceBook ">
+                            <div class="mb-3 col-lg-4">
+                                <label for="facebook_link" class="form-label">Link Facebook</label>
+                                <input value="{{ $config->facebook_link }}" id="facebook_link" name="facebook_link"
+                                    class="form-control" type="text" placeholder="Link Facebook">
                             </div>
 
-                            <div class=" mb-3 col-lg-4">
-                                <label for="youtube_link" class="form-label"> Link Youtobe </label>
-                                <input value="{{ $config->youtube_link }}" id="youtube_link"
-                                    name="youtube_link"class="form-control" type="text" placeholder=" Link Youtobe">
+                            <div class="mb-3 col-lg-4">
+                                <label for="youtube_link" class="form-label">Link YouTube</label>
+                                <input value="{{ $config->youtube_link }}" id="youtube_link" name="youtube_link"
+                                    class="form-control" type="text" placeholder="Link YouTube">
                             </div>
 
-                            <div class=" mb-3 col-lg-4">
-                                <label for="ig_link" class="form-label"> Link instagram </label>
-                                <input value="{{ $config->ig_link }}" id="ig_link" name="ig_link"class="form-control"
-                                    type="text" placeholder=" Link instagram">
+                            <div class="mb-3 col-lg-4">
+                                <label for="ig_link" class="form-label">Link Instagram</label>
+                                <input value="{{ $config->ig_link }}" id="ig_link" name="ig_link"
+                                    class="form-control" type="text" placeholder="Link Instagram">
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="mb-3 col-lg-12">
+                                <label for="script_head" class="form-label">Script Head</label>
+                                <textarea id="script_head" name="script_head" class="form-control" rows="4"
+                                    placeholder="Nội dung thẻ <head>">{{ $config->script_head }}</textarea>
+                            </div>
+
+                            <div class="mb-3 col-lg-12">
+                                <label for="script_body" class="form-label">Script Body</label>
+                                <textarea id="script_body" name="script_body" class="form-control" rows="4"
+                                    placeholder="Nội dung trong thẻ <body>">{{ $config->script_body }}</textarea>
+                            </div>
+
+                            <div class="mb-3 col-lg-12">
+                                <label for="script_footer" class="form-label">Script Footer</label>
+                                <textarea id="script_footer" name="script_footer" class="form-control" rows="4"
+                                    placeholder="Nội dung footer (trước </body>)">{{ $config->script_footer }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <div class="col-lg-3">
