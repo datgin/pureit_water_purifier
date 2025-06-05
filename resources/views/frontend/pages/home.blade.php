@@ -76,19 +76,13 @@
             <h5 class="text-uppercase fw-bold text-muted mb-2">Sản phẩm</h5>
             <h2 class="fw-bold mb-5">Các sản phẩm nổi bật</h2>
 
-            <div class="swiper productSwiper mb-4">
-                <div class="swiper-wrapper">
-                    <!-- Product Slide 1 -->
-                    @foreach ($products as $product)
-                        <div class="swiper-slide">
+            <div class="row">
+                {{-- @dd($products->count()) --}}
+                 @foreach ($products as $product)
+                        <div class="col-lg-3 col-sm-6">
                             <x-product-item :product="$product" />
                         </div>
                     @endforeach
-                </div>
-
-                <!-- Navigation buttons -->
-                <div class="swiper-button-prev product-swiper-prev"></div>
-                <div class="swiper-button-next product-swiper-next"></div>
             </div>
 
             <div class="mt-5" data-aos="fade-up">

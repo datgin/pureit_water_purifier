@@ -30,9 +30,9 @@
                     </li>
                 @endforeach
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link fw-bold" href="#">Dịch Vụ</a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link fw-bold" href="{{route('news')}}">Tin tức</a>
                 </li>

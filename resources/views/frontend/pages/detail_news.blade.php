@@ -12,7 +12,7 @@
                     <div class="blog-content">
                         <p>{{ $news->short_description }}</p>
 
-                        <p>{{ $news->content }}</p>
+                        <p>{!! $news->content !!}</p>
 
 
                     </div>
@@ -35,9 +35,9 @@
                                 <h5 class="card-title fw-bold">{{ $news->title }}</h5>
                                 <p class="card-text text-muted mb-3">Ngày đăng:
                                     {{ \Carbon\Carbon::parse($news->posted_at)->format('d/m/Y') }}</p>
-                                <p class="card-text">{{Str::words($news->short_description, '15')}}</p>
-                                <a href="{{route('detail', $news->slug)}}" class="mt-auto text-primary fw-bold">Đọc tiếp <i
-                                        class="bi bi-arrow-right"></i></a>
+                                <p class="card-text">{{ Str::words($news->short_description, '15') }}</p>
+                                <a href="{{ route('detail', $news->slug) }}" class="mt-auto text-primary fw-bold">Đọc tiếp
+                                    <i class="bi bi-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>

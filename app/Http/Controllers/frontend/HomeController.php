@@ -32,6 +32,7 @@ class HomeController extends Controller
             ->with('category')
             ->where(['status' => 1, 'is_featured' => 1])
             ->get();
+            // dd($products);
 
         $customerReview = CustomerReview::query()->get();
         // dd($customerReview);

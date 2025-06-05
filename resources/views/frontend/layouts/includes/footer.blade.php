@@ -49,7 +49,7 @@
             @foreach ($productCategories as $category)
                 <li class="list-inline-item"><a href="{{ route('product', $category->slug) }}">{{ $category->name }}</a></li>
             @endforeach
-            <li class="list-inline-item"><a href="#">Dịch Vụ</a></li>
+            {{-- <li class="list-inline-item"><a href="#">Dịch Vụ</a></li> --}}
             <li class="list-inline-item"><a href="#">Tin tức</a></li>
         </ul>
     </div>
