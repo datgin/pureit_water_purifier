@@ -19,8 +19,9 @@
     </div>
 
     <div class="card">
-        <div class="card-header d-flex justify-content-between">
+        <div class="card-header d-flex justify-content-between align-items-center">
             <h4 class="card-title">Danh sách cần tư vấn</h4>
+            <input type="text" class="form-control w-25" name=email value="{{ config('mail.to') }}" id="mailInput">
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -111,7 +112,29 @@
 
             handleDestroy('Contact')
 
-           
+
+        });
+
+        document.getElementById('mailInput').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                const email = this.value;
+
+                fetch('{{ route('admin.update-mail-env') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            email
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        alert(data.message);
+                    })
+                    .catch(err => console.error('Lỗi:', err));
+            }
         });
     </script>
 @endpush
