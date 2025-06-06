@@ -24,9 +24,11 @@
             @endif
         </div>
         <div class="d-flex justify-content-between mt-3">
-            <a href="#" class="btn btn-outline-primary rounded-pill flex-grow-1 me-2">Chi
+            <a href="{{ route('product', [$product->category->slug, $product->slug]) }}"
+                class="btn btn-outline-primary rounded-pill flex-grow-1 me-2">Chi
                 tiết</a>
-            <a href="#" class="btn btn-primary rounded-pill flex-grow-1 btn-get-advice"  data-id={{ $product->id }} > Mua ngay</a>
+            <a href="#" class="btn btn-primary rounded-pill flex-grow-1 btn-get-advice"
+                data-id={{ $product->id }}> Mua ngay</a>
         </div>
     </div>
 </a>

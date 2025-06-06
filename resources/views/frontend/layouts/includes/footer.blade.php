@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="footer-logo">
-                    <img src="{{showImage($setting->logo)}}" alt="Logo" class="logo" />
+                    <img src="{{ showImage($setting->logo) }}" alt="Logo" class="logo" />
                 </div>
                 <div class="footer-about mt-4">
                     <h6 class="fw-bold">Chúng tôi tự hào là</h6>
@@ -32,8 +32,13 @@
                         <li>
                             <i class="bi bi-telephone me-2"></i> Tổng đài: {{ $setting->hotline }}
                         </li>
-                        <li>Bảo trì: {{ $setting->hotline_baotri }}</li>
-                        <li>Kinh doanh: {{ $setting->hotline_kinhdoanh }}</li>
+                        <li>
+                            <i class="bi bi-tools"></i>Bảo trì: {{ $setting->hotline_baotri }}
+                        </li>
+                        <li>
+                            <i class="bi bi-briefcase"></i>
+                            Kinh doanh: {{ $setting->hotline_kinhdoanh }}
+                        </li>
                         <li class="mt-3">
                             <i class="bi bi-envelope me-2"></i>
                             {{ $setting->email }}
@@ -47,7 +52,8 @@
         <ul class="list-inline text-center mb-0">
             <li class="list-inline-item"><a href="#">Trang chủ</a></li>
             @foreach ($productCategories as $category)
-                <li class="list-inline-item"><a href="{{ route('product', $category->slug) }}">{{ $category->name }}</a></li>
+                <li class="list-inline-item"><a href="{{ route('product', $category->slug) }}">{{ $category->name }}</a>
+                </li>
             @endforeach
             {{-- <li class="list-inline-item"><a href="#">Dịch Vụ</a></li> --}}
             <li class="list-inline-item"><a href="#">Tin tức</a></li>

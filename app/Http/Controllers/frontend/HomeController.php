@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\AboutUs;
+use App\Models\Category;
 use App\Models\CustomerReview;
 use App\Models\Product;
 use App\Models\Slider;
@@ -17,12 +18,15 @@ class HomeController extends Controller
         if ($request->has('s') && trim($request->s) !== '') {
             $keyword = trim($request->s);
 
+            $categories = Category::query()->latest()->first();
+
             $products = Product::with('category')
                 ->where('name', 'like', "%{$keyword}%")
                 ->where('status', 1)
                 ->paginate(12);
-            return view('frontend.pages.search', compact('products', 'keyword'));
+            return view('frontend.pages.search', compact('products', 'keyword', 'categories'));
         }
+
         $sliders = Slider::query()->latest()->get();
 
         $products = Product::query()

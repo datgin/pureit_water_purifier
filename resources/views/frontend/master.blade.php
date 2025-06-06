@@ -32,8 +32,24 @@
         @include('frontend.layouts.includes.search-overlay')
     </div>
 
+    <div class="floating-buttons">
+        <a href="https://zalo.me/{{ preg_replace('/[^0-9+]/', '', $setting->hotline) }}" target="_blank" title="Chat Zalo">
+            <img src="{{asset('frontend/assets/image/Icon_of_Zalo.svg-removebg-preview.png')}}" alt="Zalo">
+        </a>
+        <a href="tel:{{ preg_replace('/[^0-9+]/', '', $setting->hotline) }}" title="Gọi hotline">
+            <img src="{{asset('frontend/assets/image/call-hot-line-online-customer-support-customer-consultation-illustration-vector-removebg-preview.png')}}" alt="Hotline">
+        </a>
+    </div>
+
+    <!-- Nút scroll top -->
+    <!-- Nút scroll top dùng icon -->
+    <div class="scroll-top-btn" id="scrollTopBtn" title="Lên đầu trang">
+        <i class="bi bi-arrow-up-circle-fill" style="font-size: 30px; color: #333;"></i>
+    </div>
+
+
     @include('frontend.pages.popup.index')
-        
+
 
     <!-- ✅ Footer -->
     <footer class="footer">

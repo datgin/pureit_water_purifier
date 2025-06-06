@@ -2,11 +2,14 @@
 
 @section('content')
     <!-- Banner Section -->
-    <section class="category-banner">
-        <div class="banner-content">
-            <img src="./assets/image/b6df7eede994ed1377548649c671f4a4-1.png" alt="Category Banner" class="w-100" />
-        </div>
-    </section>
+    @isset($category)
+        <section class="category-banner">
+            <div class="banner-content">
+                <img src="{{ showImage($category->banner) }}" alt="Category Banner" class="w-100" />
+            </div>
+        </section>
+    @endisset
+
 
     <section class="product-list container mt-3 mb-5">
         <h2 class="mb-3">Kết quả tìm kiếm : {{ $keyword }}</h2>
