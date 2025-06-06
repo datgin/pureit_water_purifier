@@ -423,7 +423,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title fs-6 fw-bold required">Từ khóa seo
+                        <h4 class="card-title fs-6 fw-bold required">Ảnh đại diện
                         </h4>
                     </div>
                     <div class="card-body">
