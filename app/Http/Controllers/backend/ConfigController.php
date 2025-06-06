@@ -33,8 +33,8 @@ class ConfigController extends Controller
             $data['certificate'] = uploadImages('certificate', 'certificate');
         }
 
-         if (!empty($credentials['seo_keywords'])) {
-                $credentials['seo_keywords'] = explode(',', $data['seo_keywords']);
+         if (!empty($data['seo_keywords'])) {
+                $data['seo_keywords'] = explode(',', $data['seo_keywords']);
             }
 
         $config = Config::first();

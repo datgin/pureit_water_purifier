@@ -11,4 +11,9 @@ class Config extends Model
     protected $table = 'configs';
     protected $guarded = [];
     public $timestamps = true;
+
+    protected $casts = [
+
+        'seo_keywords' => 'array'
+    ];
 }
