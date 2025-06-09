@@ -23,12 +23,12 @@
                 </span>
             @endif
         </div>
-        <div class="d-flex justify-content-between mt-3">
+        <div class="d-flex flex-column flex-md-row justify-content-between mt-3">
             <a href="{{ route('product', [$product->category->slug, $product->slug]) }}"
-                class="btn btn-outline-primary rounded-pill flex-grow-1 me-2">Chi
-                tiết</a>
-            <a href="#" class="btn btn-primary rounded-pill flex-grow-1 btn-get-advice"
-                data-id={{ $product->id }}> Mua ngay</a>
+                class="btn btn-outline-primary rounded-pill w-100 mb-2 mb-md-0 me-md-2">Chi tiết</a>
+            <a href="#" class="btn btn-primary rounded-pill w-100 btn-get-advice" data-id={{ $product->id }}>Mua
+                ngay</a>
         </div>
+
     </div>
 </a>
