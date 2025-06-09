@@ -15,9 +15,12 @@
                 <div class="footer-links">
                     <h5 class="fw-bold mb-3">Địa chỉ Showroom</h5>
                     <ul class="list-unstyled">
-                        <li>
-                            <i class="bi bi-geo-alt me-2"></i> {{ $setting->address }}
-                        </li>
+                        @php
+                            $addresses = json_decode($setting->address, true) ?: [];
+                        @endphp
+                        @foreach ($addresses as $address)
+                            <li><i class="bi bi-geo-alt me-2"></i> {{ $address }}</li>
+                        @endforeach
                     </ul>
                     <div class="social-icons mt-3">
                         <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
@@ -25,6 +28,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-md-4">
                 <div class="footer-contact">
                     <h5 class="fw-bold mb-3">Tư vấn và liên hệ</h5>

@@ -57,9 +57,4 @@
         right: 20px;
     }
 
-    @media (max-width: 767.98px) {
-        .mobile-indent {
-            margin-left: 2px;
-        }
-    }
 </style>

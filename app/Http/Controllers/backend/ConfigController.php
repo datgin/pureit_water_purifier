@@ -29,13 +29,20 @@ class ConfigController extends Controller
             $data['icon'] = uploadImages('icon', 'icon');
         }
 
-         if ($request->hasFile('certificate')) {
+        if ($request->hasFile('certificate')) {
             $data['certificate'] = uploadImages('certificate', 'certificate');
         }
 
-         if (!empty($data['seo_keywords'])) {
-                $data['seo_keywords'] = explode(',', $data['seo_keywords']);
-            }
+        if (!empty($data['seo_keywords'])) {
+            $data['seo_keywords'] = explode(',', $data['seo_keywords']);
+        }
+
+        if (!empty($data['address'])) {
+            $data['address'] = json_encode(array_filter($data['address'])); 
+        } else {
+            $data['address'] = json_encode([]);
+        }
+
 
         $config = Config::first();
 
