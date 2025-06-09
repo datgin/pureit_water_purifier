@@ -107,11 +107,10 @@
 
     @if ($attributeValues->isNotEmpty())
         <!-- Technical Specs Section -->
-        <section class="specs-section container mt-5 mb-5 px-0">
+        <section class="specs-section container mt-5 mb-5 px-0 mobile-indent">
             <h2 class="text-primary mb-4">Thông số kỹ thuật</h2>
             <table class="table table-bordered">
                 <tbody>
-
                     @foreach ($attributeValues as $attrValue)
                         <tr>
                             <th scope="row">{{ $attrValue->attribute->name }}:</th>
@@ -122,6 +121,7 @@
             </table>
         </section>
     @endif
+
 
 
     <!-- Recommended Products Section -->
