@@ -15,9 +15,6 @@
             </li>
         @endforeach
         <li class="nav-item">
-            <a class="nav-link fw-bold text-dark" href="#">Dịch Vụ</a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link fw-bold text-dark" href="{{route('news')}}">Tin tức</a>
         </li>
     </ul>
