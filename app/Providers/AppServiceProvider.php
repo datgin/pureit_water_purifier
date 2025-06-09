@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Models\Advertisement;
 use App\Models\Category;
 use App\Models\Config;
+use App\Models\Product;
+use App\Observers\ProductObserver;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
@@ -34,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
         View::share('blogCategories', $blogCategories);
         View::share('setting', $setting);
         View::share('advertisement_front', $advertisement_front);
+        Product::observe(ProductObserver::class);
 
         URL::forceScheme('https');
 
