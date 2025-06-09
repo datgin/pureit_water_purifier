@@ -25,6 +25,10 @@ class ConfigController extends Controller
             $data['logo'] = uploadImages('logo', 'logo');
         }
 
+        if ($request->hasFile('logo_footer')) {
+            $data['logo_footer'] = uploadImages('logo_footer', 'logo_footer');
+        }
+
         if ($request->hasFile('icon')) {
             $data['icon'] = uploadImages('icon', 'icon');
         }

@@ -229,7 +229,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Logo</h4>
+                        <h4 class="card-title">Logo Header</h4>
                     </div>
 
                     <div class="card-body">
@@ -238,6 +238,21 @@
                             onclick="document.getElementById('logo').click();">
                         <input type="file" name="logo" id="logo" class="form-control d-none"
                             accept="image/*" onchange="previewImage(event, 'show_logo')">
+                    </div>
+                </div>
+
+                <!-- Logo Footer -->
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Logo Footer</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <img class="img-fluid img-thumbnail w-100" id="show_logo_footer" style="cursor: pointer;"
+                            src="{{ showImage($setting->logo_footer) }}" alt=""
+                            onclick="document.getElementById('logo_footer').click();">
+                        <input type="file" name="logo_footer" id="logo_footer" class="form-control d-none"
+                            accept="image/*" onchange="previewImage(event, 'show_logo_footer')">
                     </div>
                 </div>
 
@@ -310,7 +325,7 @@
             input.name = 'address[]';
             input.placeholder = 'Nhập địa chỉ';
             input.className = 'form-control mb-2';
-            wrapper.insertBefore(input, wrapper.querySelector('button')); 
+            wrapper.insertBefore(input, wrapper.querySelector('button'));
         }
     </script>
 @endpush

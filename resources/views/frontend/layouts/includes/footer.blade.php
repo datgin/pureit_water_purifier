@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="footer-logo">
-                    <img src="{{ showImage($setting->logo) }}" alt="Logo" class="logo" />
+                    <img src="{{ showImage($setting->logo_footer) }}" alt="LogoFooter" class="logo_footer" />
                 </div>
                 <div class="footer-about mt-4">
                     <h6 class="fw-bold">Chúng tôi tự hào là</h6>
@@ -11,6 +11,7 @@
                     <p>Đạt chuẩn Nước uống đóng chai của Bộ Y tế</p>
                 </div>
             </div>
+
             <div class="col-md-4">
                 <div class="footer-links">
                     <h5 class="fw-bold mb-3">Địa chỉ Showroom</h5>
@@ -19,7 +20,10 @@
                             $addresses = json_decode($setting->address, true) ?: [];
                         @endphp
                         @foreach ($addresses as $address)
-                            <li><i class="bi bi-geo-alt me-2"></i> {{ $address }}</li>
+                            <li class="d-flex align-items-start mb-2">
+                                <i class="bi bi-geo-alt me-2 mt-1"></i>
+                                <span>{{ $address }}</span>
+                            </li>
                         @endforeach
                     </ul>
                     <div class="social-icons mt-3">
