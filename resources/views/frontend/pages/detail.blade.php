@@ -107,7 +107,7 @@
 
     @if ($attributeValues->isNotEmpty())
         <!-- Technical Specs Section -->
-        <section class="specs-section container mt-5 mb-5 px-0 mobile-indent">
+        <section class="specs-section container mt-5 mb-5 px-3 px-md-0">
             <h2 class="text-primary mb-4">Thông số kỹ thuật</h2>
             <table class="table table-bordered">
                 <tbody>

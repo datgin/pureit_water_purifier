@@ -45,10 +45,23 @@
                                     type="text" placeholder="Nhập email">
                             </div>
 
-                            <div class=" mb-3 col-lg-12">
+                            <div id="addresses-wrapper" class="mb-3 col-lg-12">
                                 <label for="address" class="form-label">Địa chỉ</label>
-                                <input type="text" name="address" class="form-control" placeholder="Nhập địa chỉ"
-                                    value="{{ $config->address }}">
+
+                                @php
+                                    $addresses = is_array(json_decode($config->address, true))
+                                        ? json_decode($config->address, true)
+                                        : [$config->address];
+                                @endphp
+
+                                @foreach ($addresses as $address)
+                                    <input type="text" name="address[]" class="form-control mb-2"
+                                        placeholder="Nhập địa chỉ" value="{{ $address }}">
+                                @endforeach
+
+                                <button type="button" class="btn btn-danger btn-sm mt-2" onclick="addAddressInput()">
+                                    + Thêm địa chỉ
+                                </button>
                             </div>
 
                             <div class=" mb-3 col-lg-4">
@@ -289,6 +302,16 @@
                 }
             });
         })
+
+        function addAddressInput() {
+            const wrapper = document.getElementById('addresses-wrapper');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'address[]';
+            input.placeholder = 'Nhập địa chỉ';
+            input.className = 'form-control mb-2';
+            wrapper.insertBefore(input, wrapper.querySelector('button')); 
+        }
     </script>
 @endpush
 
