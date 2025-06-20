@@ -105,7 +105,7 @@
                                 @if (!empty($promotion->commitments) && is_array($promotion->commitments))
                                     @foreach ($promotion->commitments as $commitment)
                                         <div class="commitment-item">
-                                            <div class="bullet"></div>
+                                            <div class="checkmark"></div>
                                             <div class="commitment-text">
                                                 {{ $commitment }}
                                             </div>
@@ -296,16 +296,7 @@
             margin-bottom: 10px;
             gap: 8px;
         }
-
-        .bullet {
-            width: 6px;
-            height: 6px;
-            background-color: #333;
-            border-radius: 50%;
-            margin-top: 8px;
-            flex-shrink: 0;
-        }
-
+        
         .commitment-text {
             font-size: 13px;
             line-height: 1.4;
