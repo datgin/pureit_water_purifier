@@ -102,16 +102,16 @@
                             <div class="commitment-section">
                                 <div class="commitment-title">Cam Kết!</div>
 
-                               @if (!empty($promotion->commitments) && is_array($promotion->commitments))
-                                @foreach ($promotion->commitments as $commitment)
-                                    <div class="offer-item mt-1">
-                                        <div class="checkmark"></div>
-                                        <div class="offer-text">
-                                            {{ $commitment }}
+                                @if (!empty($promotion->commitments) && is_array($promotion->commitments))
+                                    @foreach ($promotion->commitments as $commitment)
+                                        <div class="offer-item">
+                                            <div class="checkmark"></div>
+                                            <div class="offer-text">
+                                                {{ $commitment }}
+                                            </div>
                                         </div>
-                                    </div>
-                                @endforeach
-                            @endif
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -275,6 +275,13 @@
             color: white;
             font-size: 12px;
             font-weight: bold;
+        }
+
+        .commitment-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
         }
     </style>
 @endpush
