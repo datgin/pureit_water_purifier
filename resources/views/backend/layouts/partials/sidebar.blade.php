@@ -183,6 +183,11 @@
                                     <span class="sub-item">Quảng cáo</span>
                                 </a>
                             </li>
+                            <li class="nav-item {{ activeMenu('admin.promotions.index') }}">
+                                <a href="{{ route('admin.promotions.index') }}">
+                                    <span class="sub-item">Khuyến mãi</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

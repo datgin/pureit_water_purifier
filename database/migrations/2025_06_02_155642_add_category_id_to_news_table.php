@@ -8,14 +8,14 @@ return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up()
-    {
-        Schema::table('news', function (Blueprint $table) {
-            $table->unsignedBigInteger('category_id')->after('id');
+    // public function up()
+    // {
+    //     Schema::table('news', function (Blueprint $table) {
+    //         $table->unsignedBigInteger('category_id')->after('id');
 
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-        });
-    }
+    //         $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+    //     });
+    // }
 
     /**
      * Reverse the migrations.

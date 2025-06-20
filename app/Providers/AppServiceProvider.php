@@ -38,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
         View::share('advertisement_front', $advertisement_front);
         Product::observe(ProductObserver::class);
 
-        URL::forceScheme('https');
+        // URL::forceScheme('https');
 
     }
 
