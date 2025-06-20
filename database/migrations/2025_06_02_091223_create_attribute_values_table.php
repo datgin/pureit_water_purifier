@@ -8,17 +8,17 @@ return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('attribute_values', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('attribute_id')->constrained('attributes')->cascadeOnDelete();
-            $table->string('value')->unique();
-            $table->string('slug')->nullable();
-            $table->string('description')->nullable();
-            $table->timestamps();
-        });
-    }
+    // public function up(): void
+    // {
+    //     Schema::create('attribute_values', function (Blueprint $table) {
+    //         $table->id();
+    //         $table->foreignId('attribute_id')->constrained('attributes')->cascadeOnDelete();
+    //         $table->string('value')->unique();
+    //         $table->string('slug')->nullable();
+    //         $table->string('description')->nullable();
+    //         $table->timestamps();
+    //     });
+    // }
 
     /**
      * Reverse the migrations.

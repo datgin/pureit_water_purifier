@@ -51,7 +51,7 @@
 
             <!-- Right Column: Product Info -->
             <div class="col-md-6 product-info-col">
-                <div class="product-info  p-md-3">
+                <div class="product-info p-md-3">
                     <h1 class="product-title mb-3">
                         {{ $product->name }}
                     </h1>
@@ -60,6 +60,7 @@
                     </div>
 
                     <div class="product-price mb-4">
+
                         @if (isOnSale($product))
                             <span
                                 class="original-price text-muted text-decoration-line-through me-2">{{ formatPrice($product->price) }}</span>
@@ -80,6 +81,40 @@
                             <i class="bi bi-arrow-right"></i>
                         </span>
                     </a>
+
+                    <div class="promotion-card mt-3">
+                        <div class="header">
+                            {{ $promotion->title }} </div>
+
+                        <div class="content">
+                            @if (!empty($promotion->offers) && is_array($promotion->offers))
+                                @foreach ($promotion->offers as $offer)
+                                    <div class="offer-item">
+                                        <div class="checkmark"></div>
+                                        <div class="offer-text">
+                                            {{ $offer }}
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+
+
+                            <div class="commitment-section">
+                                <div class="commitment-title">Cam Kết!</div>
+
+                                @if (!empty($promotion->commitments) && is_array($promotion->commitments))
+                                    @foreach ($promotion->commitments as $commitment)
+                                        <div class="commitment-item">
+                                            <div class="bullet"></div>
+                                            <div class="commitment-text">
+                                                {{ $commitment }}
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -169,3 +204,112 @@
         </section>
     @endif
 @endsection
+
+@push('styles')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .promotion-card {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            overflow: hidden;
+            font-size: 14px;
+            line-height: 1.6;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .promotion-card .header {
+            background-color: #1a2a79;
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .promotion-card .content {
+            padding: 12px 15px;
+        }
+
+        .offer-item,
+        .commitment-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .offer-item .checkmark,
+        .commitment-item .bullet {
+            width: 10px;
+            height: 10px;
+            margin-right: 10px;
+            margin-top: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .offer-item .checkmark {
+            background-color: #0056b3;
+            border: 2px solid #0056b3;
+        }
+
+        .offer-text .price {
+            font-weight: bold;
+            color: red;
+        }
+
+        .checkmark {
+            width: 30px;
+            height: 30px;
+            background-color: #4a4a9e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .checkmark::after {
+            content: "✓";
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .commitment-section {
+            margin-top: 25px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .commitment-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .commitment-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            gap: 8px;
+        }
+
+        .bullet {
+            width: 6px;
+            height: 6px;
+            background-color: #333;
+            border-radius: 50%;
+            margin-top: 8px;
+            flex-shrink: 0;
+        }
+
+        .commitment-text {
+            font-size: 13px;
+            line-height: 1.4;
+            color: #333;
+        }
+    </style>
+@endpush

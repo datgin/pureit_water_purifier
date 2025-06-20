@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Promotion;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -26,11 +27,16 @@ class ProductController extends Controller
             // Lấy sản phẩm liên quan (cross-sell hoặc cùng danh mục)
             $relatedProducts = $this->getRelatedProducts($product);
 
+            $promotion = Promotion::query()->first();
+            // dd($promotion);
+
+
             return view('frontend.pages.detail', compact(
                 'product',
                 'images',
                 'attributeValues',
-                'relatedProducts'
+                'relatedProducts',
+                'promotion'
             ));
         }
 

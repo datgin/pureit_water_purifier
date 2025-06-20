@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\EmailController;
 use App\Http\Controllers\Backend\KeywordController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\PromotionController;
 use App\Http\Controllers\Backend\ReviewController;
 use App\Models\AboutUs;
 
@@ -49,10 +50,10 @@ Route::name('admin.')->group(function () {
             Route::get('create', [NewsController::class, 'create'])->name('create');
             Route::post('/', [NewsController::class, 'store'])->name('store');
             Route::get('{id}', [NewsController::class, 'edit'])->name('edit');
-            Route::put('{id}', [NewsController::class, 'update'])->name('update'); 
+            Route::put('{id}', [NewsController::class, 'update'])->name('update');
 
             // SEO 
-            Route::post('{id}/seo-analysis', [NewsController::class,'getSeoAnalysis'])->name('seo.analysis');
+            Route::post('{id}/seo-analysis', [NewsController::class, 'getSeoAnalysis'])->name('seo.analysis');
             Route::post('seo-analysis-live', [NewsController::class, 'getSeoAnalysisLive'])->name('seo.analysis.live');
 
         });
@@ -85,6 +86,8 @@ Route::name('admin.')->group(function () {
         Route::resource('reviews', ReviewController::class);
         Route::resource('aboutus', AboutUsController::class);
         Route::resource('advertisement', AdvertisementController::class);
+        Route::resource('promotions', PromotionController::class);
+
     });
 
     Route::middleware(\App\Http\Middleware\AdminRedirectIfAuthenticated::class)->group(function () {
