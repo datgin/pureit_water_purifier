@@ -102,16 +102,16 @@
                             <div class="commitment-section">
                                 <div class="commitment-title">Cam Kết!</div>
 
-                                @if (!empty($promotion->commitments) && is_array($promotion->commitments))
-                                    @foreach ($promotion->commitments as $commitment)
-                                        <div class="commitment-item">
-                                            <div class="checkmark"></div>
-                                            <div class="commitment-text">
-                                                {{ $commitment }}
-                                            </div>
+                               @if (!empty($promotion->commitments) && is_array($promotion->commitments))
+                                @foreach ($promotion->commitments as $commitment)
+                                    <div class="offer-item mt-1">
+                                        <div class="checkmark"></div>
+                                        <div class="offer-text">
+                                            {{ $commitment }}
                                         </div>
-                                    @endforeach
-                                @endif
+                                    </div>
+                                @endforeach
+                            @endif
                             </div>
                         </div>
                     </div>
@@ -259,8 +259,8 @@
         }
 
         .checkmark {
-            width: 30px;
-            height: 30px;
+            width: 20px;
+            height: 20px;
             background-color: #4a4a9e;
             border-radius: 50%;
             display: flex;
@@ -275,32 +275,6 @@
             color: white;
             font-size: 12px;
             font-weight: bold;
-        }
-
-        .commitment-section {
-            margin-top: 25px;
-            border-top: 1px solid #eee;
-            padding-top: 20px;
-        }
-
-        .commitment-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .commitment-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 10px;
-            gap: 8px;
-        }
-        
-        .commitment-text {
-            font-size: 13px;
-            line-height: 1.4;
-            color: #333;
         }
     </style>
 @endpush
