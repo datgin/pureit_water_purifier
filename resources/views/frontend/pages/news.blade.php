@@ -5,7 +5,7 @@
         <h2 class="mb-4">Chủ đề</h2>
         <div class="topic-list d-flex gap-4 mb-3">
             @foreach ($blogCategories as $blog)
-                <a href="{{ route('category', ['slug' => $blog->slug]) }}" class="topic-item">
+                <a href="{{ route('news', ['slug' => $blog->slug]) }}" class="topic-item">
                     {{ $blog->name }}
                 </a>
             @endforeach
