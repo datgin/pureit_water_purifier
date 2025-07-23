@@ -73,7 +73,8 @@
 
                     </div>
 
-                    <a href="#" class="btn btn-primary rounded-pill d-inline-flex align-items-center">
+                    <a href="#" class="btn btn-primary rounded-pill d-inline-flex align-items-center btn-get-advice"
+                        data-id="{{ $product->id }}">
                         Mua ngay
                         <span
                             class="ms-2 d-inline-flex align-items-center justify-content-center text-white bg-primary rounded-circle"
@@ -81,6 +82,7 @@
                             <i class="bi bi-arrow-right"></i>
                         </span>
                     </a>
+
 
                     <div class="promotion-card mt-3">
                         <div class="header">
